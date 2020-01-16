@@ -31,7 +31,7 @@ public class User {
 	private Long id;
 
 	@NaturalId
-	private String alias;
+	private String userName;
 	private URL imageURL;
 	private String firstName;
 	private String lastName;
@@ -51,7 +51,7 @@ public class User {
 	public User(String alias, URL imageURL, String firstName, String lastName, LocalDate datedateOfBirth,
 			String zipCode, String city, String email, String description) {
 		super();
-		this.alias = alias;
+		this.userName = alias;
 		this.imageURL = imageURL;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -67,11 +67,11 @@ public class User {
 	}
 
 	public String getAlias() {
-		return alias;
+		return userName;
 	}
 
 	public void setAlias(String alias) {
-		this.alias = alias;
+		this.userName = alias;
 	}
 
 	public URL getImageURL() {
@@ -172,7 +172,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(alias, city, datedateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
+		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
 	}
 
 	@Override
@@ -184,7 +184,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(alias, other.alias) && Objects.equals(city, other.city)
+		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
 				&& Objects.equals(datedateOfBirth, other.datedateOfBirth)
 				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
