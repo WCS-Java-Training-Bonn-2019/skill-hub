@@ -1,165 +1,149 @@
 <!doctype html>
 
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 <head>
-  <title>SkillHub</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/style.css">
+<title>SkillHub</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-  <header>
-    <!-- Navbar und Seitensprung Start -->
+	<header>
+		<!-- Navbar und Seitensprung Start -->
 
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand" href="index.html">SkillHub</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+		<nav class="navbar navbar-expand-md navbar-light bg-light">
+			<a class="navbar-brand" href="index.html">SkillHub</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
 
-          <li class="nav-item">
-            <a class="nav-link" href="gallery.html">Find Skills</a>
-          </li>
+					<li class="nav-item"><a class="nav-link" href="gallery.html">Find
+							Skills</a></li>
 
-            <li class="nav-item">
-            <a class="nav-link" href="events.html">My Skills
-            </a>
-
-            <!-- DropDown Menu auskommentiert -->
-            <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-Events">
+					<li class="nav-item"><a class="nav-link" href="events.html">My
+							Skills </a> <!-- DropDown Menu auskommentiert --> <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-Events">
               <a class="dropdown-item" href="events.html">Upcoming Events</a>
               <a class="dropdown-item" href="events.html#art">Art & Culture</a>
               <a class="dropdown-item" href="events.html#music">Music</a>
-            </div> -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-Sightseeing" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Login/Register
-            </a>
-          </li>
-          
-          <!-- Contact Button auskommentiert -->
-          <!--<li class="nav-item">
+            </div> --></li>
+					<li class="nav-item"><a class="nav-link dropdown-toggle"
+						href="#" id="navbarDropdownMenuLink-Sightseeing" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Login/Register </a></li>
+
+					<!-- Contact Button auskommentiert -->
+					<!--<li class="nav-item">
             <a href='contact.html' class="btn btn-outline-primary" role='button' aria-pressed="true">Contact
               Us</a>
           </li>-->
-        </ul>
-      </div>
-      
-      <!-- Search-Funktion auskommentiert -->
-      <!--<form class="form-inline">
+				</ul>
+			</div>
+
+			<!-- Search-Funktion auskommentiert -->
+			<!--<form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
       </form>-->
-    </nav>
-  </header>
+		</nav>
+	</header>
 
-  <main>
-    <!-- Seitensprung auskommentiert -->
-    <!-- class="mk_seitensprung">
+	<main> <!-- Seitensprung auskommentiert --> <!-- class="mk_seitensprung">
       <a href='#' class='btn btn-outline-primary' role='button'>Seitenanfang</a>
-    </div> -->
-
-    <!-- Navbar und Seitensprung Ende -->
-
-    <!--Jumbotron-->
-    <div class="jumbotron">
-        <img class="img" src="../images/climbing1.jpg" alt="alt">
-        <div class="box">
-          <h1 class="display-4" style="color:black">Climbing Skills</h1>
-          <p class="lead" style="color: black">Find people who teach you how to climb! Let's get in contact!</p>
-        </div>
-      </div>
+    </div> --> <!-- Navbar und Seitensprung Ende --> <!--Jumbotron-->
+	<div class="jumbotron">
+		<img class="img" src="../images/climbing1.jpg" alt="alt">
+		<div class="box">
+			<h1 class="display-4" style="color: black">Climbing Skills</h1>
+			<p class="lead" style="color: black">Find people who teach you
+				how to climb! Let's get in contact!</p>
+		</div>
+	</div>
 
 
-    <!-- Events Overview-->
-    <section>
-      <div class="container cards">
-        <div class="row no-gutters">
-          <div class="col">
-            <!-- 1.Card-->
-            <div class="card" style="width: 18rem;">
-              <img class="card-img-top" src="../images/alex.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Alex</h5>
-                <p class="card-text">
-                  <table>
-                    <thead>
-                      <tr>
-                          <th>Name:</th>
-                          <th>...</th>
-                      </tr>
-                    </thead>
-                    <body>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.name}">name</td>
-                        <td th:text="${user.city}">city</td>
-                        <td th:text="${user.age}">age</td>
-                      </tr>
-                    </body>
-                  </table>
-                                  
-                </p>
-                <a href="#" class="btn btn-primary">See profile</a>
-              </div>
-            </div>
-          </div>
+	<!-- Events Overview-->
+	<section>
+		<div class="container cards">
+			<div class="row no-gutters">
+				<div class="col">
+					<!-- 1.Card-->
+					<div class="card" style="width: 18rem;">
+						<img class="card-img-top" src="../images/alex.png"
+							alt="Card image cap">
+						<div class="card-body">
+							<h5 class="card-title">Alex</h5>
+							<p class="card-text">
+								<body>
+									<ul th:each="user : ${users}">
+										<li th:text="|Name: ${user.userName}|">$userName</li>
+										<li th:text="|Age: ${user.age}|">$age</li>
+										<li th:text="|City: ${user.city}|">$city</li>
+									</ul>
+									<a href="/">Go back</a>
+								</body>
+							</p>
+							<a href="#" class="btn btn-primary">See profile</a>
+						</div>
+					</div>
+				</div>
 
-          <div class="col">
-            <!-- 2.Card-->
-            <div class="card" style="width: 18rem;">
-              <img class="card-img-top" src="../images/maike.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Maike</h5>
-                <p class="card-text">Here you can find all information about performances at the theatres Bonn...</p>
-                <a href="#" class="btn btn-primary">See profile</a>
-              </div>
-            </div>
-          </div>
+				<div class="col">
+					<!-- 2.Card-->
+					<div class="card" style="width: 18rem;">
+						<img class="card-img-top" src="../images/maike.png"
+							alt="Card image cap">
+						<div class="card-body">
+							<h5 class="card-title">Maike</h5>
+							<p class="card-text">Here you can find all information about
+								performances at the theatres Bonn...</p>
+							<a href="#" class="btn btn-primary">See profile</a>
+						</div>
+					</div>
+				</div>
 
 
-          <div class="col">
-            <!-- 3.Card-->
-            <div class="card" style="width: 18rem;">
-              <img class="card-img-top" src="../images/robert.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Robert</h5>
-                <p class="card-text">Here you will find an overview of all current concerts in different locations in
-                  the city...</p>
-                  <a href="#" class="btn btn-primary">See profile</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr />
-      </div>
-    </section>
+				<div class="col">
+					<!-- 3.Card-->
+					<div class="card" style="width: 18rem;">
+						<img class="card-img-top" src="../images/robert.png"
+							alt="Card image cap">
+						<div class="card-body">
+							<h5 class="card-title">Robert</h5>
+							<p class="card-text">Here you will find an overview of all
+								current concerts in different locations in the city...</p>
+							<a href="#" class="btn btn-primary">See profile</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+		</div>
+	</section>
 
 
-    <hr />
+	<hr />
 
-  </main>
+	</main>
 
 
-  <!-- Footer Start -->
+	<!-- Footer Start -->
 
-  <footer class="navbar bottom navbar-light bg-light">
-    <a class="navbar-brand" href="index.html">SkillHub</a>
-    <a class="navbar-brand" href="#">Impressum</a>
-    <a class="navbar-brand" href="#">Privacy</a>
-    <a class="navbar-brand" href="#">AGBs</a>
-    <a class="navbar-brand" href="#">Contact Us</a>
-    <p class="navbar-brand copyright">Copyright &copy; 2019; SkillHub</p>
-  </footer>
+	<footer class="navbar bottom navbar-light bg-light">
+		<a class="navbar-brand" href="index.html">SkillHub</a> <a
+			class="navbar-brand" href="#">Impressum</a> <a class="navbar-brand"
+			href="#">Privacy</a> <a class="navbar-brand" href="#">AGBs</a> <a
+			class="navbar-brand" href="#">Contact Us</a>
+		<p class="navbar-brand copyright">Copyright &copy; 2019; SkillHub</p>
+	</footer>
 
-  <!-- Footer Ende -->
+	<!-- Footer Ende -->
 
 
 </body>
