@@ -171,8 +171,19 @@ public class User {
 	}
 
 	@Override
+	public String toString() {
+//		return "User [id=" + id + ", userName=" + userName + ", imageURL=" + imageURL + ", firstName=" + firstName
+//				+ ", lastName=" + lastName + ", datedateOfBirth=" + datedateOfBirth + ", zipCode=" + zipCode + ", city="
+//				+ city + ", email=" + email + ", description=" + description + "]";
+		return "User [id=" + id + ", userName=" + userName + ", imageURL=" + imageURL + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", datedateOfBirth=" + datedateOfBirth + ", zipCode=" + zipCode + ", city="
+				+ city + ", email=" + email + ", description=" + description + ", skills=" + skills + "]";
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
+		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName,
+				zipCode);
 	}
 
 	@Override
