@@ -1,6 +1,5 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
