@@ -59,6 +59,11 @@ public class Skill {
 	}
 
 	@Override
+	public String toString() {
+		return "Skill [id=" + id + ", name=" + name + ", users=" + users + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		return Objects.hash(name);
 	}

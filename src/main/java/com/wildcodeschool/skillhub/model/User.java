@@ -1,6 +1,5 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,7 +31,7 @@ public class User {
 
 	@NaturalId
 	private String userName;
-	private URL imageURL;
+	private String imageURL;
 	private String firstName;
 	private String lastName;
 	private LocalDate datedateOfBirth;
@@ -48,7 +47,7 @@ public class User {
 	private User() {
 	}
 
-	public User(String alias, URL imageURL, String firstName, String lastName, LocalDate datedateOfBirth,
+	public User(String alias, String imageURL, String firstName, String lastName, LocalDate datedateOfBirth,
 			String zipCode, String city, String email, String description) {
 		super();
 		this.userName = alias;
@@ -74,11 +73,11 @@ public class User {
 		this.userName = alias;
 	}
 
-	public URL getImageURL() {
+	public String getImageURL() {
 		return imageURL;
 	}
 
-	public void setImageURL(URL imageURL) {
+	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
 
@@ -171,8 +170,16 @@ public class User {
 	}
 
 	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", imageURL=" + imageURL + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", datedateOfBirth=" + datedateOfBirth + ", zipCode=" + zipCode + ", city="
+				+ city + ", email=" + email + ", description=" + description + ", skills=" + skills + "]";
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
+		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName,
+				zipCode);
 	}
 
 	@Override
