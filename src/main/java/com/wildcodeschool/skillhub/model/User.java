@@ -1,6 +1,7 @@
 package com.wildcodeschool.skillhub.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -127,6 +128,10 @@ public class User {
 		this.description = description;
 	}
 
+	public int getAge() {
+		return Period.between(getDatedateOfBirth(), LocalDate.now()).getYears();
+	}
+	
 	public void addSkill(Skill skill) {
 		UserSkill userSkill = new UserSkill(this, skill);
 
@@ -161,11 +166,13 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", imageURL=" + imageURL + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", datedateOfBirth=" + datedateOfBirth + ", zipCode=" + zipCode + ", city="
-				+ city + ", email=" + email + ", description=" + description + ", skills=" + skills + "]";
+		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
+				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDatedateOfBirth()="
+				+ getDatedateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
+				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + ", hashCode()="
+				+ hashCode() + "]";
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName,

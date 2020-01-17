@@ -38,6 +38,7 @@ public class UserSkill {
 	private UserSkill() {
 	}
 
+	// TODO Change Constructor with fields createdOn and isOfferingSkill
 	public UserSkill(User user, Skill skill) {
 		this.user = user;
 		this.skill = skill;
