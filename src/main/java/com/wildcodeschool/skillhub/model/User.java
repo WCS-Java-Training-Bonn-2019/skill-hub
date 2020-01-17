@@ -12,24 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
 
 @Entity
-@Table(name = "user")
-@NaturalIdCache
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NaturalId
 	private String userName;
 	private String imageURL;
 	private String firstName;
@@ -40,7 +30,7 @@ public class User {
 	private String email;
 	private String description;
 
-	@OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	private List<UserSkill> skills = new ArrayList<>();
 
 	@SuppressWarnings("unused")

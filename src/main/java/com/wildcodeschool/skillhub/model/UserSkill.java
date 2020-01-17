@@ -6,7 +6,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -18,12 +18,14 @@ public class UserSkill {
 	@EmbeddedId
 	private UserSkillId id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("userId")
+	@ManyToOne
+	@MapsId("user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("skillId")
+	@ManyToOne
+	@MapsId("skill_id")
+	@JoinColumn(name = "skill_id")
 	private Skill skill;
 
 	@Column(name = "created_on")
@@ -68,7 +70,7 @@ public class UserSkill {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(createdOn, isOfferingSkill, skill, user);
+		return 42;
 	}
 
 	@Override
