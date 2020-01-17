@@ -52,19 +52,17 @@
 	<section>
 		<div class="container cards">
 			<div class="row no-gutters">
-				<div class="col">
 					<!--Thymleaf-->
 					<div th:each="user : ${users}" class="card" style="width: 18rem;">
-						<img class="card-img-top" src="../images/alex.png"
-							alt="Card image cap">
+						<img class="card-img-top" th:src="@{${'../images/' + user.imageURL}}" alt="Card image cap">
+						<!--src="../images/th:text="${user.imageURL}"-->
 						<div class="card-body">
-							<h5 class="card-title">Alex</h5>
+							<h5 th:text="${user.userName}" class="card-title">Name</h5>
 							<p class="card-text">
 									<ul>
-										<li th:text="|Name: ${user.userName}|">$userName</li>
-										<li th:text="|City: ${user.city}|">$city</li>
+										<li th:text="|Age: ${user.age}|">Age</li>
+										<li th:text="|City: ${user.city}|">City</li>
 									</ul>
-									<a href="/">Go back</a>
 							</p>
 							<a href="#" class="btn btn-primary">See profile</a>
 						</div>
