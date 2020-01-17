@@ -55,12 +55,12 @@ public class User {
 		return id;
 	}
 
-	public String getAlias() {
+	public String getUserName() {
 		return userName;
 	}
 
-	public void setAlias(String alias) {
-		this.userName = alias;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getImageURL() {
