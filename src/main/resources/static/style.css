@@ -1,0 +1,54 @@
+.img {
+  opacity: 0.5;
+  position: relative;
+}
+
+.jumbotron {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.box {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+} 
+
+@media only screen and (max-width: 400px) {
+  .display-4 {
+    font-size: 10vw;
+  }
+
+  .lead {
+    font-size: 5vw;
+  }
+}
+
+.display-4, .lead {
+  padding-left: 20px;
+}
+
+/* Settings für Navbar und Footer*/
+
+.navbar li {
+  list-style-type: none;
+  padding-left: 5vw;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  background-color:gold !important;
+  color: black;
+  list-style: none;
+}
+
+.bg-light{
+  background-color:gold!important;
+}
+
+.card{
+  margin: 2rem;
+  }
