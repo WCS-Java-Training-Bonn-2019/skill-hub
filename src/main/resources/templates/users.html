@@ -3,11 +3,10 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 <head>
-<title>SkillHub</title>
-<meta charset="utf-8">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="/style.css">
+	<title>SkillHub</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -17,9 +16,8 @@
 
 		<nav class="navbar navbar-expand-md navbar-light bg-light">
 			<a class="navbar-brand" href="index.html">SkillHub</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-				aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -37,15 +35,17 @@
 		</nav>
 	</header>
 
-	<main> 
-    <!--Jumbotron-->
-	<div class="jumbotron">
-		<img class="img" src="../images/climbing1.jpg" alt="alt">
-		<div class="box">
-			<h1 class="display-4" style="color: black">Climbing Skills</h1>
-			<p class="lead" style="color: black">Find people who teach you
-				how to climb! Let's get in contact!</p>
+	<main>
+		<!--Jumbotron-->
+		<div class="jumbotron">
+			<img class="img" src="../images/climbing1.jpg" alt="alt">
+			<div class="box">
+				<h1 class="display-4" style="color: black">Climbing Skills</h1>
+				<p class="lead" style="color: black">Find people who teach you
+					how to climb! Let's get in contact!</p>
+			</div>
 		</div>
+<<<<<<< HEAD
 	</div>
 
 
@@ -71,13 +71,67 @@
 						</div>
 					</div>
 				</div>
+=======
+
+
+		<!-- Events Overview-->
+		<section>
+			<div class="container cards">
+				<div class="row no-gutters">
+					<div class="col">
+						<!-- 1.Card-->
+
+						<div class="card" style="width: 18rem;">
+							<img class="card-img-top" src="../images/alex.png" alt="Card image cap">
+							<div class="card-body">
+								<p class="card-text">
+									<body>
+										<ul th:each="user : ${users}">
+											<li th:text="|Name: ${user.userName}|">Name</li>
+											<!--<li th:text="|Age: ${user.age}|">Age</li>-->
+											<li th:text="|City: ${user.city}|">City</li>
+										</ul>
+									</body>
+								</p>
+								<a href="#" class="btn btn-primary">See profile</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col">
+						<!-- 2.Card-->
+						<div class="card" style="width: 18rem;">
+							<img class="card-img-top" src="../images/maike.png" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">Maike</h5>
+								<p class="card-text">Here you can find all information about
+									performances at the theatres Bonn...</p>
+								<a href="#" class="btn btn-primary">See profile</a>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col">
+						<!-- 3.Card-->
+						<div class="card" style="width: 18rem;">
+							<img class="card-img-top" src="../images/robert.png" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">Robert</h5>
+								<p class="card-text">Here you will find an overview of all
+									current concerts in different locations in the city...</p>
+								<a href="#" class="btn btn-primary">See profile</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+>>>>>>> 8c014fe62e734116c688e840dc9a418688893880
 			</div>
-			<hr />
-		</div>
-	</section>
+		</section>
 
 
-	<hr />
+		<hr />
 
 	</main>
 
@@ -85,10 +139,9 @@
 	<!-- Footer Start -->
 
 	<footer class="navbar bottom navbar-light bg-light">
-		<a class="navbar-brand" href="index.html">SkillHub</a> <a
-			class="navbar-brand" href="#">Impressum</a> <a class="navbar-brand"
-			href="#">Privacy</a> <a class="navbar-brand" href="#">AGBs</a> <a
-			class="navbar-brand" href="#">Contact Us</a>
+		<a class="navbar-brand" href="index.html">SkillHub</a> <a class="navbar-brand" href="#">Impressum</a> <a
+			class="navbar-brand" href="#">Privacy</a> <a class="navbar-brand" href="#">AGBs</a> <a class="navbar-brand"
+			href="#">Contact Us</a>
 		<p class="navbar-brand copyright">Copyright &copy; 2019; SkillHub</p>
 	</footer>
 
