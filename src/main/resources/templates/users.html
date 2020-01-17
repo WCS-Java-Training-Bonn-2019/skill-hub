@@ -45,16 +45,15 @@
 					how to climb! Let's get in contact!</p>
 			</div>
 		</div>
-<<<<<<< HEAD
 	</div>
 
 
-	<!-- Events Overview-->
+	<!--Cards-->
 	<section>
 		<div class="container cards">
 			<div class="row no-gutters">
 				<div class="col">
-					<!-- 1.Card-->
+					<!--Thymleaf-->
 					<div th:each="user : ${users}" class="card" style="width: 18rem;">
 						<img class="card-img-top" src="../images/alex.png"
 							alt="Card image cap">
@@ -71,62 +70,7 @@
 						</div>
 					</div>
 				</div>
-=======
 
-
-		<!-- Events Overview-->
-		<section>
-			<div class="container cards">
-				<div class="row no-gutters">
-					<div class="col">
-						<!-- 1.Card-->
-
-						<div class="card" style="width: 18rem;">
-							<img class="card-img-top" src="../images/alex.png" alt="Card image cap">
-							<div class="card-body">
-								<p class="card-text">
-									<body>
-										<ul th:each="user : ${users}">
-											<li th:text="|Name: ${user.userName}|">Name</li>
-											<!--<li th:text="|Age: ${user.age}|">Age</li>-->
-											<li th:text="|City: ${user.city}|">City</li>
-										</ul>
-									</body>
-								</p>
-								<a href="#" class="btn btn-primary">See profile</a>
-							</div>
-						</div>
-					</div>
-
-					<div class="col">
-						<!-- 2.Card-->
-						<div class="card" style="width: 18rem;">
-							<img class="card-img-top" src="../images/maike.png" alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">Maike</h5>
-								<p class="card-text">Here you can find all information about
-									performances at the theatres Bonn...</p>
-								<a href="#" class="btn btn-primary">See profile</a>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="col">
-						<!-- 3.Card-->
-						<div class="card" style="width: 18rem;">
-							<img class="card-img-top" src="../images/robert.png" alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">Robert</h5>
-								<p class="card-text">Here you will find an overview of all
-									current concerts in different locations in the city...</p>
-								<a href="#" class="btn btn-primary">See profile</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr />
->>>>>>> 8c014fe62e734116c688e840dc9a418688893880
 			</div>
 		</section>
 
