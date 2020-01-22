@@ -30,7 +30,7 @@ public class Skill {
 	private Skill() {
 	}
 
-	public Skill(String name, String imageURl) {
+	public Skill(String name, String imageURL) {
 		super();
 		this.name = name;
 		this.imageURL = imageURL;
