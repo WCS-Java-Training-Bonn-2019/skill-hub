@@ -90,11 +90,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public LocalDate getDatedateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDatedateOfBirth(LocalDate datedateOfBirth) {
+	public void setDateOfBirth(LocalDate datedateOfBirth) {
 		this.dateOfBirth = datedateOfBirth;
 	}
 
@@ -131,7 +131,7 @@ public class User {
 	}
 
 	public int getAge() {
-		return Period.between(getDatedateOfBirth(), LocalDate.now()).getYears();
+		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
 
 	public void addSkill(Skill skill) {
@@ -170,7 +170,7 @@ public class User {
 	public String toString() {
 		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
 				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDatedateOfBirth()="
-				+ getDatedateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
+				+ getDateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
 				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + "]";
 	}
 

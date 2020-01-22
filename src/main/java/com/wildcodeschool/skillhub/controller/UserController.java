@@ -38,15 +38,15 @@ public class UserController {
 	
 	
 //====================================================
-/*	
-@GetMapping("/wizards")
+	
+@GetMapping("/users/userslist")
     public String getAll(Model model) {
 
-        model.addAttribute("wizards", repository.findAll());
+        model.addAttribute("see_created_users", userRepository.findAll());
 
-        return "wizards";
+        return "see_created_users";
     }
-*/	
+
 //====================================================	
 	
 	@GetMapping("/users/create")
@@ -62,7 +62,7 @@ public class UserController {
         }
         model.addAttribute("user", user);
 
-        return "users/create";
+        return "create_user";
     }
     
     
