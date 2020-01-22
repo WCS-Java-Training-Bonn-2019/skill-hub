@@ -1,10 +1,14 @@
 package com.wildcodeschool.skillhub.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -40,8 +44,8 @@ public class User {
 	public User() {
 	}
 
-	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth,
-			String zipCode, String city, String email, String description) {
+	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode,
+			String city, String email, String description) {
 		super();
 		this.userName = userName;
 		this.imageURL = imageURL;
@@ -94,8 +98,8 @@ public class User {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDate datedateOfBirth) {
-		this.dateOfBirth = datedateOfBirth;
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getZipCode() {
@@ -133,9 +137,34 @@ public class User {
 	public int getAge() {
 		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
+		
+		/*
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date dateToday = new Date();
+		Calendar a = getCalendar(dateOfBirth);
+		Calendar b = getCalendar(dateToday);
+		int diff = b.get(YEAR) - a.get(YEAR);
+		if (a.get(MONTH) > b.get(MONTH) || (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+			diff--;
+		}
+		return diff;
+}
+	// return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
+	
+
+	// =======================================================================
+
+	public static Calendar getCalendar(Date date) {
+		Calendar cal = Calendar.getInstance(Locale.GERMANY);
+		cal.setTime(date);
+		return cal;
+	}
+	// =======================================================================
+*/
+
 
 	public void addSkill(Skill skill) {
-		UserSkill userSkill = new UserSkill(this, skill,  new Date(), true);
+		UserSkill userSkill = new UserSkill(this, skill, new Date(), true);
 
 		// Add UserSkill to List in User
 		skills.add(userSkill);
@@ -169,15 +198,14 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
-				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDatedateOfBirth()="
+				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDateOfBirth()="
 				+ getDateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
 				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName,
-				zipCode);
+		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
 	}
 
 	@Override
@@ -190,10 +218,10 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
-				&& Objects.equals(dateOfBirth, other.dateOfBirth)
-				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
+				&& Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(description, other.description)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(imageURL, other.imageURL) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(zipCode, other.zipCode);
 	}
 
 }
