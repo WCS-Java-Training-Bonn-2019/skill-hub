@@ -58,7 +58,7 @@
 						<div class="card-body">
 							<h5 th:text="${skill.name}" class="card-title">Name</h5>
 							<!--  <p class="card-text">Test</p> -->
-							<a th:href="@{${'users/search?skillName=' + skill.name}}" class="btn btn-primary">Find people with this skill</a>
+							<a th:href="@{${'users/search?id=' + skill.id}}" class="btn btn-primary">Find people with this skill</a>
 						</div>
 					</div>
 				</div>
