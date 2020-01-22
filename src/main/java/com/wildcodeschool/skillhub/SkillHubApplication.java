@@ -46,8 +46,8 @@ public class SkillHubApplication {
 			}
 			log.info("");
 
-			Skill climbing = new Skill("climbing");
-			
+			Skill climbing = new Skill("climbing", "");
+
 			skillRepository.save(climbing);
 
 			log.info("Skills found with findAll():");
