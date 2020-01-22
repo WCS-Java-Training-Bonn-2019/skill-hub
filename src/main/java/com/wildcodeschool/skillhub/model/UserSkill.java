@@ -18,13 +18,13 @@ public class UserSkill {
 	private UserSkillId id;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	@MapsId("user_id")
+	@JoinColumn
+	@MapsId("userId")
 	private User user;
 
 	@ManyToOne
-	@JoinColumn(name = "skill_id")
-	@MapsId("skill_id")
+	@JoinColumn
+	@MapsId("skillId")
 	private Skill skill;
 
 	private Date createdOn;
@@ -49,6 +49,7 @@ public class UserSkill {
 
 	public void setUser(User user) {
 		this.user = user;
+		this.id.setUserId(user.getId());
 	}
 
 	public Skill getSkill() {
@@ -57,6 +58,7 @@ public class UserSkill {
 
 	public void setSkill(Skill skill) {
 		this.skill = skill;
+		this.id.setSkillId(skill.getId());
 	}
 
 	public Date getCreatedOn() {
