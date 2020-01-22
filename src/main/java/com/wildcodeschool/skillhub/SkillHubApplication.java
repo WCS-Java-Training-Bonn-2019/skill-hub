@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.repository.UserRepository;
@@ -41,6 +42,27 @@ public class SkillHubApplication {
 			log.info("Users found with findAll():");
 			log.info("---------------------------");
 			for (User user : userRepository.findAll()) {
+				log.info(user.toString());
+			}
+			log.info("");
+
+			Skill climbing = new Skill("climbing");
+			
+			skillRepository.save(climbing);
+
+			log.info("Skills found with findAll():");
+			log.info("----------------------------");
+			for (Skill skill : skillRepository.findAll()) {
+				log.info(skill.toString());
+			}
+			log.info("");
+
+			susanne.addSkill(climbing);
+			userRepository.save(susanne);
+
+			log.info("Users found with findBySkills_SkillId():");
+			log.info("----------------------------------------");
+			for (User user : userRepository.findBySkills_SkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");
