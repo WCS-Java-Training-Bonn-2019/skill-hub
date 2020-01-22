@@ -27,7 +27,7 @@ public class User {
 	private String imageURL;
 	private String firstName;
 	private String lastName;
-	private LocalDate datedateOfBirth;
+	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
 	private String email;
@@ -40,14 +40,14 @@ public class User {
 	private User() {
 	}
 
-	public User(String alias, String imageURL, String firstName, String lastName, LocalDate datedateOfBirth,
+	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth,
 			String zipCode, String city, String email, String description) {
 		super();
-		this.userName = alias;
+		this.userName = userName;
 		this.imageURL = imageURL;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.datedateOfBirth = datedateOfBirth;
+		this.dateOfBirth = dateOfBirth;
 		this.zipCode = zipCode;
 		this.city = city;
 		this.email = email;
@@ -91,11 +91,11 @@ public class User {
 	}
 
 	public LocalDate getDatedateOfBirth() {
-		return datedateOfBirth;
+		return dateOfBirth;
 	}
 
 	public void setDatedateOfBirth(LocalDate datedateOfBirth) {
-		this.datedateOfBirth = datedateOfBirth;
+		this.dateOfBirth = datedateOfBirth;
 	}
 
 	public String getZipCode() {
@@ -176,7 +176,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName,
+		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName,
 				zipCode);
 	}
 
@@ -190,7 +190,7 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
-				&& Objects.equals(datedateOfBirth, other.datedateOfBirth)
+				&& Objects.equals(dateOfBirth, other.dateOfBirth)
 				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
