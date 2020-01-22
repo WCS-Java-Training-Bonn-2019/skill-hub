@@ -1,11 +1,16 @@
 package com.wildcodeschool.skillhub.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 
 @Controller
@@ -30,5 +35,56 @@ public class UserController {
 
 		return "users";
 	}
+	
+	
+//====================================================
+/*	
+@GetMapping("/wizards")
+    public String getAll(Model model) {
+
+        model.addAttribute("wizards", repository.findAll());
+
+        return "wizards";
+    }
+*/	
+//====================================================	
+	
+	@GetMapping("/users/create")
+    public String getUser(Model model,
+                            @RequestParam(required = false) Long id) {
+
+        User user = new User();
+        if (id != null) {
+            Optional<User> optionalUser = userRepository.findById(id);
+            if (optionalUser.isPresent()) {
+                user = optionalUser.get();
+            }
+        }
+        model.addAttribute("user", user);
+
+        return "users/create";
+    }
+    
+    
+    @PostMapping("/users/create")
+    public String postWizard(@ModelAttribute User user) {
+
+    	userRepository.save(user);
+        return "redirect:/users/create";
+    }
+    
+    
+    @GetMapping("/users/create/delete")
+    public String deleteUser(@RequestParam Long id) {
+
+    	userRepository.deleteById(id);
+
+        return "redirect:/users/create";
+    }
 
 }
+	
+	
+	
+	
+	

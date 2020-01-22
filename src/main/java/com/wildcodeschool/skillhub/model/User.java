@@ -37,7 +37,7 @@ public class User {
 	private List<UserSkill> skills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
-	private User() {
+	public User() {
 	}
 
 	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth,
