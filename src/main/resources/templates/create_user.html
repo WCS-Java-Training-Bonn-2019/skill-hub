@@ -47,7 +47,7 @@
 	<body>
 		<h3 th:text="${user.id} ? 'Edit User' : 'Create User'">User2</h3>
 
-		<form method="post" th:action="@{users/create}" th:object="${user}">
+		<form method="post" th:action="@{/users/create}" th:object="${user}">
 			<input name="id" th:field="*{id}" type="hidden">
 
 
@@ -84,12 +84,12 @@
 
 
 
-			<!-- birthday -->
+			<!-- birthday 
 			<label for="dateOfBirth">Birthday:</label> <input id="dateOfBirth"
 				name="dateOfBirth" placeholder="1980-07-31" required
 				th:field="*{dateOfBirth}" type="date"> <br>
 			<br>
-
+-->
 
 
 			<!-- email -->
@@ -142,7 +142,7 @@
 			class="navbar-brand" href="#">Impressum</a> <a class="navbar-brand"
 			href="#">Privacy</a> <a class="navbar-brand" href="#">AGBs</a> <a
 			class="navbar-brand" href="#">Contact Us</a>
-		<p class="navbar-brand copyright">Copyright &copy; 2019; SkillHub</p>
+		<p class="navbar-brand copyright">Copyright &copy; 2020</p>
 	</footer>
 
 	<!-- Footer Ende -->

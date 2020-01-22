@@ -41,13 +41,13 @@
 footer {
   display: flex;
   align-items: center;
-  /*background-color:gold !important;*/
+  background-color:gold !important;
   color: black;
   list-style: none;
 }
 
 .bg-light{
-  /*background-color:gold!important;*/
+  background-color:gold!important;
 }
 
 .card{
