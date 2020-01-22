@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.repository.UserRepository;
@@ -33,10 +34,21 @@ public class SkillHubApplication {
 
 			User lasse = new User("LasseRuckart", "lasse.png", "Lasse", "Ruckart", LocalDate.of(1982, 3, 14), "99092",
 					"Erfurt", "lasse82@outlook.de", "");
+			
+			Skill climbing = new Skill("Climbing", "climbing.jpg");
+			Skill cooking = new Skill("Cooking", "cooking.jpg");
+			Skill books = new Skill("Books", "books.jpg");
 
 			userRepository.save(susanne);
 			userRepository.save(mia);
 			userRepository.save(lasse);
+			
+			skillRepository.save(climbing);
+			skillRepository.save(cooking);
+			skillRepository.save(books);
+			
+			System.out.println(userRepository.findAll());
+			System.out.println(skillRepository.findAll());
 
 			log.info("Users found with findAll():");
 			log.info("---------------------------");

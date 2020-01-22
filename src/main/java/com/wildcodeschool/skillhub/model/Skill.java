@@ -28,10 +28,10 @@ public class Skill {
 	private Skill() {
 	}
 
-	public Skill(String name, String imageURl) {
+	public Skill(String name, String imageURL) {
 		super();
 		this.name = name;
-		this.name = imageURL;
+		this.imageURL = imageURL;
 	}
 
 	public Long getId() {
@@ -61,7 +61,7 @@ public class Skill {
 
 	@Override
 	public String toString() {
-		return "Skill [id=" + id + ", name=" + name + ", users=" + users + "]";
+		return "Skill [getId=" + getId() + ", getName()=" + getName() + ", getImageURL()=" + getImageURL() + "]";
 	}
 
 	@Override
