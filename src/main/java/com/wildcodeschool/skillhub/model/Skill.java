@@ -16,9 +16,10 @@ public class Skill {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	private String name;
+	private String imageURL;
 
 	@OneToMany(mappedBy = "skill", cascade = CascadeType.PERSIST)
 	private List<UserSkill> users = new ArrayList<>();
@@ -27,12 +28,13 @@ public class Skill {
 	private Skill() {
 	}
 
-	public Skill(String name) {
+	public Skill(String name, String imageURl) {
 		super();
 		this.name = name;
+		this.name = imageURL;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -43,6 +45,15 @@ public class Skill {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
 
 	public List<UserSkill> getUsers() {
 		return users;
