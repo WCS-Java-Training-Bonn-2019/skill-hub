@@ -3,12 +3,14 @@ package com.wildcodeschool.skillhub.model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,34 +20,34 @@ import javax.persistence.OneToMany;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = ("id"), updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
 	private Long id;
-
 	private String userName;
 	private String imageURL;
 	private String firstName;
 	private String lastName;
-	private LocalDate datedateOfBirth;
+	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
 	private String email;
 	private String description;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private List<UserSkill> skills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
 	private User() {
 	}
 
-	public User(String alias, String imageURL, String firstName, String lastName, LocalDate datedateOfBirth,
+	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth,
 			String zipCode, String city, String email, String description) {
 		super();
-		this.userName = alias;
+		this.userName = userName;
 		this.imageURL = imageURL;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.datedateOfBirth = datedateOfBirth;
+		this.dateOfBirth = dateOfBirth;
 		this.zipCode = zipCode;
 		this.city = city;
 		this.email = email;
@@ -89,11 +91,11 @@ public class User {
 	}
 
 	public LocalDate getDatedateOfBirth() {
-		return datedateOfBirth;
+		return dateOfBirth;
 	}
 
 	public void setDatedateOfBirth(LocalDate datedateOfBirth) {
-		this.datedateOfBirth = datedateOfBirth;
+		this.dateOfBirth = datedateOfBirth;
 	}
 
 	public String getZipCode() {
@@ -131,9 +133,9 @@ public class User {
 	public int getAge() {
 		return Period.between(getDatedateOfBirth(), LocalDate.now()).getYears();
 	}
-	
+
 	public void addSkill(Skill skill) {
-		UserSkill userSkill = new UserSkill(this, skill);
+		UserSkill userSkill = new UserSkill(this, skill,  new Date(), true);
 
 		// Add UserSkill to List in User
 		skills.add(userSkill);
@@ -143,25 +145,25 @@ public class User {
 	}
 
 	public void removeSkill(Skill skill) {
-
-		// Iterate over all UserSkills of the User
-		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
-			UserSkill userSkill = iterator.next();
-
-			// If UserSkill matches this User and the Skill to be removed
-			if (userSkill.getUser().equals(this) && userSkill.getSkill().equals(skill)) {
-
-				// Remove UserSkill from List in User
-				iterator.remove();
-
-				// Remove UserSkill from List in Skill
-				userSkill.getSkill().getUsers().remove(userSkill);
-
-				// null the UserSkill
-				userSkill.setUser(null);
-				userSkill.setSkill(null);
-			}
-		}
+//
+//		// Iterate over all UserSkills of the User
+//		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
+//			UserSkill userSkill = iterator.next();
+//
+//			// If UserSkill matches this User and the Skill to be removed
+//			if (userSkill.getUser().equals(this) && userSkill.getSkill().equals(skill)) {
+//
+//				// Remove UserSkill from List in User
+//				iterator.remove();
+//
+//				// Remove UserSkill from List in Skill
+//				userSkill.getSkill().getUsers().remove(userSkill);
+//
+//				// null the UserSkill
+//				userSkill.setUser(null);
+//				userSkill.setSkill(null);
+//			}
+//		}
 	}
 
 	@Override
@@ -169,13 +171,12 @@ public class User {
 		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
 				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDatedateOfBirth()="
 				+ getDatedateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
-				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + ", hashCode()="
-				+ hashCode() + "]";
+				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName,
+		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName,
 				zipCode);
 	}
 
@@ -189,7 +190,7 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
-				&& Objects.equals(datedateOfBirth, other.datedateOfBirth)
+				&& Objects.equals(dateOfBirth, other.dateOfBirth)
 				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);

@@ -3,7 +3,6 @@ package com.wildcodeschool.skillhub.model;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -19,30 +18,29 @@ public class UserSkill {
 	private UserSkillId id;
 
 	@ManyToOne
-	@MapsId("user_id")
 	@JoinColumn(name = "user_id")
+	@MapsId("user_id")
 	private User user;
 
 	@ManyToOne
-	@MapsId("skill_id")
 	@JoinColumn(name = "skill_id")
+	@MapsId("skill_id")
 	private Skill skill;
 
-	@Column(name = "created_on")
-	private Date createdOn = new Date();
-
-	@Column(name = "is_offering_skill")
+	private Date createdOn;
 	private Boolean isOfferingSkill;
 
 	@SuppressWarnings("unused")
 	private UserSkill() {
 	}
 
-	// TODO Change Constructor with fields createdOn and isOfferingSkill
-	public UserSkill(User user, Skill skill) {
+	public UserSkill(User user, Skill skill, Date createdOn, Boolean isOfferingSkill) {
+		super();
+		this.id = new UserSkillId(user.getId(), skill.getId());
 		this.user = user;
 		this.skill = skill;
-		this.id = new UserSkillId(user.getId(), skill.getId());
+		this.createdOn = createdOn;
+		this.isOfferingSkill = isOfferingSkill;
 	}
 
 	public User getUser() {
@@ -61,6 +59,14 @@ public class UserSkill {
 		this.skill = skill;
 	}
 
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
 	public Boolean getIsOfferingSkill() {
 		return isOfferingSkill;
 	}
@@ -71,7 +77,7 @@ public class UserSkill {
 
 	@Override
 	public int hashCode() {
-		return 42;
+		return Objects.hash(id, isOfferingSkill);
 	}
 
 	@Override
@@ -83,8 +89,7 @@ public class UserSkill {
 		if (getClass() != obj.getClass())
 			return false;
 		UserSkill other = (UserSkill) obj;
-		return Objects.equals(createdOn, other.createdOn) && Objects.equals(isOfferingSkill, other.isOfferingSkill)
-				&& Objects.equals(skill, other.skill) && Objects.equals(user, other.user);
+		return Objects.equals(id, other.id) && Objects.equals(isOfferingSkill, other.isOfferingSkill);
 	}
 
 }
