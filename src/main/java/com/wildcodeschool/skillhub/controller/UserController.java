@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 
@@ -18,12 +18,17 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	//private SkillRepository skillRepository;
+	
 
 	@GetMapping("/users/search")
-	public String getBySkill(Model model, @RequestParam String skillName) {
+	public String getBySkill(Model model, @RequestParam Long id) {
 
-		// TODO Remove mock implementation
-		model.addAttribute("users", userRepository.findAll());
+		// Handover skill to use attibutes in HTML
+		//model.addAttribute("skill", 
+		//		skillRepository.findById(id));
+		model.addAttribute("users", 
+				userRepository.findBySkills_SkillId(id));
 		
 //		List<Skill> skills = new ArrayList<>();
 //
@@ -37,8 +42,6 @@ public class UserController {
 	}
 	
 	
-//====================================================
-	
 @GetMapping("/users/userslist")
     public String getAll(Model model) {
 
@@ -47,7 +50,6 @@ public class UserController {
         return "see_created_users";
     }
 
-//====================================================	
 	
 	@GetMapping("/users/create")
     public String getUser(Model model,
@@ -83,8 +85,3 @@ public class UserController {
     }
 
 }
-	
-	
-	
-	
-	
