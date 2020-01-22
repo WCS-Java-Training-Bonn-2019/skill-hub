@@ -57,10 +57,6 @@ public class SkillHubApplication {
 			}
 			log.info("");
 
-			Skill climbing = new Skill("climbing", "");
-
-			skillRepository.save(climbing);
-
 			log.info("Skills found with findAll():");
 			log.info("----------------------------");
 			for (Skill skill : skillRepository.findAll()) {
@@ -69,7 +65,11 @@ public class SkillHubApplication {
 			log.info("");
 
 			susanne.addSkill(climbing);
+			mia.addSkill(cooking);
+			lasse.addSkill(books);
 			userRepository.save(susanne);
+			userRepository.save(mia);
+			userRepository.save(lasse);
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");

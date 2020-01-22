@@ -18,13 +18,15 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-	private SkillRepository skillRepository;
+	//private SkillRepository skillRepository;
 	
 
 	@GetMapping("/users/search")
 	public String getBySkill(Model model, @RequestParam Long id) {
 
-		// TODO Remove mock implementation
+		// Handover skill to use attibutes in HTML
+		//model.addAttribute("skill", 
+		//		skillRepository.findById(id));
 		model.addAttribute("users", 
 				userRepository.findBySkills_SkillId(id));
 		
@@ -40,17 +42,6 @@ public class UserController {
 	}
 	
 	
-//====================================================
-/*	
-@GetMapping("/wizards")
-    public String getAll(Model model) {
-
-        model.addAttribute("wizards", repository.findAll());
-
-        return "wizards";
-    }
-*/	
-//====================================================	
 	
 	@GetMapping("/users/create")
     public String getUser(Model model,
@@ -86,12 +77,3 @@ public class UserController {
     }
 
 }
-<<<<<<< HEAD
-
-=======
-	
-	
-	
-	
-	
->>>>>>> 356202e1aa1f692ea02455fb417e0a62e6d61aec
