@@ -54,9 +54,6 @@ public class UserController {
     }
 
 
-
-
-
 	//Editieren (Daten werden angezeigt...!
 	//@GetMapping("/create")
 	@GetMapping("/users/create")
@@ -91,49 +88,20 @@ public class UserController {
 	        }
 	        model.addAttribute("user", user);
 
-//	        return "create_user";
-	        return "redirect:/users/userslist";	        
+	        return "create_user";        
 	        
 	    }
 	    
 	
-	
-	
-	
-	
-	
-	
-    
 	//Sende eingegebene Daten in Datenbank ("save")
-    //@PostMapping("/create") --> neu
+    //@PostMapping("/create") --> falsch
     @PostMapping("/users/create")
     public String postUser(@ModelAttribute User user) {
 
     	userRepository.save(user);
-        return "redirect:/users/create";
+        return "redirect:/users/userslist";	
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /* alt
-    @GetMapping("/users/delete")
-    public String deleteUser(@RequestParam Long id) {
-
-    	userRepository.deleteById(id);
-
-        return "redirect:/see_created_users";
-    }
-    
-    */
     
     
   //Delete one User
