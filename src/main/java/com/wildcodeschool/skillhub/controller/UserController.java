@@ -65,6 +65,24 @@ public class UserController {
 		return "user/edit";
 	}
 
+	// View a user
+	@GetMapping("/user/view")
+	public String viewUser(Model model, @RequestParam(required = false) Long id) {
+
+		User user = new User();
+
+		if (id != null) {
+			Optional<User> optionalUser = userRepository.findById(id);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
+
+		model.addAttribute("user", user);
+
+		return "user/view";
+	}
+
 	// Create a new user
 	@GetMapping("/user/new")
 	public String getUser2(Model model, @RequestParam(required = false) Long id) {

@@ -41,7 +41,7 @@
 										<li th:text="|City: ${user.city}|">City</li>
 									</ul>
 							</p>
-							<a th:href="@{${'users/search?id=' + user.id}}" class="btn btn-primary">See profile</a>
+							<a th:href="@{${'/user/view?id=' + user.id}}" class="btn btn-primary">See profile</a>
 						</div>
 					</div>
 				</div>
