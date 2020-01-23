@@ -76,7 +76,6 @@ public class UserController {
     }
     
 	
-	// 2
 	//Editieren (Daten werden angezeigt...!
 		@GetMapping("/create")
 		//@GetMapping("/users/create")
@@ -92,7 +91,9 @@ public class UserController {
 	        }
 	        model.addAttribute("user", user);
 
-	        return "create_user";
+//	        return "create_user";
+	        return "redirect:/users/userslist";	        
+	        
 	    }
 	    
 	
@@ -109,7 +110,6 @@ public class UserController {
     public String postUser(@ModelAttribute User user) {
 
     	userRepository.save(user);
-        //return "redirect:/users/userslist";  --> neu
         return "redirect:/users/create";
     }
     
