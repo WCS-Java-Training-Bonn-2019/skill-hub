@@ -60,7 +60,7 @@ th, td {
 				<td th:text="${user.description}">Description</td>
 				<td th:text="${user.imageURL}">ImageURL</td>
 				<td><a th:href="@{/create(id=${user.id})}">Edit</a></td>
-		<!-- 	<td><a th:href="@{/wizard/delete(id=${user.id})}">Remove</a></td>   -->
+			 	<td><a th:href="@{/create/delete(id=${user.id})}">Delete user</a></td>
 			</tr>
 
 		</tbody>
