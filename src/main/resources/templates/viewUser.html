@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+<title>SkillHub</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+	<header th:replace="fragments.html :: top">Here goes the
+		header</header>
+
+	<!-- <main>
+		<div class="jumbotron">
+			<img class="img" th:src="@{${'../images/' + skill.imageURL}}"  alt="alt">
+			<div class="box">
+				<h1 class="display-4" style="color: black" th:text="|${skill.name} Skill|">Climbing Skills</h1>
+				<p class="lead" style="color: black">Find people who teach you their skill! Let's get in contact!</p>
+			</div>
+		</div>
+	</div> -->
+
+	<section>
+		<div class="container cards">
+			<div class="row no-gutters">
+				<div class="card" style="width: 18rem;">
+					<img class="card-img-top" th:src="@{${'/images/' + user.imageURL}}" alt="Card image cap">
+					<div class="card-body">
+						<h5 th:text="|${user.userName}|" class="card-title">Name</h5>
+						<p class="card-text"></p>
+						<ul>
+							<li th:text="|Firstname: ${user.firstName}|">Name</li>
+							<li th:text="|Lastname: ${user.lastName}|">Name</li>
+							<li th:text="|Age: ${user.age}|">Age</li>
+							<li th:text="|City: ${user.city}|">City</li> 
+							<li th:text="|E-Mail: ${user.email}|">Email</li> 
+							<li th:text="|Description: ${user.description}|">Description</li> 
+						</ul>
+						<a href="#" class="btn btn-primary">Back</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<hr/>
+
+	<!-- </main> -->
+
+
+
+	<footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
+
+</body>
+</html>

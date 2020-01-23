@@ -19,8 +19,7 @@
 			<img class="img" th:src="@{${'../images/' + skill.imageURL}}"  alt="alt">
 			<div class="box">
 				<h1 class="display-4" style="color: black" th:text="|${skill.name} Skill|">Climbing Skills</h1>
-				<p class="lead" style="color: black">Find people who teach you
-					how to climb! Let's get in contact!</p>
+				<p class="lead" style="color: black">Find people who teach you their skill! Let's get in contact!</p>
 			</div>
 		</div>
 	</div>
@@ -32,7 +31,7 @@
 			<div class="row no-gutters">
 					<!--Thymleaf-->
 					<div th:each="user : ${users}" class="card" style="width: 18rem;">
-						<img class="card-img-top" th:src="@{${'../images/' + user.imageURL}}" alt="Card image cap">
+						<img class="card-img-top" th:src="@{${'/images/' + user.imageURL}}" alt="Card image cap">
 						<!--src="../images/th:text="${user.imageURL}"-->
 						<div class="card-body">
 							<h5 th:text="${user.userName}" class="card-title">Name</h5>
@@ -42,7 +41,7 @@
 										<li th:text="|City: ${user.city}|">City</li>
 									</ul>
 							</p>
-							<a href="#" class="btn btn-primary">See profile</a>
+							<a th:href="@{${'users/search?id=' + user.id}}" class="btn btn-primary">See profile</a>
 						</div>
 					</div>
 				</div>

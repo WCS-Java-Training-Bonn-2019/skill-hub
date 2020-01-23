@@ -13,8 +13,6 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
 
 	List<Skill> findAll();
 	List<Skill> findByName(String name);
-	
-	// Method for handing skill over with user -> called in UserController
 	Optional<Skill> findById(Long id);
 	
 
