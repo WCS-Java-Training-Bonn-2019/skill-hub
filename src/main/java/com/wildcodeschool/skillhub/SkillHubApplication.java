@@ -38,7 +38,7 @@ public class SkillHubApplication {
 			Skill climbing = new Skill("Climbing", "climbing.jpg");
 			Skill cooking = new Skill("Cooking", "cooking.jpg");
 			Skill books = new Skill("Books", "books.jpg");
-			Skill photography = new Skill("photography", "photography.jpg");
+			Skill photography = new Skill("Photography", "photography.jpg");
 			Skill fashion = new Skill("Fashion", "fashion.jpg");
 			Skill golf = new Skill("Golf", "golf.jpg");
 			Skill baking = new Skill("Baking", "baking.jpg");

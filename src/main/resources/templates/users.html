@@ -38,9 +38,9 @@
 	<main>
 		<!--Jumbotron-->
 		<div class="jumbotron">
-			<img class="img" src="../images/milkyway.jpg"  alt="alt">
+			<img class="img" th:src="@{${'../images/' + skill.imageURL}}"  alt="alt">
 			<div class="box">
-				<h1 class="display-4" style="color: black">Climbing Skills</h1>
+				<h1 class="display-4" style="color: black" th:text="|${skill.name} Skill|">Climbing Skills</h1>
 				<p class="lead" style="color: black">Find people who teach you
 					how to climb! Let's get in contact!</p>
 			</div>

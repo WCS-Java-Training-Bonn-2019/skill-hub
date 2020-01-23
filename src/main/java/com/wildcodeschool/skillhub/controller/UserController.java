@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
+import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 
@@ -18,17 +19,19 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-	//private SkillRepository skillRepository;
+	@Autowired
+	private SkillRepository skillRepository;
 	
 
 	@GetMapping("/users/search")
 	public String getBySkill(Model model, @RequestParam Long id) {
-
-		// Handover skill to use attibutes in HTML
-		//model.addAttribute("skill", 
-		//		skillRepository.findById(id));
 		model.addAttribute("users", 
 				userRepository.findBySkills_SkillId(id));
+		
+		Optional<Skill> optionalSkill = skillRepository.findById(id);
+		if(optionalSkill.isPresent()) {
+			model.addAttribute("skill", optionalSkill.get());
+		}
 		
 //		List<Skill> skills = new ArrayList<>();
 //
