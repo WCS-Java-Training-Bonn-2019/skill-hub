@@ -26,7 +26,7 @@ th, td {
 </style>
 <body>
 	<h3>Users list (page to test)</h3>
-	<a href="/users/create">Add a new user !</a>
+	<a href="/user/new">Add a new user !</a>
 	<br>
 	<br>
 	<table>
@@ -48,7 +48,7 @@ th, td {
 		</thead>
 		<tbody>
 
-			<tr th:each="user : ${see_created_users}">
+			<tr th:each="user : ${users}">
 				<td th:text="${user.id}">id</td>
 				<td th:text="${user.userName}">User name</td>
 				<td th:text="${user.firstName}">First name</td>
@@ -59,8 +59,8 @@ th, td {
 				<td th:text="${user.email}">Email</td>
 				<td th:text="${user.description}">Description</td>
 				<td th:text="${user.imageURL}">ImageURL</td>
-				<td><a th:href="@{/create(id=${user.id})}">Edit</a></td>
-			 	<td><a th:href="@{/create/delete(id=${user.id})}">Delete user</a></td>
+				<td><a th:href="@{/user/edit(id=${user.id})}">Edit</a></td>
+			 	<td><a th:href="@{/user/delete(id=${user.id})}">Delete user</a></td>
 			</tr>
 
 		</tbody>

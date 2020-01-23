@@ -47,7 +47,7 @@
 	<body>
 		<h3 th:text="${user.id} ? 'Edit User' : 'Create User'">User2</h3>
 
-		<form method="post" th:action="@{/users/create}" th:object="${user}">
+		<form method="post" th:action="@{/user/upsert}" th:object="${user}">
 			<input name="id" th:field="*{id}" type="hidden">
 
 
@@ -132,7 +132,7 @@
 		</form>
 		<br>
 		
-		<a href="/users/userslist">Return to the list</a>
+		<a href="/users">Return to the list</a>
 		<br>
 		<br>
 		<a href="/">Return to the index</a>

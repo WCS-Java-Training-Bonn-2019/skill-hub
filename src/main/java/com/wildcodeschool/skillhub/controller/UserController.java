@@ -19,134 +19,86 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+
 	@Autowired
 	private SkillRepository skillRepository;
-	
 
 	@GetMapping("/users/search")
 	public String getBySkill(Model model, @RequestParam Long id) {
-		model.addAttribute("users", 
-				userRepository.findBySkills_SkillId(id));
-		
+		model.addAttribute("users", userRepository.findBySkills_SkillId(id));
+
 		Optional<Skill> optionalSkill = skillRepository.findById(id);
-		if(optionalSkill.isPresent()) {
+
+		if (optionalSkill.isPresent()) {
 			model.addAttribute("skill", optionalSkill.get());
 		}
-		
-//		List<Skill> skills = new ArrayList<>();
-//
-//		skills = skillRepository.findByName(skillName);
-//
-//		for (Skill skill : skills) {
-//			model.addAttribute("users", userRepository.findBySkills_SkillId(skill.getId()));
-//		}
 
-		return "users";
+		return "users/get_by_skill";
 	}
-	
-	//Zeige Liste 
-@GetMapping("/users/userslist")
-    public String getAll(Model model) {
 
-        model.addAttribute("see_created_users", userRepository.findAll());
+	// TODO Remove or protect for admin use only
+	// Show all users for debugging
+	@GetMapping("/users")
+	public String getAll(Model model) {
 
-        return "see_created_users";
-    }
+		model.addAttribute("users", userRepository.findAll());
 
+		return "users/get_all";
+	}
 
+	// Edit a user
+	@GetMapping("/user/edit")
+	public String getUser(Model model, @RequestParam(required = false) Long id) {
 
+		User user = new User();
 
+		if (id != null) {
+			Optional<User> optionalUser = userRepository.findById(id);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
 
-	//Editieren (Daten werden angezeigt...!
-	//@GetMapping("/create")
-	@GetMapping("/users/create")
-    public String getUser(Model model,
-                            @RequestParam(required = false) Long id) {
+		model.addAttribute("user", user);
 
-        User user = new User();
-        if (id != null) {
-            Optional<User> optionalUser = userRepository.findById(id);
-            if (optionalUser.isPresent()) {
-                user = optionalUser.get();
-            }
-        }
-        model.addAttribute("user", user);
+		return "user/edit";
+	}
 
-        return "create_user";
-    }
-    
-	
-	//Editieren (Daten werden angezeigt...!
-		@GetMapping("/create")
-		//@GetMapping("/users/create")
-	    public String getUser2(Model model,
-	                            @RequestParam(required = false) Long id) {
+	// Create a new user
+	@GetMapping("/user/new")
+	public String getUser2(Model model, @RequestParam(required = false) Long id) {
 
-	        User user = new User();
-	        if (id != null) {
-	            Optional<User> optionalUser = userRepository.findById(id);
-	            if (optionalUser.isPresent()) {
-	                user = optionalUser.get();
-	            }
-	        }
-	        model.addAttribute("user", user);
+		User user = new User();
 
-//	        return "create_user";
-	        return "redirect:/users/userslist";	        
-	        
-	    }
-	    
-	
-	
-	
-	
-	
-	
-	
-    
-	//Sende eingegebene Daten in Datenbank ("save")
-    //@PostMapping("/create") --> neu
-    @PostMapping("/users/create")
-    public String postUser(@ModelAttribute User user) {
+		if (id != null) {
+			Optional<User> optionalUser = userRepository.findById(id);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
 
-    	userRepository.save(user);
-        return "redirect:/users/create";
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /* alt
-    @GetMapping("/users/delete")
-    public String deleteUser(@RequestParam Long id) {
+		model.addAttribute("user", user);
 
-    	userRepository.deleteById(id);
+		return "user/edit";
 
-        return "redirect:/see_created_users";
-    }
-    
-    */
-    
-    
-  //Delete one User
-    @GetMapping("/create/delete")
-    public String deleteUser(@RequestParam Long id) {
+	}
 
-    	userRepository.deleteById(id);
+	// Update or insert a user
+	@PostMapping("/user/upsert")
+	public String postUser(@ModelAttribute User user) {
 
-        return "redirect:/users/userslist";
-    }
+		userRepository.save(user);
+
+		return "redirect:/users";
+	}
+
+	// Delete a user
+	@GetMapping("/user/delete")
+	public String deleteUser(@RequestParam Long id) {
+
+		userRepository.deleteById(id);
+
+		return "redirect:/users";
+	}
 
 }
-
-
-
-
