@@ -247,4 +247,16 @@ public class User {
 				&& Objects.equals(zipCode, other.zipCode);
 	}
 
+	public List<UserSkill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<UserSkill> skills) {
+		this.skills = skills;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

@@ -27,6 +27,7 @@ public class SkillHubApplication {
 	@Bean
 	public CommandLineRunner demo(UserRepository userRepository, SkillRepository skillRepository, UserSkillRepository userSkillRepository) {
 		return (args) -> {
+			
 			// Create users manually
 			User susanne = new User("Susi723", "susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
 					"28215", "Bremen", "susanne-heer@web.de", "");
@@ -170,6 +171,7 @@ public class SkillHubApplication {
 				log.info(user.toString());
 			}
 			log.info("");
+			
 
 		};
 	}
