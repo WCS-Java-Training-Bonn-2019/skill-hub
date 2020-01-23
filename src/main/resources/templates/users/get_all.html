@@ -1,9 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Users List</title>
+	<title>Users List</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/style.css">
 </head>
+
+<header th:replace="fragments.html :: top">Here goes the header</header>
+
 <style>
 table {
 	border-collapse: collapse;
@@ -53,7 +60,7 @@ th, td {
 				<td th:text="${user.userName}">User name</td>
 				<td th:text="${user.firstName}">First name</td>
 				<td th:text="${user.lastName}">Last name</td>
-		 		<td th:text="${user.dateOfBirth}">Birthday</td>  
+				<td th:text="${user.dateOfBirth}">Birthday</td>
 				<td th:text="${user.zipCode}">Zip Code</td>
 				<td th:text="${user.city}">City</td>
 				<td th:text="${user.email}">Email</td>
@@ -67,5 +74,7 @@ th, td {
 	</table>
 	<br>
 	<a href="/">Return to the index</a>
+	
+	<footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 </body>
 </html>
