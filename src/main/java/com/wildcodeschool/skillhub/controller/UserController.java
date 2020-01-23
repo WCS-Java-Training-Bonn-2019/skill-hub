@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 
@@ -75,7 +74,7 @@ public class UserController {
         return "redirect:/users/create";
     }
     
-    
+    /*
     @GetMapping("/users/create/delete")
     public String deleteUser(@RequestParam Long id) {
 
@@ -83,5 +82,17 @@ public class UserController {
 
         return "redirect:/users/create";
     }
+    */
+    
+    @GetMapping("/users/delete")
+    public String deleteUser(@RequestParam Long id) {
+
+    	userRepository.deleteById(id);
+
+        return "redirect:/see_created_users";
+    }
+    
+    
+    
 
 }
