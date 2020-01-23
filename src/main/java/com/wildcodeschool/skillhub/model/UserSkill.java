@@ -1,7 +1,6 @@
 package com.wildcodeschool.skillhub.model;
 
 import java.util.Date;
-import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -42,6 +41,10 @@ public class UserSkill {
 		this.createdOn = createdOn;
 		this.isOfferingSkill = isOfferingSkill;
 	}
+	
+	public UserSkillId getId() {
+		return id;
+	}
 
 	public User getUser() {
 		return user;
@@ -75,23 +78,6 @@ public class UserSkill {
 
 	public void setIsOfferingSkill(Boolean isOfferingSkill) {
 		this.isOfferingSkill = isOfferingSkill;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, isOfferingSkill);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserSkill other = (UserSkill) obj;
-		return Objects.equals(id, other.id) && Objects.equals(isOfferingSkill, other.isOfferingSkill);
 	}
 
 }
