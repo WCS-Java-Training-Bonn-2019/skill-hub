@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.wildcodeschool.skillhub.repository.UserSkillRepository;
 
 @Entity
@@ -30,6 +32,7 @@ public class User {
 	private String imageURL;
 	private String firstName;
 	private String lastName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
@@ -40,11 +43,11 @@ public class User {
 	private List<UserSkill> skills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
-	private User() {
+	public User() {
 	}
 
-	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth,
-			String zipCode, String city, String email, String description) {
+	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode,
+			String city, String email, String description) {
 		super();
 		this.userName = userName;
 		this.imageURL = imageURL;
@@ -93,12 +96,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public LocalDate getDatedateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDatedateOfBirth(LocalDate datedateOfBirth) {
-		this.dateOfBirth = datedateOfBirth;
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getZipCode() {
@@ -134,11 +137,36 @@ public class User {
 	}
 
 	public int getAge() {
-		return Period.between(getDatedateOfBirth(), LocalDate.now()).getYears();
+		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
+		
+		/*
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date dateToday = new Date();
+		Calendar a = getCalendar(dateOfBirth);
+		Calendar b = getCalendar(dateToday);
+		int diff = b.get(YEAR) - a.get(YEAR);
+		if (a.get(MONTH) > b.get(MONTH) || (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+			diff--;
+		}
+		return diff;
+}
+	// return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
+	
+
+	// =======================================================================
+
+	public static Calendar getCalendar(Date date) {
+		Calendar cal = Calendar.getInstance(Locale.GERMANY);
+		cal.setTime(date);
+		return cal;
+	}
+	// =======================================================================
+*/
+
 
 	public void addSkill(Skill skill) {
-		UserSkill userSkill = new UserSkill(this, skill,  new Date(), true);
+		UserSkill userSkill = new UserSkill(this, skill, new Date(), true);
 
 		// Add UserSkill to List in User
 		skills.add(userSkill);
@@ -193,15 +221,14 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
-				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDatedateOfBirth()="
-				+ getDatedateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
+				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDateOfBirth()="
+				+ getDateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
 				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName,
-				zipCode);
+		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
 	}
 
 	@Override
@@ -214,10 +241,10 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
-				&& Objects.equals(dateOfBirth, other.dateOfBirth)
-				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
+				&& Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(description, other.description)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(imageURL, other.imageURL) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(zipCode, other.zipCode);
 	}
 
 }

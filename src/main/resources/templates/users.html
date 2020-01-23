@@ -38,9 +38,9 @@
 	<main>
 		<!--Jumbotron-->
 		<div class="jumbotron">
-			<img class="img" src="../images/climbing1.jpg" alt="alt">
+			<img class="img" th:src="@{${'../images/' + skill.imageURL}}"  alt="alt">
 			<div class="box">
-				<h1 class="display-4" style="color: black">Climbing Skills</h1>
+				<h1 class="display-4" style="color: black" th:text="|${skill.name} Skill|">Climbing Skills</h1>
 				<p class="lead" style="color: black">Find people who teach you
 					how to climb! Let's get in contact!</p>
 			</div>
@@ -84,7 +84,7 @@
 		<a class="navbar-brand" href="index.html">SkillHub</a> <a class="navbar-brand" href="#">Impressum</a> <a
 			class="navbar-brand" href="#">Privacy</a> <a class="navbar-brand" href="#">AGBs</a> <a class="navbar-brand"
 			href="#">Contact Us</a>
-		<p class="navbar-brand copyright">Copyright &copy; 2019; SkillHub</p>
+		<p class="navbar-brand copyright">Copyright &copy; 2020</p>
 	</footer>
 
 	<!-- Footer Ende -->

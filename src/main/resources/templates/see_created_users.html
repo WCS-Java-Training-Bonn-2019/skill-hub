@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Users List</title>
+</head>
+<style>
+table {
+	border-collapse: collapse;
+}
+
+th {
+	background-color: #4CAF50;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+th, td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 5px;
+	text-align: left;
+}
+</style>
+<body>
+	<h3>Users list (page to test)</h3>
+	<a href="/users/create">Add a new user !</a>
+	<br>
+	<br>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>User name</th>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Birthday</th>
+				<th>Zip code</th>
+				<th>City</th>
+				<th>Email</th>
+				<th>Description</th>
+				<th>Image-URL</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="user : ${see_created_users}">
+				<td th:text="${user.id}">id</td>
+				<td th:text="${user.userName}">User name</td>
+				<td th:text="${user.firstName}">First name</td>
+				<td th:text="${user.lastName}">Last name</td>
+		 		<td th:text="${user.dateOfBirth}">Birthday</td>  
+				<td th:text="${user.zipCode}">Zip Code</td>
+				<td th:text="${user.city}">City</td>
+				<td th:text="${user.email}">Email</td>
+				<td th:text="${user.description}">Description</td>
+				<td th:text="${user.imageURL}">ImageURL</td>
+				<td><a th:href="@{/create(id=${user.id})}">Edit</a></td>
+			 	<td><a th:href="@{/create/delete(id=${user.id})}">Delete user</a></td>
+			</tr>
+
+		</tbody>
+	</table>
+	<br>
+	<a href="/">Return to the index</a>
+</body>
+</html>

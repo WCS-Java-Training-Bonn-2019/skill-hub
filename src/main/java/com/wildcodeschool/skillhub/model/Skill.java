@@ -63,7 +63,8 @@ public class Skill {
 
 	@Override
 	public String toString() {
-		return "Skill [getId()=" + getId() + ", getName()=" + getName() + "]";
+		return "Skill [getId=" + getId() + ", getName()=" + getName() + ", getImageURL()=" + getImageURL() + "]";
+
 	}
 
 	@Override
