@@ -101,6 +101,64 @@ public class UserController {
 
 //	        return "create_user";
 		return "redirect:/users/userslist";
+	//Editieren (Daten werden angezeigt...!
+	//@GetMapping("/create")
+	@GetMapping("/users/create")
+    public String getUser(Model model,
+                            @RequestParam(required = false) Long id) {
+
+        User user = new User();
+        if (id != null) {
+            Optional<User> optionalUser = userRepository.findById(id);
+            if (optionalUser.isPresent()) {
+                user = optionalUser.get();
+            }
+        }
+        model.addAttribute("user", user);
+
+        return "create_user";
+    }
+    
+	
+	//Editieren (Daten werden angezeigt...!
+		@GetMapping("/create")
+		//@GetMapping("/users/create")
+	    public String getUser2(Model model,
+	                            @RequestParam(required = false) Long id) {
+
+	        User user = new User();
+	        if (id != null) {
+	            Optional<User> optionalUser = userRepository.findById(id);
+	            if (optionalUser.isPresent()) {
+	                user = optionalUser.get();
+	            }
+	        }
+	        model.addAttribute("user", user);
+
+	        return "create_user";        
+	        
+	    }
+	    
+	
+	//Sende eingegebene Daten in Datenbank ("save")
+    //@PostMapping("/create") --> falsch
+    @PostMapping("/users/create")
+    public String postUser(@ModelAttribute User user) {
+
+    	userRepository.save(user);
+        return "redirect:/users/userslist";	
+    }
+    
+    
+    
+  //Delete one User
+    @GetMapping("/create/delete")
+    public String deleteUser(@RequestParam Long id) {
+
+    	userRepository.deleteById(id);
+
+        return "redirect:/users/userslist";
+    }
 
 	}
 
