@@ -26,26 +26,40 @@ public class SkillHubApplication {
 	@Bean
 	public CommandLineRunner demo(UserRepository userRepository, SkillRepository skillRepository) {
 		return (args) -> {
+			// Create users manually
 			User susanne = new User("Susi723", "susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
 					"28215", "Bremen", "susanne-heer@web.de", "");
-
 			User mia = new User("MiLove", "mia.png", "Mia", "Sommer", LocalDate.of(2002, 8, 1), "30453", "Hannover",
 					"mia-sommer07@gmx.de", "");
-
 			User lasse = new User("LasseRuckart", "lasse.png", "Lasse", "Ruckart", LocalDate.of(1982, 3, 14), "99092",
 					"Erfurt", "lasse82@outlook.de", "");
 			
+			//Create skills manually
 			Skill climbing = new Skill("Climbing", "climbing.jpg");
 			Skill cooking = new Skill("Cooking", "cooking.jpg");
 			Skill books = new Skill("Books", "books.jpg");
-
+			Skill photography = new Skill("Photography", "photography.jpg");
+			Skill fashion = new Skill("Fashion", "fashion.jpg");
+			Skill golf = new Skill("Golf", "golf.jpg");
+			Skill baking = new Skill("Baking", "baking.jpg");
+			Skill dogs = new Skill("Dogs", "dogs.jpg");
+			Skill motorbike = new Skill ("Motorbike", "motorbike.jpg");
+			
+			//Save users
 			userRepository.save(susanne);
 			userRepository.save(mia);
 			userRepository.save(lasse);
 			
+			//Save skills
 			skillRepository.save(climbing);
 			skillRepository.save(cooking);
 			skillRepository.save(books);
+			skillRepository.save(photography);
+			skillRepository.save(fashion);
+			skillRepository.save(golf);
+			skillRepository.save(baking);
+			skillRepository.save(dogs);
+			skillRepository.save(motorbike);
 			
 			System.out.println(userRepository.findAll());
 			System.out.println(skillRepository.findAll());
