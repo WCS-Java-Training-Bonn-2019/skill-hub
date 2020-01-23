@@ -69,7 +69,7 @@ public class UserController {
     
     
     @PostMapping("/users/create")
-    public String postWizard(@ModelAttribute User user) {
+    public String postUser(@ModelAttribute User user) {
 
     	userRepository.save(user);
         return "redirect:/users/create";
