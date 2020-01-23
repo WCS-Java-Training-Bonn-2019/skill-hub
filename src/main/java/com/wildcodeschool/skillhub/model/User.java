@@ -1,14 +1,11 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -21,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.wildcodeschool.skillhub.repository.UserSkillRepository;
 
 @Entity
 public class User {
@@ -40,7 +39,7 @@ public class User {
 	private String email;
 	private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserSkill> skills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
@@ -176,7 +175,8 @@ public class User {
 		skill.getUsers().add(userSkill);
 	}
 
-	public void removeSkill(Skill skill) {
+//  TODO Make this work!	
+//	public void removeSkill(Skill skill) {
 //
 //		// Iterate over all UserSkills of the User
 //		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
@@ -190,14 +190,34 @@ public class User {
 //
 //				// Remove UserSkill from List in Skill
 //				userSkill.getSkill().getUsers().remove(userSkill);
-//
-//				// null the UserSkill
-//				userSkill.setUser(null);
-//				userSkill.setSkill(null);
 //			}
 //		}
-	}
+//	}
 
+	public void removeSkill(Skill skill, UserSkillRepository userSkillRepository) {
+
+		// Iterate over all UserSkills of the User
+		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
+			UserSkill userSkill = iterator.next();
+
+			// If UserSkill matches this User and the Skill to be removed
+			if (userSkill.getUser().equals(this) && userSkill.getSkill().equals(skill)) {
+
+				// Remove UserSkill
+				userSkillRepository.deleteById(new UserSkillId(this.getId(), skill.getId()));
+
+				// Remove UserSkill from List in User
+				iterator.remove();
+
+				// Remove UserSkill from List in Skill
+				userSkill.getSkill().getUsers().remove(userSkill);
+
+			}
+		}
+	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()

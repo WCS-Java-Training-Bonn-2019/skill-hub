@@ -44,7 +44,7 @@ public class UserController {
 		return "users";
 	}
 	
-	
+	//Zeige Liste 
 @GetMapping("/users/userslist")
     public String getAll(Model model) {
 
@@ -53,7 +53,12 @@ public class UserController {
         return "see_created_users";
     }
 
-	
+
+
+
+
+	//Editieren (Daten werden angezeigt...!
+	//@GetMapping("/create")
 	@GetMapping("/users/create")
     public String getUser(Model model,
                             @RequestParam(required = false) Long id) {
@@ -70,7 +75,37 @@ public class UserController {
         return "create_user";
     }
     
+	
+	//Editieren (Daten werden angezeigt...!
+		@GetMapping("/create")
+		//@GetMapping("/users/create")
+	    public String getUser2(Model model,
+	                            @RequestParam(required = false) Long id) {
+
+	        User user = new User();
+	        if (id != null) {
+	            Optional<User> optionalUser = userRepository.findById(id);
+	            if (optionalUser.isPresent()) {
+	                user = optionalUser.get();
+	            }
+	        }
+	        model.addAttribute("user", user);
+
+//	        return "create_user";
+	        return "redirect:/users/userslist";	        
+	        
+	    }
+	    
+	
+	
+	
+	
+	
+	
+	
     
+	//Sende eingegebene Daten in Datenbank ("save")
+    //@PostMapping("/create") --> neu
     @PostMapping("/users/create")
     public String postUser(@ModelAttribute User user) {
 
@@ -78,16 +113,18 @@ public class UserController {
         return "redirect:/users/create";
     }
     
-    /*
-    @GetMapping("/users/create/delete")
-    public String deleteUser(@RequestParam Long id) {
-
-    	userRepository.deleteById(id);
-
-        return "redirect:/users/create";
-    }
-    */
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /* alt
     @GetMapping("/users/delete")
     public String deleteUser(@RequestParam Long id) {
 
@@ -96,7 +133,20 @@ public class UserController {
         return "redirect:/see_created_users";
     }
     
+    */
     
     
+  //Delete one User
+    @GetMapping("/create/delete")
+    public String deleteUser(@RequestParam Long id) {
+
+    	userRepository.deleteById(id);
+
+        return "redirect:/users/userslist";
+    }
 
 }
+
+
+
+

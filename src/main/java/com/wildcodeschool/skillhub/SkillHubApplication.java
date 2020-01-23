@@ -13,6 +13,7 @@ import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.repository.UserRepository;
+import com.wildcodeschool.skillhub.repository.UserSkillRepository;
 
 @SpringBootApplication
 public class SkillHubApplication {
@@ -24,7 +25,7 @@ public class SkillHubApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserRepository userRepository, SkillRepository skillRepository) {
+	public CommandLineRunner demo(UserRepository userRepository, SkillRepository skillRepository, UserSkillRepository userSkillRepository) {
 		return (args) -> {
 			// Create users manually
 			User susanne = new User("Susi723", "susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
@@ -152,6 +153,16 @@ public class SkillHubApplication {
 			userRepository.save(robert);
 			userRepository.save(rolf);
 			userRepository.save(till);
+
+			log.info("Users found with findBySkills_SkillId():");
+			log.info("----------------------------------------");
+			for (User user : userRepository.findBySkills_SkillId(climbing.getId())) {
+				log.info(user.toString());
+			}
+			log.info("");
+
+			susanne.removeSkill(climbing, userSkillRepository);
+			userRepository.save(susanne);
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
