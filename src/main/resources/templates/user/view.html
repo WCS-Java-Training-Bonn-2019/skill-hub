@@ -29,7 +29,8 @@
 		<div class="container cards">
 			<div class="row no-gutters">
 				<div class="card" style="width: 18rem;">
-					<img class="card-img-top" th:src="@{${'/images/' + user.imageURL}}" alt="Card image cap">
+					<img class="card-img-top" th:src="@{${'/images/' + user.imageURL}}"
+						alt="Card image cap">
 					<div class="card-body">
 						<h5 th:text="|${user.userName}|" class="card-title">Name</h5>
 						<p class="card-text"></p>
@@ -37,11 +38,12 @@
 							<li th:text="|Firstname: ${user.firstName}|">Name</li>
 							<li th:text="|Lastname: ${user.lastName}|">Name</li>
 							<li th:text="|Age: ${user.age}|">Age</li>
-							<li th:text="|City: ${user.city}|">City</li> 
-							<li th:text="|E-Mail: ${user.email}|">Email</li> 
-							<li th:text="|Description: ${user.description}|">Description</li> 
+							<li th:text="|City: ${user.city}|">City</li>
+							<li th:text="|E-Mail: ${user.email}|">Email</li>
+							<li th:text="|Description: ${user.description}|">Description</li>
 						</ul>
-						<a href="#" class="btn btn-primary">Back</a>
+						<a href="javascript:javascript:history.go(-1)"
+							class="btn btn-primary">Back</a>
 					</div>
 				</div>
 			</div>
@@ -50,13 +52,14 @@
 	</section>
 
 
-	<hr/>
+	<hr />
 
 	<!-- </main> -->
 
 
 
-	<footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
+	<footer th:replace="fragments.html :: bottom">Here goes the
+		footer</footer>
 
 </body>
 </html>
