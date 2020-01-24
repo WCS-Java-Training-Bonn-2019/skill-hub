@@ -1,55 +1,87 @@
+body {
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
 .img {
-  opacity: 0.5;
-  position: relative;
-  width: 150rem;
+	opacity: 0.5;
+	position: relative;
+	width: 150rem;
 }
 
 .jumbotron {
-  position: relative;
-  height: 500px;
-  overflow: hidden;
-  padding: 0;
+	position: relative;
+	height: 500px;
+	overflow: hidden;
+	padding: 0;
 }
 
 .box {
-  position: absolute;
-  top: 50%;
-  transform: translate(0%, -50%);
-} 
+	position: absolute;
+	top: 50%;
+	transform: translate(0%, -50%);
+}
 
 @media only screen and (max-width: 400px) {
-  .display-4 {
-    font-size: 10vw;
-  }
-
-  .lead {
-    font-size: 5vw;
-  }
+	.display-4 {
+		font-size: 10vw;
+	}
+	.lead {
+		font-size: 5vw;
+	}
 }
 
 .display-4, .lead {
-  padding-left: 20px;
+	padding-left: 20px;
 }
 
 /* Settings für Navbar und Footer*/
-
 .navbar li {
-  list-style-type: none;
-  padding-left: 5vw;
+	list-style-type: none;
+	padding-left: 5vw;
 }
 
 footer {
-  display: flex;
+	/*display: flex;
   align-items: center;
   background-color:gold !important;
   color: black;
   list-style: none;
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+	left: 0;*/
+	padding: 1em;
+	width: 100%;
+	top: 100%;
+	position: absolute;
 }
 
-.bg-light{
-  background-color:gold!important;
+.bg-light {
+	background-color: gold !important;
 }
 
-.card{
-  margin: 2rem;
-  }
+.card {
+	margin: 2rem;
+}
+
+.form-group{
+	margin: 2rem;
+	width: 25%;
+	
+}
+
+.container-edit{
+	margin: 2rem;
+	
+}
+.h3edit {
+	margin-left: 2rem;
+}
+
+.edit{
+    margin-left: 2rem;
+	margin-bottom: 2rem;
+}
