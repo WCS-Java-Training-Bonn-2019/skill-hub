@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,24 +17,26 @@ import javax.persistence.OneToMany;
 public class Skill {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-
+	@Column(name = ("id"), updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skill_generator")
+	private Long id;
 	private String name;
+	private String imageURL;
 
-	@OneToMany(mappedBy = "skill", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill", cascade = CascadeType.ALL)
 	private List<UserSkill> users = new ArrayList<>();
 
 	@SuppressWarnings("unused")
 	private Skill() {
 	}
 
-	public Skill(String name) {
+	public Skill(String name, String imageURL) {
 		super();
 		this.name = name;
+		this.imageURL = imageURL;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -44,13 +48,23 @@ public class Skill {
 		this.name = name;
 	}
 
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+
 	public List<UserSkill> getUsers() {
 		return users;
 	}
 
 	@Override
 	public String toString() {
-		return "Skill [id=" + id + ", name=" + name + ", users=" + users + "]";
+		return "Skill [getId=" + getId() + ", getName()=" + getName() + ", getImageURL()=" + getImageURL() + "]";
+
 	}
 
 	@Override

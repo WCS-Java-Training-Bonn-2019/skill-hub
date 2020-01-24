@@ -3,49 +3,57 @@ package com.wildcodeschool.skillhub.model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.wildcodeschool.skillhub.repository.UserSkillRepository;
+
 @Entity
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = ("id"), updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
 	private Long id;
-
 	private String userName;
 	private String imageURL;
 	private String firstName;
 	private String lastName;
-	private LocalDate datedateOfBirth;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
 	private String email;
 	private String description;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserSkill> skills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
-	private User() {
+	public User() {
 	}
 
-	public User(String alias, String imageURL, String firstName, String lastName, LocalDate datedateOfBirth,
-			String zipCode, String city, String email, String description) {
+	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode,
+			String city, String email, String description) {
 		super();
-		this.userName = alias;
+		this.userName = userName;
 		this.imageURL = imageURL;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.datedateOfBirth = datedateOfBirth;
+		this.dateOfBirth = dateOfBirth;
 		this.zipCode = zipCode;
 		this.city = city;
 		this.email = email;
@@ -88,12 +96,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public LocalDate getDatedateOfBirth() {
-		return datedateOfBirth;
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDatedateOfBirth(LocalDate datedateOfBirth) {
-		this.datedateOfBirth = datedateOfBirth;
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getZipCode() {
@@ -129,11 +137,36 @@ public class User {
 	}
 
 	public int getAge() {
-		return Period.between(getDatedateOfBirth(), LocalDate.now()).getYears();
+		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
+		
+		/*
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date dateToday = new Date();
+		Calendar a = getCalendar(dateOfBirth);
+		Calendar b = getCalendar(dateToday);
+		int diff = b.get(YEAR) - a.get(YEAR);
+		if (a.get(MONTH) > b.get(MONTH) || (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+			diff--;
+		}
+		return diff;
+}
+	// return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	
+
+	// =======================================================================
+
+	public static Calendar getCalendar(Date date) {
+		Calendar cal = Calendar.getInstance(Locale.GERMANY);
+		cal.setTime(date);
+		return cal;
+	}
+	// =======================================================================
+*/
+
+
 	public void addSkill(Skill skill) {
-		UserSkill userSkill = new UserSkill(this, skill);
+		UserSkill userSkill = new UserSkill(this, skill, new Date(), true);
 
 		// Add UserSkill to List in User
 		skills.add(userSkill);
@@ -142,7 +175,26 @@ public class User {
 		skill.getUsers().add(userSkill);
 	}
 
-	public void removeSkill(Skill skill) {
+//  TODO Make this work!	
+//	public void removeSkill(Skill skill) {
+//
+//		// Iterate over all UserSkills of the User
+//		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
+//			UserSkill userSkill = iterator.next();
+//
+//			// If UserSkill matches this User and the Skill to be removed
+//			if (userSkill.getUser().equals(this) && userSkill.getSkill().equals(skill)) {
+//
+//				// Remove UserSkill from List in User
+//				iterator.remove();
+//
+//				// Remove UserSkill from List in Skill
+//				userSkill.getSkill().getUsers().remove(userSkill);
+//			}
+//		}
+//	}
+
+	public void removeSkill(Skill skill, UserSkillRepository userSkillRepository) {
 
 		// Iterate over all UserSkills of the User
 		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
@@ -151,32 +203,32 @@ public class User {
 			// If UserSkill matches this User and the Skill to be removed
 			if (userSkill.getUser().equals(this) && userSkill.getSkill().equals(skill)) {
 
+				// Remove UserSkill
+				userSkillRepository.deleteById(new UserSkillId(this.getId(), skill.getId()));
+
 				// Remove UserSkill from List in User
 				iterator.remove();
 
 				// Remove UserSkill from List in Skill
 				userSkill.getSkill().getUsers().remove(userSkill);
 
-				// null the UserSkill
-				userSkill.setUser(null);
-				userSkill.setSkill(null);
 			}
 		}
 	}
-
+	
+	
+	
 	@Override
 	public String toString() {
 		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
-				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDatedateOfBirth()="
-				+ getDatedateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
-				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + ", hashCode()="
-				+ hashCode() + "]";
+				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDateOfBirth()="
+				+ getDateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
+				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, datedateOfBirth, description, email, firstName, imageURL, lastName,
-				zipCode);
+		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
 	}
 
 	@Override
@@ -189,10 +241,22 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
-				&& Objects.equals(datedateOfBirth, other.datedateOfBirth)
-				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
+				&& Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(description, other.description)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(imageURL, other.imageURL) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(zipCode, other.zipCode);
+	}
+
+	public List<UserSkill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<UserSkill> skills) {
+		this.skills = skills;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
