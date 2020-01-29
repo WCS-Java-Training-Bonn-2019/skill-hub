@@ -26,7 +26,7 @@ public class UserController {
 
 	@GetMapping("/users/search")
 	public String getBySkill(Model model, @RequestParam Long id) {
-		model.addAttribute("users", userRepository.findBySkills_SkillId(id));
+		model.addAttribute("users", userRepository.findByuserSkills_SkillId(id));
 
 		Optional<Skill> optionalSkill = skillRepository.findById(id);
 
@@ -69,17 +69,9 @@ public class UserController {
 
 	// Create a new user
 	@GetMapping("/user/new")
-	public String getUser2(Model model, @RequestParam(required = false) Long id) {
+	public String getUser2(Model model) {
 
 		User user = new User();
-
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
-			if (optionalUser.isPresent()) {
-				user = optionalUser.get();
-			}
-		}
-
 		model.addAttribute("user", user);
 
 		return "user/edit";

@@ -40,7 +40,8 @@ public class User {
 	private String description;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserSkill> skills = new ArrayList<>();
+	//Rename skills to userSkills
+	private List<UserSkill> userSkills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
 	public User() {
@@ -169,7 +170,7 @@ public class User {
 		UserSkill userSkill = new UserSkill(this, skill, new Date(), true);
 
 		// Add UserSkill to List in User
-		skills.add(userSkill);
+		userSkills.add(userSkill);
 
 		// Add UserSkill to List in Skill
 		skill.getUsers().add(userSkill);
@@ -197,7 +198,7 @@ public class User {
 	public void removeSkill(Skill skill, UserSkillRepository userSkillRepository) {
 
 		// Iterate over all UserSkills of the User
-		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
+		for (Iterator<UserSkill> iterator = userSkills.iterator(); iterator.hasNext();) {
 			UserSkill userSkill = iterator.next();
 
 			// If UserSkill matches this User and the Skill to be removed
@@ -247,12 +248,12 @@ public class User {
 				&& Objects.equals(zipCode, other.zipCode);
 	}
 
-	public List<UserSkill> getSkills() {
-		return skills;
+	public List<UserSkill> getUserSkills() {
+		return userSkills;
 	}
 
-	public void setSkills(List<UserSkill> skills) {
-		this.skills = skills;
+	public void setUserSkills(List<UserSkill> userSkills) {
+		this.userSkills = userSkills;
 	}
 
 	public void setId(Long id) {
