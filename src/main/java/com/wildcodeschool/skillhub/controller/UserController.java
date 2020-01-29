@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
+import com.example.validatingforminput.PersonForm;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserForm;
@@ -52,6 +53,12 @@ public class UserController {
 		return "users/get_all";
 	}
 
+	// Show edit user form
+	@GetMapping("/test")
+	public String showEditUser(UserForm userForm) {
+		return "user/test";
+	}	
+	
 	// Edit a user
 	@GetMapping("/user/edit")
 	public String getUser(Model model, @RequestParam(required = false) Long id) {
