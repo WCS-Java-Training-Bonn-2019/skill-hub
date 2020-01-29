@@ -64,50 +64,31 @@ public class UserController {
 				user = optionalUser.get();
 			}
 		}
-		
-		
-		
-		// xy-Steffi
+
 		UserForm userForm = new UserForm(user);
 
-		// Vergleich: UserSkills (von Heidi die Skills) mit der kompletten Liste
-		// UserSkills (von Heidi): 
-		List <UserSkill> userSkills = user.getUserSkills();
-		
-		// komplette Liste:
-		List <Skill> completeList = skillRepository.findAll();
-		
-		
+		List<UserSkill> userSkills = user.getUserSkills();
+		System.out.println("Ab hier checken! ========================================================================================================");
+		System.out.println("userSkills: " +userSkills.toString());
+		List<Skill> completeList = skillRepository.findAll();
+		System.out.println("complete List: " + completeList.toString());
+
+		UserSkillLevel userSkillLevel;
+
 		for (int i = 0; i < completeList.size(); i++) {
+			userSkillLevel = new UserSkillLevel(false, completeList.get(i).getName(), completeList.get(i).getId());
 			for (int j = 0; j < userSkills.size(); j++) {
-				if (completeList.get(i).getId() == userSkills.get(j).getId()) {
-					
-				} else {
-
+				if (completeList.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
+					userSkillLevel.setHasSkill(true);
 				}
-				
 			}
-			
-			
+			userForm.getUserSkillLevel().add(userSkillLevel);
 		}
+		System.out.println("user From: " + userForm.getUserSkillLevel().toString());
 		
-		/*
-		
-		userForm.setUserSkillLevel(userSkillLevel);.userSkillLevel.
-		
-		
-		UserSkillLevel userSkillLevel l
-		
-		List<Skill> findAll();
-		*/
-		
-
 		model.addAttribute("user", user);
-
 		return "user/edit";
 	}
-
-	
 
 	// Create a new user
 	@GetMapping("/user/new")
@@ -120,7 +101,6 @@ public class UserController {
 
 	}
 
-	
 	// Update or insert a user
 	@PostMapping("/user/upsert")
 	public String postUser(@ModelAttribute User user) {
@@ -129,27 +109,24 @@ public class UserController {
 
 		return "redirect:/users";
 	}
-	
-	
-	
+
 	// View a user
-		@GetMapping("/user/view")
-		public String viewUser(Model model, @RequestParam(required = false) Long id) {
+	@GetMapping("/user/view")
+	public String viewUser(Model model, @RequestParam(required = false) Long id) {
 
-			User user = new User();
+		User user = new User();
 
-			if (id != null) {
-				Optional<User> optionalUser = userRepository.findById(id);
-				if (optionalUser.isPresent()) {
-					user = optionalUser.get();
-				}
+		if (id != null) {
+			Optional<User> optionalUser = userRepository.findById(id);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
 			}
-
-			model.addAttribute("user", user);
-
-			return "user/view";
 		}
-		
+
+		model.addAttribute("user", user);
+
+		return "user/view";
+	}
 
 	// Delete a user
 	@GetMapping("/user/delete")
@@ -159,7 +136,5 @@ public class UserController {
 
 		return "redirect:/users";
 	}
-
-	
 
 }
