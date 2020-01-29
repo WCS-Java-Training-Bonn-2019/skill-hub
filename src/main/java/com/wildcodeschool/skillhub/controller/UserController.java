@@ -68,8 +68,9 @@ public class UserController {
 		UserForm userForm = new UserForm(user);
 
 		List<UserSkill> userSkills = user.getUserSkills();
-		System.out.println("Ab hier checken! ========================================================================================================");
-		System.out.println("userSkills: " +userSkills.toString());
+		System.out.println("--> Ab hier checken! ========================================================================================================");
+		System.out.println("----------------> User Skills: " +userSkills.get(0).getSkill().toString());
+		System.out.println("-----N A M E -----------> Name mit User Skills: " + user.getFirstName());
 		List<Skill> completeList = skillRepository.findAll();
 		System.out.println("complete List: " + completeList.toString());
 
@@ -84,7 +85,7 @@ public class UserController {
 			}
 			userForm.getUserSkillLevel().add(userSkillLevel);
 		}
-		System.out.println("user From: " + userForm.getUserSkillLevel().toString());
+		System.out.println("------> User From: " + userForm.getUserSkillLevel().toString());
 		
 		model.addAttribute("user", user);
 		return "user/edit";
