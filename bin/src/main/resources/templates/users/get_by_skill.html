@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+	<title>SkillHub</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<header th:replace="fragments.html :: top">Here goes the header</header>
+
+	<main>
+		<!--Jumbotron-->
+		<div class="jumbotron">
+			<img class="img" th:src="@{${'../images/' + skill.imageURL}}"  alt="alt">
+			<div class="box">
+				<h1 class="display-4" style="color: black" th:text="|${skill.name} Skill|">Climbing Skills</h1>
+				<p class="lead" style="color: black">Find people who teach you their skill! Let's get in contact!</p>
+			</div>
+		</div>
+	</div>
+
+
+	<!--Cards-->
+	<section>
+		<div class="container cards">
+			<div class="row no-gutters">
+					<!--Thymleaf-->
+					<div th:each="user : ${users}" class="card" style="width: 18rem;">
+						<img class="card-img-top" th:src="@{${'/images/' + user.imageURL}}" alt="Card image cap">
+						<!--src="../images/th:text="${user.imageURL}"-->
+						<div class="card-body">
+							<h5 th:text="${user.userName}" class="card-title">Name</h5>
+							<p class="card-text">
+									<ul>
+										<li th:text="|Age: ${user.age}|">Age</li>
+										<li th:text="|City: ${user.city}|">City</li>
+									</ul>
+							</p>
+							<a th:href="@{${'/user/view?id=' + user.id}}" class="btn btn-primary">See profile</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+
+		<hr />
+
+	</main>
+
+
+	<footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
+
+
+</body>
+
+</html>
