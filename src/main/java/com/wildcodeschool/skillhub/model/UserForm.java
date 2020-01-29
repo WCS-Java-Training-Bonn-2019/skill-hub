@@ -21,7 +21,7 @@ public class UserForm {
 	private String description;
 
 	
-	private List<UserSkillLevel> userSkillLevel = new ArrayList<>();
+	private List<UserSkillLevel> userSkillLevels = new ArrayList<>();
 	
 	public UserForm() {
 	}
@@ -122,12 +122,12 @@ public class UserForm {
 		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
 
-	public List<UserSkillLevel> getUserSkillLevel() {
-		return userSkillLevel;
+	public List<UserSkillLevel> getUserSkillLevels() {
+		return userSkillLevels;
 	}
 
-	public void setUserSkillLevel(List<UserSkillLevel> userSkillLevel) {
-		this.userSkillLevel = userSkillLevel;
+	public void setUserSkillLevels(List<UserSkillLevel> userSkillLevel) {
+		this.userSkillLevels = userSkillLevel;
 	}
 
 }
