@@ -1,5 +1,7 @@
 package com.wildcodeschool.skillhub.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
+import com.wildcodeschool.skillhub.model.UserForm;
+import com.wildcodeschool.skillhub.model.UserSkill;
+import com.wildcodeschool.skillhub.model.UserSkillLevel;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 
 @Controller
@@ -59,6 +64,43 @@ public class UserController {
 				user = optionalUser.get();
 			}
 		}
+		
+		
+		
+		// xy-Steffi
+		UserForm userForm = new UserForm(user);
+
+		// Vergleich: UserSkills (von Heidi die Skills) mit der kompletten Liste
+		// UserSkills (von Heidi): 
+		List <UserSkill> userSkills = user.getUserSkills();
+		
+		// komplette Liste:
+		List <Skill> completeList = skillRepository.findAll();
+		
+		
+		for (int i = 0; i < completeList.size(); i++) {
+			for (int j = 0; j < userSkills.size(); j++) {
+				if (completeList.get(i).getId() == userSkills.get(j).getId()) {
+					
+				} else {
+
+				}
+				
+			}
+			
+			
+		}
+		
+		/*
+		
+		userForm.setUserSkillLevel(userSkillLevel);.userSkillLevel.
+		
+		
+		UserSkillLevel userSkillLevel l
+		
+		List<Skill> findAll();
+		*/
+		
 
 		model.addAttribute("user", user);
 
@@ -118,5 +160,6 @@ public class UserController {
 		return "redirect:/users";
 	}
 
+	
 
 }

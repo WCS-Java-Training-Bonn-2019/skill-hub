@@ -40,7 +40,6 @@ public class User {
 	private String description;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	//Rename skills to userSkills
 	private List<UserSkill> userSkills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
@@ -140,30 +139,7 @@ public class User {
 	public int getAge() {
 		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
-		
-		/*
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date dateToday = new Date();
-		Calendar a = getCalendar(dateOfBirth);
-		Calendar b = getCalendar(dateToday);
-		int diff = b.get(YEAR) - a.get(YEAR);
-		if (a.get(MONTH) > b.get(MONTH) || (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
-			diff--;
-		}
-		return diff;
-}
-	// return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
-	
 
-	// =======================================================================
-
-	public static Calendar getCalendar(Date date) {
-		Calendar cal = Calendar.getInstance(Locale.GERMANY);
-		cal.setTime(date);
-		return cal;
-	}
-	// =======================================================================
-*/
 
 
 	public void addSkill(Skill skill) {
