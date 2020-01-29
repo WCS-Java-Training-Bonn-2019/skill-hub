@@ -2,18 +2,12 @@ package com.wildcodeschool.skillhub.model;
 
 public class UserSkillLevel {
 	boolean hasSkill;
-	int userSkillLevelInt; 
+	String name;
 	
-	// constructor	
-	public UserSkillLevel() {
+	public UserSkillLevel(boolean hasSkill, String name) {
 		super();
-		this.hasSkill = false;
-		this.userSkillLevelInt = 1; // 1: basic / 2: advanced / 3: professional
-		
-	
-	// getter & setter	
-		
-		
+		this.hasSkill = hasSkill;
+		this.name = name;
 	}
 
 	public boolean isHasSkill() {
@@ -24,11 +18,12 @@ public class UserSkillLevel {
 		this.hasSkill = hasSkill;
 	}
 
-	public int getUserSkillLevelInt() {
-		return userSkillLevelInt;
+	public String getName() {
+		return name;
 	}
 
-	public void setUserSkillLevelInt(int userSkillLevelInt) {
-		this.userSkillLevelInt = userSkillLevelInt;
+	public void setName(String name) {
+		this.name = name;
 	}
+
 }
