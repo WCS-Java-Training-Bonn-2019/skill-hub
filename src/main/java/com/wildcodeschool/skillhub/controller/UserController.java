@@ -69,17 +69,9 @@ public class UserController {
 
 	// Create a new user
 	@GetMapping("/user/new")
-	public String getUser2(Model model, @RequestParam(required = false) Long id) {
+	public String getUser2(Model model) {
 
 		User user = new User();
-
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
-			if (optionalUser.isPresent()) {
-				user = optionalUser.get();
-			}
-		}
-
 		model.addAttribute("user", user);
 
 		return "user/edit";
