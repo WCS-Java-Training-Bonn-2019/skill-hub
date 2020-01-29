@@ -65,7 +65,8 @@ public class UserController {
 			}
 		}
 
-		UserForm userForm = new UserForm(user);
+		UserForm userForm = new UserForm ();
+		userForm.setUser(user);
 
 		List<UserSkill> userSkills = user.getUserSkills();
 		System.out.println("--> Ab hier checken! ========================================================================================================");
