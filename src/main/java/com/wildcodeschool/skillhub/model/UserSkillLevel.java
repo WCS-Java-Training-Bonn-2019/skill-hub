@@ -3,11 +3,13 @@ package com.wildcodeschool.skillhub.model;
 public class UserSkillLevel {
 	boolean hasSkill;
 	String skillName;
+	Long skillId;
 	
-	public UserSkillLevel(boolean hasSkill, String name) {
+	public UserSkillLevel(boolean hasSkill, String skillName, Long skillId) {
 		super();
 		this.hasSkill = hasSkill;
-		this.skillName = name;
+		this.skillName = skillName;
+		this.skillId = skillId;
 	}
 
 	public boolean isHasSkill() {
@@ -22,8 +24,17 @@ public class UserSkillLevel {
 		return skillName;
 	}
 
-	public void setSkillName(String name) {
-		this.skillName = name;
+	public void setSkillName(String skillName) {
+		this.skillName = skillName;
 	}
+
+	public Long getSkillId() {
+		return skillId;
+	}
+
+	public void setSkillId(Long skillId) {
+		this.skillId = skillId;
+	}
+
 
 }
