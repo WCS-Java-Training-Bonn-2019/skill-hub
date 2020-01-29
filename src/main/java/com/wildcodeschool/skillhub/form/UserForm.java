@@ -1,9 +1,11 @@
-package com.wildcodeschool.skillhub.model;
+package com.wildcodeschool.skillhub.form;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.wildcodeschool.skillhub.model.User;
 
 
 

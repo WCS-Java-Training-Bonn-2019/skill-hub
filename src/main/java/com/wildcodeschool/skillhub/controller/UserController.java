@@ -1,6 +1,5 @@
 package com.wildcodeschool.skillhub.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,15 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
+
+import com.wildcodeschool.skillhub.form.UserForm;
+import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.model.UserForm;
 import com.wildcodeschool.skillhub.model.UserSkill;
-import com.wildcodeschool.skillhub.model.UserSkillLevel;
+import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 
 @Controller
@@ -54,16 +53,8 @@ public class UserController {
 
 	// TODO For testing only
 	// Show edit user form
-	@GetMapping("/test")
-	public String showEditUser(UserForm userForm) {
-		
-		userForm.getUserSkillLevels().add(new UserSkillLevel(true, "Climbing", 1L));
-		return "user/test";
-	}	
-	
-	// Edit a user
 	@GetMapping("/user/edit")
-	public String getUser(Model model, @RequestParam(required = false) Long id) {
+	public String showEditUserForm(UserForm userForm, @RequestParam(required = false) Long id) {
 
 		User user = new User();
 
@@ -74,47 +65,23 @@ public class UserController {
 			}
 		}
 
-		UserForm userForm = new UserForm();
 		userForm.setUser(user);
-		System.out.println(" ========================================================================================================");
-		System.out.println("-----N A M E -----------> Name mit User Skills: " + user.getFirstName());
+
 		List<UserSkill> userSkills = user.getUserSkills();
-		System.out.println("--> Liste der Skills per User! ========================================================================================================");
-		for (int i = 0; i < userSkills.size(); i++) {
-			System.out.println("----------------> User Skills: " +userSkills.get(i).getSkill().getName());
-		}
-		System.out.println(" ========================================================================================================");
+		List<Skill> allSkills = skillRepository.findAll();
 		
-		List<Skill> completeList = skillRepository.findAll();
-		
-		
-		
-		System.out.println("--> CompleteList! ========================================================================================================");
-		for (int i = 0; i < completeList.size(); i++) {
-			System.out.println("----------------> All skills: " +completeList.get(i).getName().toString());
-		}
-		System.out.println(" ========================================================================================================");
-
-
 		UserSkillLevel userSkillLevel;
 
-		for (int i = 0; i < completeList.size(); i++) {
-			userSkillLevel = new UserSkillLevel(false, completeList.get(i).getName(), completeList.get(i).getId());
+		for (int i = 0; i < allSkills.size(); i++) {
+			userSkillLevel = new UserSkillLevel(false, allSkills.get(i).getName(), allSkills.get(i).getId());
 			for (int j = 0; j < userSkills.size(); j++) {
-				if (completeList.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
-					userSkillLevel.setHasSkill(true);
+				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
+					userSkillLevel.setSkillChecked(true);
 				}
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		System.out.println("--> UserSkillLevel List! ========================================================================================================");
-		for (int i = 0; i < userForm.getUserSkillLevels().size(); i++) {
-			System.out.println("----------------> User Skill Level List: " + userForm.getUserSkillLevels().get(i).getSkillName() + " --- " + userForm.getUserSkillLevels().get(i).isHasSkill());
-		}
-		System.out.println(" ========================================================================================================");
 		
-		
-		model.addAttribute("user", user);
 		return "user/edit";
 	}
 
@@ -126,8 +93,35 @@ public class UserController {
 		model.addAttribute("user", user);
 
 		return "user/edit";
+	}	
+	
+	// Edit a user
+//	@GetMapping("/user/edit")
+//	public String getUser(Model model, @RequestParam(required = false) Long id) {
+//
+//		User user = new User();
+//
+//		if (id != null) {
+//			Optional<User> optionalUser = userRepository.findById(id);
+//			if (optionalUser.isPresent()) {
+//				user = optionalUser.get();
+//			}
+//		}
+//		
+//		model.addAttribute("user", user);
+//		return "user/edit";
+//	}
 
-	}
+//	// Create a new user
+//	@GetMapping("/user/new")
+//	public String getUser2(Model model) {
+//
+//		User user = new User();
+//		model.addAttribute("user", user);
+//
+//		return "user/edit";
+//
+//	}
 
 	// Update or insert a user
 	@PostMapping("/user/upsert")

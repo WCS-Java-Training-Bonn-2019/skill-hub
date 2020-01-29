@@ -1,23 +1,23 @@
-package com.wildcodeschool.skillhub.model;
+package com.wildcodeschool.skillhub.form;
 
 public class UserSkillLevel {
-	boolean hasSkill;
+	boolean skillChecked;
 	String skillName;
 	Long skillId;
 	
 	public UserSkillLevel(boolean hasSkill, String skillName, Long skillId) {
 		super();
-		this.hasSkill = hasSkill;
+		this.skillChecked = hasSkill;
 		this.skillName = skillName;
 		this.skillId = skillId;
 	}
 
-	public boolean isHasSkill() {
-		return hasSkill;
+	public boolean getSkillChecked() {
+		return skillChecked;
 	}
 
-	public void setHasSkill(boolean hasSkill) {
-		this.hasSkill = hasSkill;
+	public void setSkillChecked(boolean hasSkill) {
+		this.skillChecked = hasSkill;
 	}
 
 	public String getSkillName() {
