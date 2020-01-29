@@ -4,28 +4,16 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import org.springframework.format.annotation.DateTimeFormat;
 
-//@Entity
+
+
 public class UserForm {
 
-//	@Id
-//	@Column(name = ("id"), updatable = false, nullable = false)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
 	private Long id;
 	private String userName;
 	private String imageURL;
 	private String firstName;
 	private String lastName;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
@@ -37,9 +25,8 @@ public class UserForm {
 	
 	public UserForm() {
 	}
-
-	public UserForm(User user) {
-		super();
+	
+	public void setUser(User user) {
 		this.userName = user.getUserName();
 		this.imageURL = user.getImageURL();
 		this.firstName = user.getFirstName();
