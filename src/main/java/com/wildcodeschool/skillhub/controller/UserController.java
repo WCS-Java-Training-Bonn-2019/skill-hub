@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
-import com.example.validatingforminput.PersonForm;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserForm;
@@ -53,9 +52,12 @@ public class UserController {
 		return "users/get_all";
 	}
 
+	// TODO For testing only
 	// Show edit user form
 	@GetMapping("/test")
 	public String showEditUser(UserForm userForm) {
+		
+		userForm.getUserSkillLevels().add(new UserSkillLevel(true, "Climbing", 1L));
 		return "user/test";
 	}	
 	
@@ -72,7 +74,7 @@ public class UserController {
 			}
 		}
 
-		UserForm userForm = new UserForm ();
+		UserForm userForm = new UserForm();
 		userForm.setUser(user);
 
 		List<UserSkill> userSkills = user.getUserSkills();
@@ -91,9 +93,9 @@ public class UserController {
 					userSkillLevel.setHasSkill(true);
 				}
 			}
-			userForm.getUserSkillLevel().add(userSkillLevel);
+			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		System.out.println("------> User From: " + userForm.getUserSkillLevel().toString());
+		System.out.println("------> User From: " + userForm.getUserSkillLevels().toString());
 		
 		model.addAttribute("user", user);
 		return "user/edit";
