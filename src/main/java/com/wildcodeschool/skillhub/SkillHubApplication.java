@@ -157,7 +157,7 @@ public class SkillHubApplication {
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userRepository.findBySkills_SkillId(climbing.getId())) {
+			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");
@@ -167,7 +167,7 @@ public class SkillHubApplication {
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userRepository.findBySkills_SkillId(climbing.getId())) {
+			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");

@@ -26,7 +26,7 @@ public class UserController {
 
 	@GetMapping("/users/search")
 	public String getBySkill(Model model, @RequestParam Long id) {
-		model.addAttribute("users", userRepository.findBySkills_SkillId(id));
+		model.addAttribute("users", userRepository.findByuserSkills_SkillId(id));
 
 		Optional<Skill> optionalSkill = skillRepository.findById(id);
 
