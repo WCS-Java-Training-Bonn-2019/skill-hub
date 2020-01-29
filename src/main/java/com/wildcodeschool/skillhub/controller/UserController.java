@@ -76,13 +76,25 @@ public class UserController {
 
 		UserForm userForm = new UserForm();
 		userForm.setUser(user);
-
-		List<UserSkill> userSkills = user.getUserSkills();
-		System.out.println("--> Ab hier checken! ========================================================================================================");
-		System.out.println("----------------> User Skills: " +userSkills.get(0).getSkill().toString());
+		System.out.println(" ========================================================================================================");
 		System.out.println("-----N A M E -----------> Name mit User Skills: " + user.getFirstName());
+		List<UserSkill> userSkills = user.getUserSkills();
+		System.out.println("--> Liste der Skills per User! ========================================================================================================");
+		for (int i = 0; i < userSkills.size(); i++) {
+			System.out.println("----------------> User Skills: " +userSkills.get(i).getSkill().getName());
+		}
+		System.out.println(" ========================================================================================================");
+		
 		List<Skill> completeList = skillRepository.findAll();
-		System.out.println("complete List: " + completeList.toString());
+		
+		
+		
+		System.out.println("--> CompleteList! ========================================================================================================");
+		for (int i = 0; i < completeList.size(); i++) {
+			System.out.println("----------------> All skills: " +completeList.get(i).getName().toString());
+		}
+		System.out.println(" ========================================================================================================");
+
 
 		UserSkillLevel userSkillLevel;
 
@@ -95,7 +107,12 @@ public class UserController {
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		System.out.println("------> User From: " + userForm.getUserSkillLevels().toString());
+		System.out.println("--> UserSkillLevel List! ========================================================================================================");
+		for (int i = 0; i < userForm.getUserSkillLevels().size(); i++) {
+			System.out.println("----------------> User Skill Level List: " + userForm.getUserSkillLevels().get(i).getSkillName() + " --- " + userForm.getUserSkillLevels().get(i).isHasSkill());
+		}
+		System.out.println(" ========================================================================================================");
+		
 		
 		model.addAttribute("user", user);
 		return "user/edit";

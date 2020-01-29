@@ -122,6 +122,8 @@ public class SkillHubApplication {
 			log.info("");
 
 			susanne.addSkill(cooking);
+			susanne.addSkill(baking);
+			susanne.addSkill(books);
 			mia.addSkill(fashion);
 			lasse.addSkill(books);
 			alex.addSkill(climbing);
