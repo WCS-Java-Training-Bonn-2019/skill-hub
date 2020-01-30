@@ -24,7 +24,6 @@ public class UserForm {
 	private String city;
 	private String email;
 	private String description;
-
 	
 	private List<UserSkillLevel> userSkillLevels = new ArrayList<>();
 	
@@ -134,5 +133,5 @@ public class UserForm {
 	public void setUserSkillLevels(List<UserSkillLevel> userSkillLevel) {
 		this.userSkillLevels = userSkillLevel;
 	}
-
+	
 }

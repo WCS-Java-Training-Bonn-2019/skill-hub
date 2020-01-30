@@ -5,7 +5,7 @@ public class UserSkillLevel {
 	String name;
 	boolean checked;
 	String imageURL;
-	
+
 	public UserSkillLevel(Long id, String name, boolean checked, String imageURL) {
 		super();
 		this.id = id;
@@ -13,6 +13,9 @@ public class UserSkillLevel {
 		this.checked = checked;
 		this.imageURL = imageURL;
 	}
+
+	public UserSkillLevel() {
+	};
 
 	public Long getId() {
 		return id;

@@ -1,6 +1,5 @@
 package com.wildcodeschool.skillhub.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.wildcodeschool.skillhub.form.UserForm;
 import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
@@ -137,7 +137,7 @@ public class UserController {
 
 	// Update or insert a user
 	@PostMapping("/user/upsert")
-	public String postUser(UserForm userForm, @RequestParam(required = false) Long id) {
+	public String postUser(@ModelAttribute UserForm userForm, @RequestParam(required = false) Long id) {
 		User user = new User();
 		System.out.println("ML START...======================================>");
 		System.out.println("userForm-getFirstName in upsert: " + userForm.getFirstName());
@@ -171,7 +171,7 @@ public class UserController {
 		}
 		System.out.println("Start ==============================================================================");
 		for (int i = 0; i < userSkillLevels.size(); i++) {
-			System.out.println("User Form: " + userSkillLevels.get(i).getName());
+			System.out.println("User Form: " + userSkillLevels.get(i).isChecked());
 		}
 		System.out.println("Stopp==============================================================================");
 
