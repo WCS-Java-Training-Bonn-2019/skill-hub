@@ -79,10 +79,10 @@
     <ul>
       <li th:each="userSkillLevel : *{userSkillLevels}">
         <div class="custom-control custom-switch">
-          <input class="custom-control-input" type="checkbox" th:checked="${userSkillLevel.skillChecked}"
-            th:id="${'skillCheckbox' + userSkillLevel.skillId}" />
-          <label class="custom-control-label" th:for="${'skillCheckbox' + userSkillLevel.skillId}"
-            th:text="${userSkillLevel.skillName}">Climbing
+          <input class="custom-control-input" type="checkbox" th:checked="${userSkillLevel.checked}"
+            th:id="${'skillCheckbox' + userSkillLevel.id}" />
+          <label class="custom-control-label" th:for="${'skillCheckbox' + userSkillLevel.id}"
+            th:text="${userSkillLevel.name}">Climbing
           </label>
         </div>
       </li>
@@ -91,7 +91,7 @@
     <button type="submit" value="Submit" class="btn btn-primary edit">Submit</button>
   </form>
 
-  <br> <br> <a href="/">Return to the index</a>-->
+  <br> <br> <a href="/">Return to the index</a>
 
 <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 

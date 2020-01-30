@@ -1,40 +1,49 @@
 package com.wildcodeschool.skillhub.form;
 
 public class UserSkillLevel {
-	boolean skillChecked;
-	String skillName;
-	Long skillId;
+	Long id;
+	String name;
+	boolean checked;
+	String imageURL;
 	
-	public UserSkillLevel(boolean skillChecked, String skillName, Long skillId) {
+	public UserSkillLevel(Long id, String name, boolean checked, String imageURL) {
 		super();
-		this.skillChecked = skillChecked;
-		this.skillName = skillName;
-		this.skillId = skillId;
+		this.id = id;
+		this.name = name;
+		this.checked = checked;
+		this.imageURL = imageURL;
 	}
 
-	public boolean getSkillChecked() {
-		return skillChecked;
+	public Long getId() {
+		return id;
 	}
 
-	public void setSkillChecked(boolean skillChecked) {
-		this.skillChecked = skillChecked;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getSkillName() {
-		return skillName;
+	public String getName() {
+		return name;
 	}
 
-	public void setSkillName(String skillName) {
-		this.skillName = skillName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Long getSkillId() {
-		return skillId;
+	public boolean isChecked() {
+		return checked;
 	}
 
-	public void setSkillId(Long skillId) {
-		this.skillId = skillId;
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
 
 }
