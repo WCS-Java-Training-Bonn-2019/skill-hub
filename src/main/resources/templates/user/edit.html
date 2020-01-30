@@ -80,10 +80,12 @@
 
     <ul>
       <li th:each="userSkillLevel, stat : *{userSkillLevels}">
-        <input type="hidden" th:field="*{userSkillLevels[__${stat.index}__].id}" />
-        <input type="checkbox" th:field="*{userSkillLevels[__${stat.index}__].checked}" />
-        <label th:text="${userSkillLevel.name}">Climbing
-        </label>
+        <div class="custom-control custom-switch">
+          <input type="hidden" th:field="*{userSkillLevels[__${stat.index}__].id}" />
+          <input class="custom-control-input" type="checkbox" th:id="${'toggle' + userSkillLevel.id}" th:field="*{userSkillLevels[__${stat.index}__].checked}" />
+          <label class="custom-control-label" th:for="${'toggle' + userSkillLevel.id}" th:text="${userSkillLevel.name}">Climbing
+          </label>
+        </div>
       </li>
     </ul>
 
