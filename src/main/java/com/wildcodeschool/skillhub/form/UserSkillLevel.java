@@ -5,9 +5,9 @@ public class UserSkillLevel {
 	String skillName;
 	Long skillId;
 	
-	public UserSkillLevel(boolean hasSkill, String skillName, Long skillId) {
+	public UserSkillLevel(boolean skillChecked, String skillName, Long skillId) {
 		super();
-		this.skillChecked = hasSkill;
+		this.skillChecked = skillChecked;
 		this.skillName = skillName;
 		this.skillId = skillId;
 	}
@@ -16,8 +16,8 @@ public class UserSkillLevel {
 		return skillChecked;
 	}
 
-	public void setSkillChecked(boolean hasSkill) {
-		this.skillChecked = hasSkill;
+	public void setSkillChecked(boolean skillChecked) {
+		this.skillChecked = skillChecked;
 	}
 
 	public String getSkillName() {
