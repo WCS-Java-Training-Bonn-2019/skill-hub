@@ -89,3 +89,26 @@ footer {
 ul {
   list-style-type: none;
 }
+
+/* Text in card: View */
+.card-body {
+  margin-left: 2rem;
+  font-size: 24px;
+  
+}
+
+.card-title {
+	font-size: 36px;
+}
+
+.card {
+	min-width: 50%;
+}
+
+.flex-container{
+	allign-items: center;
+	justify-content: center;
+}
+
+
+
