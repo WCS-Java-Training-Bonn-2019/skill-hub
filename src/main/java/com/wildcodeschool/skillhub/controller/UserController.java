@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.wildcodeschool.skillhub.form.UserForm;
 import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
@@ -78,10 +77,10 @@ public class UserController {
 		UserSkillLevel userSkillLevel;
 
 		for (int i = 0; i < allSkills.size(); i++) {
-			userSkillLevel = new UserSkillLevel(false, allSkills.get(i).getName(), allSkills.get(i).getId());
+			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false, allSkills.get(i).getImageURL());
 			for (int j = 0; j < userSkills.size(); j++) {
 				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
-					userSkillLevel.setSkillChecked(true);
+					userSkillLevel.setChecked(true);
 				}
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
