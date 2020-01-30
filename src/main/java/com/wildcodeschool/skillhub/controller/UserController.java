@@ -1,5 +1,6 @@
 package com.wildcodeschool.skillhub.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.repository.UserRepository;
+import com.wildcodeschool.skillhub.repository.UserSkillRepository;
 
 @Controller
 public class UserController {
@@ -27,6 +29,9 @@ public class UserController {
 
 	@Autowired
 	private SkillRepository skillRepository;
+
+	@Autowired
+	private UserSkillRepository userSkillRepository;
 
 	@GetMapping("/users/search")
 	public String getBySkill(Model model, @RequestParam Long id) {
@@ -69,7 +74,7 @@ public class UserController {
 
 		List<UserSkill> userSkills = user.getUserSkills();
 		List<Skill> allSkills = skillRepository.findAll();
-		
+
 		UserSkillLevel userSkillLevel;
 
 		for (int i = 0; i < allSkills.size(); i++) {
@@ -81,7 +86,7 @@ public class UserController {
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		
+
 		return "user/edit";
 	}
 
@@ -93,8 +98,8 @@ public class UserController {
 		model.addAttribute("user", user);
 
 		return "user/edit";
-	}	
-	
+	}
+
 	// Edit a user
 //	@GetMapping("/user/edit")
 //	public String getUser(Model model, @RequestParam(required = false) Long id) {
@@ -125,7 +130,61 @@ public class UserController {
 
 	// Update or insert a user
 	@PostMapping("/user/upsert")
-	public String postUser(@ModelAttribute User user) {
+	public String postUser(UserForm userForm, @RequestParam(required = false) Long id) {
+		User user = new User();
+
+		if (id != null) {
+			Optional<User> optionalUser = userRepository.findById(id);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
+
+		List<UserSkill> userSkills = user.getUserSkills();
+		userForm.getUserSkillLevels();
+
+		// Durchlaufen der UserSkillLevel-Liste
+		for (int i = 0; i < userForm.getUserSkillLevels().size(); i++) {
+
+			// Durchlaufen der Userskill Liste (Skills per User)
+			for (int j = 0; j < userSkills.size(); j++) {
+				Skill skill = null;
+				if (userForm.getUserSkillLevels().get(i).getSkillChecked() == true) {
+					// add zu userSkills den Skill userForm get(i) dazu
+					if (id != null) {
+						Optional<Skill> optionalSkill = skillRepository
+								.findById(userForm.getUserSkillLevels().get(i).getSkillId());
+						if (optionalSkill.isPresent()) {
+							skill = optionalSkill.get();
+						}
+					}
+
+					// Prüfen ob skill in der userSkill list schon dirn ist
+					// userSkills.contains(skill) gibt true zurück wenn Skill da ist --> ! Verneint,
+					// also wenn skill nicht da ist dann
+					if (!(userSkills.contains(skill))) {
+						user.addSkill(skill);
+					}
+
+					else {
+						// remove skill from userFor aus der userList
+						if (id != null) {
+							Optional<Skill> optionalSkill = skillRepository
+									.findById(userForm.getUserSkillLevels().get(i).getSkillId());
+							if (optionalSkill.isPresent()) {
+								skill = optionalSkill.get();
+							}
+						}
+
+						// Prüfen ob der skill schon da ist
+						if (userSkills.contains(skill)) {
+							user.removeSkill(skill, userSkillRepository);
+						}
+					}
+				}
+
+			}
+		}
 
 		userRepository.save(user);
 
