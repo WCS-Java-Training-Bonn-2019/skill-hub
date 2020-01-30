@@ -39,7 +39,7 @@ public class User {
 	private String email;
 	private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserSkill> userSkills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
@@ -140,8 +140,12 @@ public class User {
 		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
 
-
-
+	public List<Long> getUserSkillIds() {
+		List<Long> userSkillIds = new ArrayList<>();
+		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
+		return userSkillIds;
+	}
+	
 	public void addSkill(Skill skill) {
 		UserSkill userSkill = new UserSkill(this, skill, new Date(), true);
 

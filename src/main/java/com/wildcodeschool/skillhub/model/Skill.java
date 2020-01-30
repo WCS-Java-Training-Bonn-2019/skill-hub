@@ -56,7 +56,6 @@ public class Skill {
 		this.imageURL = imageURL;
 	}
 
-
 	public List<UserSkill> getUsers() {
 		return users;
 	}
@@ -69,7 +68,7 @@ public class Skill {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class Skill {
 		if (getClass() != obj.getClass())
 			return false;
 		Skill other = (Skill) obj;
-		return Objects.equals(name, other.name);
+		return Objects.equals(id, other.id);
 	}
 
 }

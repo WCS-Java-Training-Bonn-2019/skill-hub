@@ -95,8 +95,6 @@ public class UserController {
 
 		return "user/edit";
 	}
-	
-	
 
 	// Create a new user
 	@GetMapping("/user/new")
@@ -139,9 +137,6 @@ public class UserController {
 	@PostMapping("/user/upsert")
 	public String postUser(@ModelAttribute UserForm userForm, @RequestParam(required = false) Long id) {
 		User user = new User();
-		System.out.println("ML START...======================================>");
-		System.out.println("userForm-getFirstName in upsert: " + userForm.getFirstName());
-		//System.out.println("(Create) User Form: " + userForm.getUserSkillLevels().get(0).getName());
 
 		if (id != null) {
 			Optional<User> optionalUser = userRepository.findById(id);
@@ -150,73 +145,40 @@ public class UserController {
 			}
 		}
 
-		List<UserSkill> userSkills = user.getUserSkills();
+		List<Long> userSkillIds = user.getUserSkillIds();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
-		
-		System.out.println("ML: userForm, getUserSkill-Level" +  userForm.getUserSkillLevels());
-		
-		System.out.println("ML: userSkillLevel: ...nicht vorhanden...  >>> " + userSkillLevels);
-		
-		// Problem: UserSkillLevel-Liste ist leer...!
-		
-		
-		
-		
-		
 
-		System.out.println("==============================================================================");
-		for (int i = 0; i < userSkills.size(); i++) {
-			System.out.println("User Skills: " + userSkills.get(i).getSkill().getName());
-			
-		}
-		System.out.println("Start ==============================================================================");
-		for (int i = 0; i < userSkillLevels.size(); i++) {
-			System.out.println("User Form: " + userSkillLevels.get(i).isChecked());
-		}
-		System.out.println("Stopp==============================================================================");
-
-		
-		
-		
-		
 		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
 		for (UserSkillLevel userSkillLevel : userSkillLevels) {
-			System.out.println("ML: userSkillLevel: " + userSkillLevel + " >>> userSkillLevels " + userSkillLevels + " (Schleife) ...");
 
 			if (userSkillLevel.isChecked()) {
-				System.out.println("ML-1: ---> " + userSkillLevel.isChecked());
 				Skill skill = null;
 
 				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
-				System.out.println("ML-2: ---> " + optionalSkill.isPresent());
+
 				if (optionalSkill.isPresent()) {
 					skill = optionalSkill.get();
-					//optionalSkill.isPresent()
-					System.out.println("ML-3: ---> " + optionalSkill.get());
 				}
 
-				//
-
-				if (!(userSkills.contains(skill))) {
+				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
 					user.addSkill(skill);
 				}
 			} else {
 				Skill skill = null;
 
 				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
+
 				if (optionalSkill.isPresent()) {
 					skill = optionalSkill.get();
-					System.out.println("ML-4: ---> " + optionalSkill.get());
 				}
-				if (userSkills.contains(skill)) {
+
+				if (userSkillIds.contains(userSkillLevel.getId())) {
 					user.removeSkill(skill, userSkillRepository);
 				}
 			}
 		}
 
-		// anzupassen
-		System.out.println("------------>aus UserForm (z.B. UserName: " + userForm.getUserName());
-		System.out.println(userForm.getUserSkillLevels());
+		user.setId(userForm.getId());
 		user.setUserName(userForm.getUserName());
 		user.setFirstName(userForm.getFirstName());
 		user.setLastName(userForm.getLastName());
@@ -228,12 +190,6 @@ public class UserController {
 		user.setImageURL(userForm.getImageURL());
 
 		userRepository.save(user);
-
-		System.out.println("==============================================================================");
-		for (int i = 0; i < userSkills.size(); i++) {
-			System.out.println("alter User Skill(s): " + user.getUserSkills().get(i).getSkill().getName());
-		}
-		System.out.println("==============================================================================");
 
 		return "redirect:/users";
 	}
