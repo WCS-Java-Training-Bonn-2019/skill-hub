@@ -1,5 +1,6 @@
 package com.wildcodeschool.skillhub.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.repository.UserRepository;
+import com.wildcodeschool.skillhub.repository.UserSkillRepository;
 
 @Controller
 public class UserController {
@@ -26,6 +28,9 @@ public class UserController {
 
 	@Autowired
 	private SkillRepository skillRepository;
+
+	@Autowired
+	private UserSkillRepository userSkillRepository;
 
 	@GetMapping("/users/search")
 	public String getBySkill(Model model, @RequestParam Long id) {
@@ -68,11 +73,12 @@ public class UserController {
 
 		List<UserSkill> userSkills = user.getUserSkills();
 		List<Skill> allSkills = skillRepository.findAll();
-		
+
 		UserSkillLevel userSkillLevel;
 
 		for (int i = 0; i < allSkills.size(); i++) {
-			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false, allSkills.get(i).getImageURL());
+			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false,
+					allSkills.get(i).getImageURL());
 			for (int j = 0; j < userSkills.size(); j++) {
 				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
 					userSkillLevel.setChecked(true);
@@ -80,27 +86,26 @@ public class UserController {
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		
+
+		System.out.println("==============================================================================");
+		for (int i = 0; i < userSkills.size(); i++) {
+			System.out.println("(Create) User Form: " + userForm.getUserSkillLevels().get(i).getName());
+			System.out.println("==============================================================================");
+		}
+
 		return "user/edit";
 	}
 
-	/* -----------------------------> Wird nicht mehr gebraucht, weil alles über edit läuft... !!!!!!!!!!!!!!!!!!!!
-	
 	// Create a new user
 	@GetMapping("/user/new")
-	public String getUser2(UserForm userForm) {
+	public String getUser2(Model model) {
 
-	//	User user = new User();
-	//	userForm.addAttribute("user", user);
+		User user = new User();
+		model.addAttribute("user", user);
 
 		return "user/edit";
-	}	
-	
-	
-	*/
-	
-	
-	
+	}
+
 	// Edit a user
 //	@GetMapping("/user/edit")
 //	public String getUser(Model model, @RequestParam(required = false) Long id) {
@@ -121,7 +126,6 @@ public class UserController {
 //	// Create a new user
 //	@GetMapping("/user/new")
 //	public String getUser2(Model model) {
-//
 //		User user = new User();
 //		model.addAttribute("user", user);
 //
@@ -132,8 +136,8 @@ public class UserController {
 	// Update or insert a user
 	@PostMapping("/user/upsert")
 	public String postUser(UserForm userForm, @RequestParam(required = false) Long id) {
-		
 		User user = new User();
+		System.out.println(userForm.getFirstName());
 
 		if (id != null) {
 			Optional<User> optionalUser = userRepository.findById(id);
@@ -141,55 +145,67 @@ public class UserController {
 				user = optionalUser.get();
 			}
 		}
-		
+
 		List<UserSkill> userSkills = user.getUserSkills();
-		List<UserSkillLevel> userFormList = userForm.getUserSkillLevels();
-		
-		
-		for (int i = 0; i < userFormList.size(); i++) {
-			
-			for (int j = 0; j < userSkills.size(); j++) {
-				
-			if (userFormList.get(i).isChecked() != userSkills.get(j).getIsOfferingSkill()) {
-				// jetzt drehen true--> false und umgekehrt !	
-				userSkills.get(j).setIsOfferingSkill(!userSkills.get(j).getIsOfferingSkill());
-			}
-				
-				
-			}
-			
+		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
+
+		System.out.println("==============================================================================");
+		for (int i = 0; i < userSkills.size(); i++) {
+			System.out.println("User Skills: " + userSkills.get(i).getSkill().getName());
 		}
-		
-		
-		
-		/*
-		userForm.setUser(user);
+		System.out.println("Start ==============================================================================");
+		for (int i = 0; i < userSkillLevels.size(); i++) {
+			System.out.println("User Form: " + userSkillLevels.get(i).getName());
+		}
+		System.out.println("Stopp==============================================================================");
 
-		List<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> allSkills = skillRepository.findAll();
-		
-		UserSkillLevel userSkillLevel;
+		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
+		for (UserSkillLevel userSkillLevel : userSkillLevels) {
 
-		for (int i = 0; i < allSkills.size(); i++) {
-			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false, allSkills.get(i).getImageURL());
-			for (int j = 0; j < userSkills.size(); j++) {
-				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
-					userSkillLevel.setChecked(true);
+			if (userSkillLevel.isChecked()) {
+				Skill skill = null;
+
+				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
+				if (optionalSkill.isPresent()) {
+					skill = optionalSkill.get();
+				}
+
+				//
+
+				if (!(userSkills.contains(skill))) {
+					user.addSkill(skill);
+				}
+			} else {
+				Skill skill = null;
+
+				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
+				if (optionalSkill.isPresent()) {
+					skill = optionalSkill.get();
+				}
+				if (userSkills.contains(skill)) {
+					user.removeSkill(skill, userSkillRepository);
 				}
 			}
-			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		*/
+
+		// anzupassen
+		user.setUserName(userForm.getUserName());
+		user.setFirstName(userForm.getFirstName());
+		user.setLastName(userForm.getLastName());
+		user.setZipCode(userForm.getZipCode());
+		user.setCity(userForm.getCity());
 
 		userRepository.save(user);
+
+		System.out.println("==============================================================================");
+		for (int i = 0; i < userSkills.size(); i++) {
+			System.out.println("Neue User Skills: " + user.getUserSkills().get(i).getSkill().getName());
+		}
+		System.out.println("==============================================================================");
 
 		return "redirect:/users";
 	}
 
-	
-	
-	
-	
 	// View a user
 	@GetMapping("/user/view")
 	public String viewUser(Model model, @RequestParam(required = false) Long id) {
@@ -214,7 +230,14 @@ public class UserController {
 
 		userRepository.deleteById(id);
 
-		return "redirect:/users";
+		return "redirect:/user/deleted";
+	}
+
+	// Delete a user
+	@GetMapping("/user/deleted")
+	public String deletedUser() {
+
+		return "/user/deleted";
 	}
 
 }
