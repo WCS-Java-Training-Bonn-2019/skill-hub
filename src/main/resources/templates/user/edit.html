@@ -30,14 +30,9 @@
 
     <div class="form-group">
 
-
       <label for="userName">User name</label> <input type="text" class="form-control" id="userName" name="userName"
         placeholder="steffi2020 aus edit.html ;-)" required th:field="*{userName}">
 
-      <!-- 
-      <label for="userName">User name</label> <input type="text" class="form-control" id="userName"
-      name="userName"
-        placeholder="steffi216" required th:field="*{userName}"> -->
     </div>
 
     <div class="form-group">
@@ -68,8 +63,7 @@
     <div class="form-group">
       <label for="email">Email address</label> <input type="email" class="form-control" id="email"
         aria-describedby="emailHelp" name="email" placeholder="stephanie.bauer@telekom.de" required th:field="*{email}">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email
-        with anyone else.</small>
+      <small class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
     <div class="form-group">
@@ -82,6 +76,7 @@
       <label for="imageURL">Upload your Photo</label> <input type="text" class="form-control-file" id="imageURL"
         name="imageURL" th:field="*{imageURL}">
     </div>
+
 
     <ul>
       <li th:each="userSkillLevel, stat : *{userSkillLevels}">
