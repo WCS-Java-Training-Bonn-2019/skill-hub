@@ -232,7 +232,15 @@ public class UserController {
 
 		userRepository.deleteById(id);
 
-		return "redirect:/users";
+		return "redirect:/user/deleted";
 	}
+
+	// Delete a user
+	@GetMapping("/user/deleted")
+	public String deletedUser() {
+
+		return "/user/deleted";
+	}
+
 
 }
