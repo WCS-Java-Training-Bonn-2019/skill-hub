@@ -5,6 +5,8 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.wildcodeschool.skillhub.model.User;
 
 
@@ -16,6 +18,7 @@ public class UserForm {
 	private String imageURL;
 	private String firstName;
 	private String lastName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
