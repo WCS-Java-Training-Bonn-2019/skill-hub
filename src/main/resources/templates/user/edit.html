@@ -23,14 +23,14 @@
   <header th:replace="fragments.html :: top">Here goes the header</header>
 
   <div class="container-edit"></div>
-  <h3 class="h3edit" th:text="${userForm.id} ? 'Edit your profile' : 'Create your profile'">User2</h3>
+  <h3 class="h3edit" th:text="${userForm.id} ? 'Edit your profile' : 'Create your profile'">User3</h3>
 
   <form method="post" th:action="@{/user/upsert}" th:object="${userForm}">
     <input name="id" th:field="*{id}" type="hidden">
 
     <div class="form-group">
       <label for="userName">User name</label> <input type="text" class="form-control" id="userName"
-        name="userName" placeholder="steffi216" required th:field="*{userName}">
+        name="userName" placeholder="steffi2020 aus edit.html ;-)" required th:field="*{userName}">
     </div>
 
     <div class="form-group">

@@ -84,15 +84,22 @@ public class UserController {
 		return "user/edit";
 	}
 
+	/* -----------------------------> Wird nicht mehr gebraucht, weil alles über edit läuft... !!!!!!!!!!!!!!!!!!!!
+	
 	// Create a new user
 	@GetMapping("/user/new")
-	public String getUser2(Model model) {
+	public String getUser2(UserForm userForm) {
 
-		User user = new User();
-		model.addAttribute("user", user);
+	//	User user = new User();
+	//	userForm.addAttribute("user", user);
 
 		return "user/edit";
 	}	
+	
+	
+	*/
+	
+	
 	
 	// Edit a user
 //	@GetMapping("/user/edit")
@@ -124,13 +131,65 @@ public class UserController {
 
 	// Update or insert a user
 	@PostMapping("/user/upsert")
-	public String postUser(@ModelAttribute User user) {
+	public String postUser(UserForm userForm, @RequestParam(required = false) Long id) {
+		
+		User user = new User();
+
+		if (id != null) {
+			Optional<User> optionalUser = userRepository.findById(id);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
+		
+		List<UserSkill> userSkills = user.getUserSkills();
+		List<UserSkillLevel> userFormList = userForm.getUserSkillLevels();
+		
+		
+		for (int i = 0; i < userFormList.size(); i++) {
+			
+			for (int j = 0; j < userSkills.size(); j++) {
+				
+			if (userFormList.get(i).isChecked() != userSkills.get(j).getIsOfferingSkill()) {
+				// jetzt drehen true--> false und umgekehrt !	
+				userSkills.get(j).setIsOfferingSkill(!userSkills.get(j).getIsOfferingSkill());
+			}
+				
+				
+			}
+			
+		}
+		
+		
+		
+		/*
+		userForm.setUser(user);
+
+		List<UserSkill> userSkills = user.getUserSkills();
+		List<Skill> allSkills = skillRepository.findAll();
+		
+		UserSkillLevel userSkillLevel;
+
+		for (int i = 0; i < allSkills.size(); i++) {
+			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false, allSkills.get(i).getImageURL());
+			for (int j = 0; j < userSkills.size(); j++) {
+				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
+					userSkillLevel.setChecked(true);
+				}
+			}
+			userForm.getUserSkillLevels().add(userSkillLevel);
+		}
+		*/
 
 		userRepository.save(user);
 
 		return "redirect:/users";
 	}
 
+	
+	
+	
+	
 	// View a user
 	@GetMapping("/user/view")
 	public String viewUser(Model model, @RequestParam(required = false) Long id) {
