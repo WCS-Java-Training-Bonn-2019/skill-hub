@@ -122,6 +122,8 @@ public class SkillHubApplication {
 			log.info("");
 
 			susanne.addSkill(cooking);
+			susanne.addSkill(baking);
+			susanne.addSkill(books);
 			mia.addSkill(fashion);
 			lasse.addSkill(books);
 			alex.addSkill(climbing);
@@ -157,7 +159,7 @@ public class SkillHubApplication {
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userRepository.findBySkills_SkillId(climbing.getId())) {
+			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");
@@ -167,7 +169,7 @@ public class SkillHubApplication {
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userRepository.findBySkills_SkillId(climbing.getId())) {
+			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");

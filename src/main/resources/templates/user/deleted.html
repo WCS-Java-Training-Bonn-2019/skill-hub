@@ -18,44 +18,26 @@
     crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="text-center">
 
   <header th:replace="fragments.html :: top">Here goes the header</header>
 
-  <main>
-    <!--Jumbotron-->
-    <div class="jumbotron">
-      <img class="img" src="../images/milkyway.jpg" alt="alt">
-      <div class="box">
-        <h1 class="display-4" style="color: black">Find the skills your are searching for!</h1>
-        <p class="lead" style="color: black">What are you looking for?</p>
-      </div>
-    </div>
-
-    <!--Cards-->
-    <section>
-      <div class="container cards row no-gutters">
-        <!--Thymleaf-->
-        <div th:each="skill : ${skills}" class="card" style="width: 18rem;">
-          <img class="card-img-top" th:src="@{${'../images/' + skill.imageURL}}" alt="Card image cap">
-          <!--src="../images/th:text="${user.imageURL}"-->
-          <div class="card-body">
-            <h5 th:text="${skill.name}" class="card-title">Name</h5>
-            <!--  <p class="card-text">Test</p> -->
-            <a th:href="@{${'users/search?id=' + skill.id}}" class="btn btn-primary">Find people with this skill</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <hr />
-
+  <main role="main" class="inner cover">
+    <br>
+		<br>
+    <h1 class="cover-heading">Account has beed deleted.</h1>
+    <br>
+		<br>
+    <a href="/" class="btn btn-secondary">Back to Homepage</a>
+    <br>
+		<br>
+		<br>
+		<a href="/users" class="btn btn-secondary">Return to the list (For Martin: delete later)</a>
+		<br>
+		<br>
   </main>
 
-
   <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
-
 
 </body>
 
