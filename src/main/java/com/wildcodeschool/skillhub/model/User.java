@@ -39,8 +39,8 @@ public class User {
 	private String email;
 	private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserSkill> skills = new ArrayList<>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserSkill> userSkills = new ArrayList<>();
 
 	@SuppressWarnings("unused")
 	public User() {
@@ -139,37 +139,18 @@ public class User {
 	public int getAge() {
 		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
-		
-		/*
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date dateToday = new Date();
-		Calendar a = getCalendar(dateOfBirth);
-		Calendar b = getCalendar(dateToday);
-		int diff = b.get(YEAR) - a.get(YEAR);
-		if (a.get(MONTH) > b.get(MONTH) || (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
-			diff--;
-		}
-		return diff;
-}
-	// return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
-	
 
-	// =======================================================================
-
-	public static Calendar getCalendar(Date date) {
-		Calendar cal = Calendar.getInstance(Locale.GERMANY);
-		cal.setTime(date);
-		return cal;
+	public List<Long> getUserSkillIds() {
+		List<Long> userSkillIds = new ArrayList<>();
+		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
+		return userSkillIds;
 	}
-	// =======================================================================
-*/
-
-
+	
 	public void addSkill(Skill skill) {
 		UserSkill userSkill = new UserSkill(this, skill, new Date(), true);
 
 		// Add UserSkill to List in User
-		skills.add(userSkill);
+		userSkills.add(userSkill);
 
 		// Add UserSkill to List in Skill
 		skill.getUsers().add(userSkill);
@@ -197,7 +178,7 @@ public class User {
 	public void removeSkill(Skill skill, UserSkillRepository userSkillRepository) {
 
 		// Iterate over all UserSkills of the User
-		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
+		for (Iterator<UserSkill> iterator = userSkills.iterator(); iterator.hasNext();) {
 			UserSkill userSkill = iterator.next();
 
 			// If UserSkill matches this User and the Skill to be removed
@@ -247,12 +228,12 @@ public class User {
 				&& Objects.equals(zipCode, other.zipCode);
 	}
 
-	public List<UserSkill> getSkills() {
-		return skills;
+	public List<UserSkill> getUserSkills() {
+		return userSkills;
 	}
 
-	public void setSkills(List<UserSkill> skills) {
-		this.skills = skills;
+	public void setUserSkills(List<UserSkill> userSkills) {
+		this.userSkills = userSkills;
 	}
 
 	public void setId(Long id) {

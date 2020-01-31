@@ -12,7 +12,7 @@ public class UserSkillId implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1848599333691281404L;
-	
+
 	@Column(name = "user_id")
 	private Long userId;
 
