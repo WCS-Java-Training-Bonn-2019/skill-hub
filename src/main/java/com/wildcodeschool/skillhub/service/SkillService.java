@@ -3,28 +3,14 @@ package com.wildcodeschool.skillhub.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.wildcodeschool.skillhub.model.Skill;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
 
-@Service
-public class SkillService {
+public interface SkillService {
 
-	@Autowired
-	private SkillRepository skillRepository;
+	Optional<Skill> findById(Long id);
 
-	public Optional<Skill> findById(Long id) {
-		return skillRepository.findById(id);
-	}
+	List<Skill> findAll();
 
-	public List<Skill> findAll() {
-		return skillRepository.findAll();
-	}
-
-	public void save(Skill skill) {
-		skillRepository.save(skill);
-	}
+	void save(Skill skill);
 
 }
