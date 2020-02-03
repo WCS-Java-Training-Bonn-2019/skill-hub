@@ -7,14 +7,14 @@ import com.wildcodeschool.skillhub.model.User;
 
 public interface UserService {
 
-	Optional<User> findById(Long id);
+	Optional<User> getSingleUser(Long userId);
 
-	List<User> findByuserSkills_SkillId(Long id);
+	List<User> getUsersBySkillId(Long skillid);
 
-	List<User> findAll();
+	List<User> getUsers();
 
-	void deleteById(Long id);
+	void deleteUser(Long userId);
 
-	void save(User user);
+	void addUser(User user);
 
 }

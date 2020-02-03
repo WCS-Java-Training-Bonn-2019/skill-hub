@@ -76,22 +76,22 @@ public class SkillHubApplication {
 			
 			
 			//Save users
-			userService.save(susanne);
-			userService.save(mia);
-			userService.save(lasse);
-			userService.save(alex);
-			userService.save(antonia);
-			userService.save(cem);
-			userService.save(claudia);
-			userService.save(daniel);
-			userService.save(harald);
-			userService.save(lennart);
-			userService.save(maike);
-			userService.save(marina);
-			userService.save(reinhardt);
-			userService.save(robert);
-			userService.save(rolf);
-			userService.save(till);
+			userService.addUser(susanne);
+			userService.addUser(mia);
+			userService.addUser(lasse);
+			userService.addUser(alex);
+			userService.addUser(antonia);
+			userService.addUser(cem);
+			userService.addUser(claudia);
+			userService.addUser(daniel);
+			userService.addUser(harald);
+			userService.addUser(lennart);
+			userService.addUser(maike);
+			userService.addUser(marina);
+			userService.addUser(reinhardt);
+			userService.addUser(robert);
+			userService.addUser(rolf);
+			userService.addUser(till);
 			
 			//Save skills
 			skillService.save(cooking);
@@ -103,13 +103,13 @@ public class SkillHubApplication {
 			skillService.save(dogs);
 			skillService.save(motorbike);
 			
-			System.out.println(userService.findAll());
+			System.out.println(userService.getUsers());
 			System.out.println(skillService.findAll());
 
 			
 			log.info("Users found with findAll():");
 			log.info("---------------------------");
-			for (User user : userService.findAll()) {
+			for (User user : userService.getUsers()) {
 				log.info(user.toString());
 			}
 			log.info("");
@@ -142,17 +142,17 @@ public class SkillHubApplication {
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userService.findByuserSkills_SkillId(climbing.getId())) {
+			for (User user : userService.getUsersBySkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");
 
 			userSkillService.removeUserSkill(susanne, climbing);
-			userService.save(susanne);
+			userService.addUser(susanne);
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userService.findByuserSkills_SkillId(climbing.getId())) {
+			for (User user : userService.getUsersBySkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");

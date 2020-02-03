@@ -34,7 +34,7 @@ public class UserController {
 
 	@GetMapping("/users/search")
 	public String getUsersBySkillId(Model model, @RequestParam Long id) {
-		model.addAttribute("users", userService.findByuserSkills_SkillId(id));
+		model.addAttribute("users", userService.getUsersBySkillId(id));
 
 		Optional<Skill> optionalSkill = skillService.findById(id);
 
@@ -50,7 +50,7 @@ public class UserController {
 	@GetMapping("/users")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userService.findAll());
+		model.addAttribute("users", userService.getUsers());
 
 		return "users/get_all";
 	}
@@ -63,7 +63,7 @@ public class UserController {
 		User user = new User();
 
 		if (id != null) {
-			Optional<User> optionalUser = userService.findById(id);
+			Optional<User> optionalUser = userService.getSingleUser(id);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -139,7 +139,7 @@ public class UserController {
 		User user = new User();
 
 		if (id != null) {
-			Optional<User> optionalUser = userService.findById(id);
+			Optional<User> optionalUser = userService.getSingleUser(id);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -189,7 +189,7 @@ public class UserController {
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 
-		userService.save(user);
+		userService.addUser(user);
 
 		return "redirect:/users";
 	}
@@ -201,7 +201,7 @@ public class UserController {
 		User user = new User();
 
 		if (id != null) {
-			Optional<User> optionalUser = userService.findById(id);
+			Optional<User> optionalUser = userService.getSingleUser(id);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -216,7 +216,7 @@ public class UserController {
 	@GetMapping("/user/delete")
 	public String deleteUser(@RequestParam Long id) {
 
-		userService.deleteById(id);
+		userService.deleteUser(id);
 
 		return "redirect:/user/deleted";
 	}

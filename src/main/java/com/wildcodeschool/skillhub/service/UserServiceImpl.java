@@ -12,31 +12,39 @@ import com.wildcodeschool.skillhub.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
+	private final UserRepository userRepository;
+
 	@Autowired
-	private UserRepository userRepository;
-
-	@Override
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
+	public UserServiceImpl(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
 	}
 
 	@Override
-	public List<User> findByuserSkills_SkillId(Long id) {
-		return userRepository.findByuserSkills_SkillId(id);
+	public Optional<User> getSingleUser(Long userId) {
+		// TODO Add checks
+		return userRepository.findById(userId);
 	}
 
 	@Override
-	public List<User> findAll() {
+	public List<User> getUsersBySkillId(Long skillId) {
+		return userRepository.findByuserSkills_SkillId(skillId);
+	}
+
+	@Override
+	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
 
 	@Override
-	public void deleteById(Long id) {
-		userRepository.deleteById(id);
+	public void deleteUser(Long userId) {
+		// TODO Add checks
+		userRepository.deleteById(userId);
 	}
 
 	@Override
-	public void save(User user) {
+	public void addUser(User user) {
+		// TODO Check if user exists
 		userRepository.save(user);
 	}
 
