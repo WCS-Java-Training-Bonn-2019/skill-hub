@@ -44,16 +44,6 @@ body {
 }
 
 footer {
-  /*display: flex;
-  align-items: center;
-  background-color:gold !important;
-  color: black;
-  list-style: none;
-  width: 100%;
-  height: 100px;
-  position: absolute;
-  bottom: 0;
-  left: 0;*/
   padding: 1em;
   width: 100%;
   top: 100%;
@@ -68,32 +58,39 @@ footer {
   margin: 2rem;
 }
 
-.form-group {
-  margin: 2rem;
-  width: 25%;
-}
-
 .container-edit {
   margin: 2rem;
-}
-
-.h3edit {
   margin-left: 2rem;
 }
 
-.edit {
-  margin-left: 2rem;
-  margin-bottom: 2rem;
+.btn-danger{
+	margin-top: 2rem;
 }
 
 ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* Text in card: View */
+.btn-primary{
+	display: felx;
+	justify-content: center;
+}
+
+.backbutton {
+	margin-top: 2rem;
+}
+
+/* Text in card: View 
 .card-body {
   margin-left: 2rem;
   font-size: 24px;
+}*/
+
+
+.index{
+	felx-direction: colum;
 }
 
 
@@ -109,11 +106,12 @@ ul {
 }
 */
 
-/*
+
 .flex-container{
+	display: block
 	allign-items: center;
 	justify-content: center;
 }
-*/
+
 
 
