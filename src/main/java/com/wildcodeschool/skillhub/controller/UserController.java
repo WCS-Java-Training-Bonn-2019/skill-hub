@@ -16,27 +16,27 @@ import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
-import com.wildcodeschool.skillhub.repository.UserRepository;
-import com.wildcodeschool.skillhub.repository.UserSkillRepository;
+import com.wildcodeschool.skillhub.service.SkillService;
+import com.wildcodeschool.skillhub.service.UserService;
+import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepository;
+	UserService userService;
 
 	@Autowired
-	private SkillRepository skillRepository;
+	SkillService skillService;
 
 	@Autowired
-	private UserSkillRepository userSkillRepository;
+	UserSkillService userSkillService;
 
 	@GetMapping("/users/search")
-	public String getBySkill(Model model, @RequestParam Long id) {
-		model.addAttribute("users", userRepository.findByuserSkills_SkillId(id));
+	public String getUsersBySkillId(Model model, @RequestParam Long id) {
+		model.addAttribute("users", userService.findByuserSkills_SkillId(id));
 
-		Optional<Skill> optionalSkill = skillRepository.findById(id);
+		Optional<Skill> optionalSkill = skillService.findById(id);
 
 		if (optionalSkill.isPresent()) {
 			model.addAttribute("skill", optionalSkill.get());
@@ -50,7 +50,7 @@ public class UserController {
 	@GetMapping("/users")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("users", userService.findAll());
 
 		return "users/get_all";
 	}
@@ -63,7 +63,7 @@ public class UserController {
 		User user = new User();
 
 		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
+			Optional<User> optionalUser = userService.findById(id);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -72,7 +72,7 @@ public class UserController {
 		userForm.setUser(user);
 
 		List<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> allSkills = skillRepository.findAll();
+		List<Skill> allSkills = skillService.findAll();
 
 		UserSkillLevel userSkillLevel;
 
@@ -139,7 +139,7 @@ public class UserController {
 		User user = new User();
 
 		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
+			Optional<User> optionalUser = userService.findById(id);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -154,26 +154,26 @@ public class UserController {
 			if (userSkillLevel.isChecked()) {
 				Skill skill = null;
 
-				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
+				Optional<Skill> optionalSkill = skillService.findById(userSkillLevel.getId());
 
 				if (optionalSkill.isPresent()) {
 					skill = optionalSkill.get();
 				}
 
 				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					user.addSkill(skill);
+					userSkillService.addUserSkill(user, skill);
 				}
 			} else {
 				Skill skill = null;
 
-				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
+				Optional<Skill> optionalSkill = skillService.findById(userSkillLevel.getId());
 
 				if (optionalSkill.isPresent()) {
 					skill = optionalSkill.get();
 				}
 
 				if (userSkillIds.contains(userSkillLevel.getId())) {
-					user.removeSkill(skill, userSkillRepository);
+					userSkillService.removeUserSkill(user, skill);
 				}
 			}
 		}
@@ -189,7 +189,7 @@ public class UserController {
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 
-		userRepository.save(user);
+		userService.save(user);
 
 		return "redirect:/users";
 	}
@@ -201,7 +201,7 @@ public class UserController {
 		User user = new User();
 
 		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
+			Optional<User> optionalUser = userService.findById(id);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -216,7 +216,7 @@ public class UserController {
 	@GetMapping("/user/delete")
 	public String deleteUser(@RequestParam Long id) {
 
-		userRepository.deleteById(id);
+		userService.deleteById(id);
 
 		return "redirect:/user/deleted";
 	}

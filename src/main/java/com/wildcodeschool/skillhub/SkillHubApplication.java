@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Bean;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
-import com.wildcodeschool.skillhub.repository.UserRepository;
-import com.wildcodeschool.skillhub.repository.UserSkillRepository;
+import com.wildcodeschool.skillhub.service.SkillService;
+import com.wildcodeschool.skillhub.service.UserService;
+import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @SpringBootApplication
 public class SkillHubApplication {
@@ -25,7 +25,7 @@ public class SkillHubApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserRepository userRepository, SkillRepository skillRepository, UserSkillRepository userSkillRepository) {
+	public CommandLineRunner demo(UserService userService, SkillService skillService, UserSkillService userSkillService) {
 		return (args) -> {
 			
 			// Create users manually
@@ -76,100 +76,83 @@ public class SkillHubApplication {
 			
 			
 			//Save users
-			userRepository.save(susanne);
-			userRepository.save(mia);
-			userRepository.save(lasse);
-			userRepository.save(alex);
-			userRepository.save(antonia);
-			userRepository.save(cem);
-			userRepository.save(claudia);
-			userRepository.save(daniel);
-			userRepository.save(harald);
-			userRepository.save(lennart);
-			userRepository.save(maike);
-			userRepository.save(marina);
-			userRepository.save(reinhardt);
-			userRepository.save(robert);
-			userRepository.save(rolf);
-			userRepository.save(till);
+			userService.save(susanne);
+			userService.save(mia);
+			userService.save(lasse);
+			userService.save(alex);
+			userService.save(antonia);
+			userService.save(cem);
+			userService.save(claudia);
+			userService.save(daniel);
+			userService.save(harald);
+			userService.save(lennart);
+			userService.save(maike);
+			userService.save(marina);
+			userService.save(reinhardt);
+			userService.save(robert);
+			userService.save(rolf);
+			userService.save(till);
 			
 			//Save skills
-			skillRepository.save(climbing);
-			skillRepository.save(cooking);
-			skillRepository.save(books);
-			skillRepository.save(photography);
-			skillRepository.save(fashion);
-			skillRepository.save(golf);
-			skillRepository.save(baking);
-			skillRepository.save(dogs);
-			skillRepository.save(motorbike);
+			skillService.save(cooking);
+			skillService.save(books);
+			skillService.save(photography);
+			skillService.save(fashion);
+			skillService.save(golf);
+			skillService.save(baking);
+			skillService.save(dogs);
+			skillService.save(motorbike);
 			
-			System.out.println(userRepository.findAll());
-			System.out.println(skillRepository.findAll());
+			System.out.println(userService.findAll());
+			System.out.println(skillService.findAll());
 
+			
 			log.info("Users found with findAll():");
 			log.info("---------------------------");
-			for (User user : userRepository.findAll()) {
+			for (User user : userService.findAll()) {
 				log.info(user.toString());
 			}
 			log.info("");
 
 			log.info("Skills found with findAll():");
 			log.info("----------------------------");
-			for (Skill skill : skillRepository.findAll()) {
+			for (Skill skill : skillService.findAll()) {
 				log.info(skill.toString());
 			}
 			log.info("");
 
-			susanne.addSkill(cooking);
-			susanne.addSkill(baking);
-			susanne.addSkill(books);
-			mia.addSkill(fashion);
-			lasse.addSkill(books);
-			alex.addSkill(climbing);
-			antonia.addSkill(fashion);
-			cem.addSkill(photography);
-			claudia.addSkill(fashion);
-			daniel.addSkill(motorbike);
-			harald.addSkill(golf);
-			lennart.addSkill(climbing);
-			maike.addSkill(baking);
-			marina.addSkill(baking);
-			reinhardt.addSkill(motorbike);
-			robert.addSkill(photography);
-			rolf.addSkill(books);
-			till.addSkill(dogs);
-			
-			userRepository.save(susanne);
-			userRepository.save(mia);
-			userRepository.save(lasse);
-			userRepository.save(alex);
-			userRepository.save(antonia);
-			userRepository.save(cem);
-			userRepository.save(claudia);
-			userRepository.save(daniel);
-			userRepository.save(harald);
-			userRepository.save(lennart);
-			userRepository.save(maike);
-			userRepository.save(marina);
-			userRepository.save(reinhardt);
-			userRepository.save(robert);
-			userRepository.save(rolf);
-			userRepository.save(till);
+			userSkillService.addUserSkill(susanne, cooking);
+			userSkillService.addUserSkill(susanne, baking);
+			userSkillService.addUserSkill(susanne, books);
+			userSkillService.addUserSkill(mia ,fashion);
+			userSkillService.addUserSkill(lasse, books);
+			userSkillService.addUserSkill(alex, climbing);
+			userSkillService.addUserSkill(antonia, fashion);
+			userSkillService.addUserSkill(cem, photography);
+			userSkillService.addUserSkill(claudia, fashion);
+			userSkillService.addUserSkill(daniel, motorbike);
+			userSkillService.addUserSkill(harald, golf);
+			userSkillService.addUserSkill(lennart, climbing);
+			userSkillService.addUserSkill(maike, baking);
+			userSkillService.addUserSkill(marina, baking);
+			userSkillService.addUserSkill(reinhardt, motorbike);
+			userSkillService.addUserSkill(robert, photography);
+			userSkillService.addUserSkill(rolf, books);
+			userSkillService.addUserSkill(till, dogs);
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
+			for (User user : userService.findByuserSkills_SkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");
 
-			susanne.removeSkill(climbing, userSkillRepository);
-			userRepository.save(susanne);
+			userSkillService.removeUserSkill(susanne, climbing);
+			userService.save(susanne);
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");
-			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
+			for (User user : userService.findByuserSkills_SkillId(climbing.getId())) {
 				log.info(user.toString());
 			}
 			log.info("");

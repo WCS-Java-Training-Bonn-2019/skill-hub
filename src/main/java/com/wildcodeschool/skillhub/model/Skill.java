@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +22,7 @@ public class Skill {
 	private String name;
 	private String imageURL;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
 	private List<UserSkill> users = new ArrayList<>();
 
 	@SuppressWarnings("unused")
@@ -56,7 +55,7 @@ public class Skill {
 		this.imageURL = imageURL;
 	}
 
-	public List<UserSkill> getUsers() {
+	public List<UserSkill> getUserSkills() {
 		return users;
 	}
 
