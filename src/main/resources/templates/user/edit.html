@@ -22,8 +22,8 @@
 
   <header th:replace="fragments.html :: top">Here goes the header</header>
 
-  <div class="container-edit"></div>
-  <h3 class="h3edit" th:text="${userForm.id} ? 'Edit your profile' : 'Create your profile'">User3</h3>
+  <div class="container-edit">
+  <h3 th:text="${userForm.id} ? 'Edit your profile' : 'Create your profile'">User3</h3>
 
   <form method="post" th:action="@{/user/upsert}" th:object="${userForm}">
     <input name="id" th:field="*{id}" type="hidden">
@@ -99,6 +99,8 @@
   </form>
 
   <br> <br> <a href="/">Return to the index</a>
+  
+  </div>
 
   <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 

@@ -170,6 +170,7 @@ public class UserController {
 		}
 
 		model.addAttribute("user", user);
+		model.addAttribute("users", userService.findByuserSkills_SkillId(id));
 
 		return "user/view";
 	}
