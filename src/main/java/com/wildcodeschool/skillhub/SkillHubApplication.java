@@ -30,37 +30,37 @@ public class SkillHubApplication {
 			
 			// Create users manually
 			User susanne = new User("susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
-					"28215", "Bremen", "susanne-heer@web.de", "");
+					"28215", "Bremen", "susanne-heer@web.de", "1234", "");
 			User mia = new User("mia.png", "Mia", "Sommer", LocalDate.of(2002, 8, 1), "30453", "Hannover",
-					"mia-sommer07@gmx.de", "");
+					"mia-sommer07@gmx.de", "1234", "");
 			User lasse = new User("lasse.png", "Lasse", "Ruckart", LocalDate.of(1982, 3, 14), "99092",
-					"Erfurt", "lasse82@outlook.de", "");
+					"Erfurt", "lasse82@outlook.de", "1234", "");
 			User alex = new User("alex.png", "Alex", "Schmidt", LocalDate.of(1978, 2, 18),
-					"10319", "Berlin", "alexander-Boy@gmx.de", "Hi, I'm Alex and I'm cool!");
+					"10319", "Berlin", "alexander-Boy@gmx.de", "1234", "Hi, I'm Alex and I'm cool!");
 			User antonia = new User("antonia.png", "Antonia", "Müller", LocalDate.of(1992, 4, 17),
-					"1992", "Köln", "antonia-mueller@gmx.de", "");
+					"1992", "Köln", "antonia-mueller@gmx.de", "1234", "");
 			User cem = new User("cem.png", "Cem", "Alan", LocalDate.of(2000, 5, 20),
-					"53290", "Frankfurt", "cem-champ@gmail.de", "");
+					"53290", "Frankfurt", "cem-champ@gmail.de", "1234", "");
 			User claudia = new User("claudia.png", "Claudia", "Siebert", LocalDate.of(1979, 11, 18),
-					"90427", "Erlangen", "claudi-minigolf@arcor.de", "");
+					"90427", "Erlangen", "claudi-minigolf@arcor.de", "1234", "");
 			User daniel = new User("daniel.png", "Daniel", "Jäger", LocalDate.of(1970, 9, 4),
-					"43268", "Fulda", "daniel-jaeger1970@web.de", "");
+					"43268", "Fulda", "daniel-jaeger1970@web.de", "1234", "");
 			User harald = new User("harald.png", "Harald", "Krüger", LocalDate.of(1964, 3, 10),
-					"23456", "Braunschweig", "harald_Krueger@web.de", "");
+					"23456", "Braunschweig", "harald_Krueger@web.de", "1234", "");
 			User lennart = new User("lennart.png", "Lennart", "Peter", LocalDate.of(1995, 6, 21),
-					"78561", "Leipzig", "lennipeter95@web.de", "");
+					"78561", "Leipzig", "lennipeter95@web.de", "1234", "");
 			User maike = new User("maike.png", "Maike", "Berger", LocalDate.of(1996, 4, 16),
-					"96325", "Hannover", "itsmemaike96@web.de", "");
+					"96325", "Hannover", "itsmemaike96@web.de", "1234", "");
 			User marina = new User("marina.png", "Marina", "Bauer", LocalDate.of(1980, 7, 8),
-					"65123", "Offenbach", "marryM@web.de", "");
+					"65123", "Offenbach", "marryM@web.de", "1234", "");
 			User reinhardt = new User("reinhardt.png", "Reinhardt", "Lalalalal", LocalDate.of(1950, 5, 1),
-					"25456", "Bremen", "reini50-lalalal@t-online.de", "");
+					"25456", "Bremen", "reini50-lalalal@t-online.de", "1234", "");
 			User robert = new User("robert.png", "Robert", "Schmitz", LocalDate.of(1989, 10, 12),
-					"12594", "Kassel", "robert-schmitzzz@gmail.de", "");
+					"12594", "Kassel", "robert-schmitzzz@gmail.de", "1234", "");
 			User rolf = new User("rolf.png", "Rolf", "Langner", LocalDate.of(1960, 9, 13),
-					"78652", "Erfurt", "rolf-langner@gmail.de", "");
+					"78652", "Erfurt", "rolf-langner@gmail.de", "1234", "");
 			User till = new User("till.png", "Tipp", "Hausner", LocalDate.of(1970, 6, 2),
-					"38751", "Düsseldorf", "till_hausner1970@web.de", "");
+					"38751", "Düsseldorf", "till_hausner1970@web.de", "1234", "");
 			
 			
 			//Create skills manually
