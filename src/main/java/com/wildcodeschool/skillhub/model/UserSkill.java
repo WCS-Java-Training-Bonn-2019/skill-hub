@@ -11,7 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_skill")
+@Table
 public class UserSkill {
 
 	@EmbeddedId
