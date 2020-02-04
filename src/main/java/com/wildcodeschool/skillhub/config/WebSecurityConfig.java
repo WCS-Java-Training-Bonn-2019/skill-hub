@@ -1,4 +1,4 @@
-package com.wildcodeschool.skillhub;
+package com.wildcodeschool.skillhub.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.authorizeRequests()
 				.antMatchers("/", "/images/**", "/style.css", "/webjars/**").permitAll()
-				.antMatchers("/skills").hasAnyRole("ADMIN", "USER")
+				.antMatchers("/skills", "/users/**").hasAnyRole("USER")
 				.anyRequest().hasRole("ADMIN")
 				.and()
 			.formLogin()
