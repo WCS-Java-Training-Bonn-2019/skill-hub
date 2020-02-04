@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(Long userId, User user) {
+	public void updateUser(User user) {
 		// TODO Add checks etc.
 		userRepository.save(user);
 	}

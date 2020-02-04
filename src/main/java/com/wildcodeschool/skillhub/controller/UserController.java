@@ -38,7 +38,7 @@ public class UserController {
 
 		Skill skill = skillService.getSingleSkill(skillId);
 		model.addAttribute("skill", skill);
-		
+
 		return "users/get_by_skill";
 	}
 
@@ -105,10 +105,13 @@ public class UserController {
 
 	// Update or insert a user
 	@PostMapping("/user/upsert")
-	public String postUser(@ModelAttribute UserForm userForm, @RequestParam(name = "id", required = false) Long userId) {
+	public String postUser(@ModelAttribute UserForm userForm,
+			@RequestParam(name = "id", required = false) Long userId) {
+		boolean isNewUser = userId == null;
+
 		User user = new User();
 
-		if (userId != null) {
+		if (!isNewUser) {
 			Optional<User> optionalUser = userService.getSingleUser(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
@@ -127,7 +130,7 @@ public class UserController {
 				skill = skillService.getSingleSkill(userSkillLevel.getId());
 
 				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					userSkillService.addUserSkill(user, skill);
+					userSkillService.addNewUserSkill(user, skill);
 				}
 			} else {
 				Skill skill = null;
@@ -151,7 +154,11 @@ public class UserController {
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 
-		userService.createNewUser(user);
+		if (isNewUser) {
+			userService.createNewUser(user);
+		} else {
+			userService.updateUser(user);
+		}
 
 		return "redirect:/users";
 	}

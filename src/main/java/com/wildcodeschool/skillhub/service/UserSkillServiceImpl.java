@@ -19,7 +19,8 @@ public class UserSkillServiceImpl implements UserSkillService {
 	private UserSkillRepository userSkillRepository;
 
 	@Override
-	public void addUserSkill(User user, Skill skill) {
+	public void addNewUserSkill(User user, Skill skill) {
+		// TODO Add checks
 		UserSkill userSkill = new UserSkill(user, skill, new Date(), true);
 
 		// Add UserSkill to List in User

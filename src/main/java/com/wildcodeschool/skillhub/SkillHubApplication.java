@@ -121,24 +121,24 @@ public class SkillHubApplication {
 			}
 			log.info("");
 
-			userSkillService.addUserSkill(susanne, cooking);
-			userSkillService.addUserSkill(susanne, baking);
-			userSkillService.addUserSkill(susanne, books);
-			userSkillService.addUserSkill(mia ,fashion);
-			userSkillService.addUserSkill(lasse, books);
-			userSkillService.addUserSkill(alex, climbing);
-			userSkillService.addUserSkill(antonia, fashion);
-			userSkillService.addUserSkill(cem, photography);
-			userSkillService.addUserSkill(claudia, fashion);
-			userSkillService.addUserSkill(daniel, motorbike);
-			userSkillService.addUserSkill(harald, golf);
-			userSkillService.addUserSkill(lennart, climbing);
-			userSkillService.addUserSkill(maike, baking);
-			userSkillService.addUserSkill(marina, baking);
-			userSkillService.addUserSkill(reinhardt, motorbike);
-			userSkillService.addUserSkill(robert, photography);
-			userSkillService.addUserSkill(rolf, books);
-			userSkillService.addUserSkill(till, dogs);
+			userSkillService.addNewUserSkill(susanne, cooking);
+			userSkillService.addNewUserSkill(susanne, baking);
+			userSkillService.addNewUserSkill(susanne, books);
+			userSkillService.addNewUserSkill(mia ,fashion);
+			userSkillService.addNewUserSkill(lasse, books);
+			userSkillService.addNewUserSkill(alex, climbing);
+			userSkillService.addNewUserSkill(antonia, fashion);
+			userSkillService.addNewUserSkill(cem, photography);
+			userSkillService.addNewUserSkill(claudia, fashion);
+			userSkillService.addNewUserSkill(daniel, motorbike);
+			userSkillService.addNewUserSkill(harald, golf);
+			userSkillService.addNewUserSkill(lennart, climbing);
+			userSkillService.addNewUserSkill(maike, baking);
+			userSkillService.addNewUserSkill(marina, baking);
+			userSkillService.addNewUserSkill(reinhardt, motorbike);
+			userSkillService.addNewUserSkill(robert, photography);
+			userSkillService.addNewUserSkill(rolf, books);
+			userSkillService.addNewUserSkill(till, dogs);
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");

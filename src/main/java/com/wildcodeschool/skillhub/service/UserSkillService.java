@@ -5,7 +5,7 @@ import com.wildcodeschool.skillhub.model.User;
 
 public interface UserSkillService {
 
-	void addUserSkill(User user, Skill skill);
+	void addNewUserSkill(User user, Skill skill);
 
 	void removeUserSkill(User user, Skill skill);
 
