@@ -43,7 +43,6 @@ th, td {
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>User name</th>
 				<th>First name</th>
 				<th>Last name</th>
 				<th>Birthday</th>
@@ -60,7 +59,6 @@ th, td {
 
 			<tr th:each="user : ${users}">
 				<td th:text="${user.id}">id</td>
-				<td th:text="${user.userName}">User name</td>
 				<td th:text="${user.firstName}">First name</td>
 				<td th:text="${user.lastName}">Last name</td>
 				<td th:text="${user.dateOfBirth}">Birthday</td>

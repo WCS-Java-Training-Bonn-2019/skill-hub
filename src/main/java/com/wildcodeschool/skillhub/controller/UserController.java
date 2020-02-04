@@ -144,7 +144,6 @@ public class UserController {
 		}
 
 		user.setId(userForm.getId());
-		user.setUserName(userForm.getUserName());
 		user.setFirstName(userForm.getFirstName());
 		user.setLastName(userForm.getLastName());
 		user.setZipCode(userForm.getZipCode());

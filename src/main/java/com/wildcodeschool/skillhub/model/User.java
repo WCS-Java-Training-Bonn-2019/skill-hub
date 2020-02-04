@@ -24,7 +24,6 @@ public class User {
 	@Column(name = ("id"), updatable = false, nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
 	private Long id;
-	private String userName;
 	private String imageURL;
 	private String firstName;
 	private String lastName;
@@ -41,10 +40,9 @@ public class User {
 	public User() {
 	}
 
-	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth,
-			String zipCode, String city, String email, String description) {
+	public User(String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode, String city,
+			String email, String description) {
 		super();
-		this.userName = userName;
 		this.imageURL = imageURL;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -57,14 +55,6 @@ public class User {
 
 	public Long getId() {
 		return id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getImageURL() {
@@ -143,15 +133,15 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
-				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDateOfBirth()="
-				+ getDateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
-				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + "]";
+		return "User [getId()=" + getId() + ", getImageURL()=" + getImageURL() + ", getFirstName()=" + getFirstName()
+				+ ", getLastName()=" + getLastName() + ", getDateOfBirth()=" + getDateOfBirth() + ", getZipCode()="
+				+ getZipCode() + ", getCity()=" + getCity() + ", getEmail()=" + getEmail() + ", getDescription()="
+				+ getDescription() + ", getAge()=" + getAge() + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
+		return Objects.hash(city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
 	}
 
 	@Override
@@ -163,11 +153,10 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
-				&& Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(description, other.description)
-				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(imageURL, other.imageURL) && Objects.equals(lastName, other.lastName)
-				&& Objects.equals(zipCode, other.zipCode);
+		return Objects.equals(city, other.city) && Objects.equals(dateOfBirth, other.dateOfBirth)
+				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
 	}
 
 	public List<UserSkill> getUserSkills() {
