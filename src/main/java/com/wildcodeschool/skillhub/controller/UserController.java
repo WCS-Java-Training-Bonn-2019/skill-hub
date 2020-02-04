@@ -150,6 +150,7 @@ public class UserController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
+		user.setPassword(userForm.getPassword());
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 

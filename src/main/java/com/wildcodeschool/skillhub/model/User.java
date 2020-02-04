@@ -39,6 +39,7 @@ public class User implements UserDetails {
 	private String zipCode;
 	private String city;
 	private String email;
+	private String password;
 	private String description;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user")
@@ -48,7 +49,7 @@ public class User implements UserDetails {
 	}
 
 	public User(String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode, String city,
-			String email, String description) {
+			String email, String password, String description) {
 		super();
 		this.imageURL = imageURL;
 		this.firstName = firstName;
@@ -57,6 +58,7 @@ public class User implements UserDetails {
 		this.zipCode = zipCode;
 		this.city = city;
 		this.email = email;
+		this.password = password;
 		this.description = description;
 	}
 
@@ -118,6 +120,14 @@ public class User implements UserDetails {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getDescription() {

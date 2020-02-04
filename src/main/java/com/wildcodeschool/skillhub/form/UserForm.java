@@ -22,6 +22,8 @@ public class UserForm {
 	private String zipCode;
 	private String city;
 	private String email;
+	private String password;
+	private String repeatedPassword;
 	private String description;
 	
 	private List<UserSkillLevel> userSkillLevels = new ArrayList<>();
@@ -102,6 +104,22 @@ public class UserForm {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordRepeated() {
+		return repeatedPassword;
+	}
+
+	public void setPasswordRepeated(String repeatedPassword) {
+		this.repeatedPassword = repeatedPassword;
 	}
 
 	public String getDescription() {
