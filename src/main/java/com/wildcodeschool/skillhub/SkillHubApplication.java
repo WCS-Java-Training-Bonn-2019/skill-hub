@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
@@ -24,6 +26,10 @@ public class SkillHubApplication {
 		SpringApplication.run(SkillHubApplication.class, args);
 	}
 
+	@Bean
+	public PasswordEncoder getPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	@Bean
 	public CommandLineRunner demo(UserService userService, SkillService skillService, UserSkillService userSkillService) {
 		return (args) -> {
