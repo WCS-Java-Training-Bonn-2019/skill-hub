@@ -60,6 +60,16 @@
     </div>
 
     <div class="form-group">
+      <label for="password">Password</label> <input type="password" class="form-control" id="password"
+        aria-describedby="passwordHelp" name="password" required th:field="*{password}">
+    </div>
+
+    <div class="form-group">
+      <label for="passwordRepeated">Password (repeated)</label> <input type="password" class="form-control" id="passwordRepeated"
+        aria-describedby="passwordRepeatedHelp" name="passwordRepeated" required th:field="*{passwordRepeated}">
+    </div>
+
+    <div class="form-group">
       <label for="user-description">Description</label>
       <textarea class="form-control" id="user-description" name="description" th:field="*{description}"
         rows="3"></textarea>
