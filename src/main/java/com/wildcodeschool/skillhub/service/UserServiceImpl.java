@@ -43,8 +43,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void addUser(User user) {
+	public void createNewUser(User user) {
 		// TODO Check if user exists
+		userRepository.save(user);
+	}
+
+	@Override
+	public void updateUser(Long userId, User user) {
+		// TODO Add checks etc.
 		userRepository.save(user);
 	}
 

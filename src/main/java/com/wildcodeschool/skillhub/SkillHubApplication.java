@@ -76,35 +76,35 @@ public class SkillHubApplication {
 			
 			
 			//Save users
-			userService.addUser(susanne);
-			userService.addUser(mia);
-			userService.addUser(lasse);
-			userService.addUser(alex);
-			userService.addUser(antonia);
-			userService.addUser(cem);
-			userService.addUser(claudia);
-			userService.addUser(daniel);
-			userService.addUser(harald);
-			userService.addUser(lennart);
-			userService.addUser(maike);
-			userService.addUser(marina);
-			userService.addUser(reinhardt);
-			userService.addUser(robert);
-			userService.addUser(rolf);
-			userService.addUser(till);
+			userService.createNewUser(susanne);
+			userService.createNewUser(mia);
+			userService.createNewUser(lasse);
+			userService.createNewUser(alex);
+			userService.createNewUser(antonia);
+			userService.createNewUser(cem);
+			userService.createNewUser(claudia);
+			userService.createNewUser(daniel);
+			userService.createNewUser(harald);
+			userService.createNewUser(lennart);
+			userService.createNewUser(maike);
+			userService.createNewUser(marina);
+			userService.createNewUser(reinhardt);
+			userService.createNewUser(robert);
+			userService.createNewUser(rolf);
+			userService.createNewUser(till);
 			
 			//Save skills
-			skillService.save(cooking);
-			skillService.save(books);
-			skillService.save(photography);
-			skillService.save(fashion);
-			skillService.save(golf);
-			skillService.save(baking);
-			skillService.save(dogs);
-			skillService.save(motorbike);
+			skillService.createNewSkill(cooking);
+			skillService.createNewSkill(books);
+			skillService.createNewSkill(photography);
+			skillService.createNewSkill(fashion);
+			skillService.createNewSkill(golf);
+			skillService.createNewSkill(baking);
+			skillService.createNewSkill(dogs);
+			skillService.createNewSkill(motorbike);
 			
 			System.out.println(userService.getUsers());
-			System.out.println(skillService.findAll());
+			System.out.println(skillService.getSkills());
 
 			
 			log.info("Users found with findAll():");
@@ -116,7 +116,7 @@ public class SkillHubApplication {
 
 			log.info("Skills found with findAll():");
 			log.info("----------------------------");
-			for (Skill skill : skillService.findAll()) {
+			for (Skill skill : skillService.getSkills()) {
 				log.info(skill.toString());
 			}
 			log.info("");
@@ -148,7 +148,7 @@ public class SkillHubApplication {
 			log.info("");
 
 			userSkillService.removeUserSkill(susanne, climbing);
-			userService.addUser(susanne);
+			userService.createNewUser(susanne);
 
 			log.info("Users found with findBySkills_SkillId():");
 			log.info("----------------------------------------");

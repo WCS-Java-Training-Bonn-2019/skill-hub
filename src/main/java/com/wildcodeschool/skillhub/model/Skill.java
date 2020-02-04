@@ -25,8 +25,7 @@ public class Skill {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
 	private List<UserSkill> users = new ArrayList<>();
 
-	@SuppressWarnings("unused")
-	private Skill() {
+	public Skill() {
 	}
 
 	public Skill(String name, String imageURL) {

@@ -30,8 +30,7 @@ public class UserSkill {
 	private Date createdOn;
 	private Boolean isOfferingSkill;
 
-	@SuppressWarnings("unused")
-	private UserSkill() {
+	public UserSkill() {
 	}
 
 	public UserSkill(User user, Skill skill, Date createdOn, Boolean isOfferingSkill) {

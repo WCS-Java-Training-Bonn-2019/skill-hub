@@ -1,7 +1,6 @@
 package com.wildcodeschool.skillhub.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,21 +11,28 @@ import com.wildcodeschool.skillhub.repository.SkillRepository;
 @Service
 public class SkillServiceImpl implements SkillService {
 
-	@Autowired
-	private SkillRepository skillRepository;
+	private final SkillRepository skillRepository;
 
-	@Override
-	public Optional<Skill> findById(Long id) {
-		return skillRepository.findById(id);
+	@Autowired
+	public SkillServiceImpl(SkillRepository skillRepository) {
+		super();
+		this.skillRepository = skillRepository;
 	}
 
 	@Override
-	public List<Skill> findAll() {
+	public Skill getSingleSkill(Long skillId) {
+		// TODO Add checks
+		return skillRepository.getOne(skillId);
+	}
+
+	@Override
+	public List<Skill> getSkills() {
 		return skillRepository.findAll();
 	}
 
 	@Override
-	public void save(Skill skill) {
+	public void createNewSkill(Skill skill) {
+		// TODO Check if skill exists
 		skillRepository.save(skill);
 	}
 

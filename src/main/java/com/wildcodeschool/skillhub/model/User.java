@@ -38,7 +38,6 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user")
 	private List<UserSkill> userSkills = new ArrayList<>();
 
-	@SuppressWarnings("unused")
 	public User() {
 	}
 

@@ -19,8 +19,7 @@ public class UserSkillId implements Serializable {
 	@Column(name = "skill_id")
 	private Long skillId;
 
-	@SuppressWarnings("unused")
-	private UserSkillId() {
+	public UserSkillId() {
 	}
 
 	public UserSkillId(Long userId, Long skillId) {
