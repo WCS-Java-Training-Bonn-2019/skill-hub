@@ -14,6 +14,8 @@
 
 <header th:replace="fragments.html :: top">Here goes the header</header>
 
+
+<!-- 
 <style>
 table {
 	border-collapse: collapse;
@@ -34,14 +36,22 @@ th, td {
 	text-align: left;
 }
 </style>
+
+
+ -->
+
+
 <body>
-	<h3>Users list (page to test)</h3>
-	<a href="/user/edit">Add a new user !</a>
+	<h3>Users list (Admin page only)</h3>
+	<a href="/user/edit" class="btn btn-outline-primary" role="button" aria-pressed="true">Add a new user</a>
 	<br>
 	<br>
-	<table>
-		<thead>
-			<tr>
+	
+	<div class="mx-5">
+		
+	<table class="table table-bordered table-striped table-hover table-condensed" >
+		<thead class="thead-dark">
+			<tr class="active">
 				<th>Id</th>
 				<th>First name</th>
 				<th>Last name</th>
@@ -56,6 +66,8 @@ th, td {
 			</tr>
 		</thead>
 		<tbody>
+
+
 
 			<tr th:each="user : ${users}">
 				<td th:text="${user.id}">id</td>
@@ -73,8 +85,9 @@ th, td {
 
 		</tbody>
 	</table>
-	<br>
-	<a href="/">Return to the index</a>
+	
+	</div>
+	
 	
 	<footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 </body>
