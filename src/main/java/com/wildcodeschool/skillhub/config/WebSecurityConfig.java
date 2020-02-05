@@ -33,7 +33,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.anyRequest().hasRole("ADMIN")
 				.and()
 			.formLogin()
+				.loginPage("/login")
+				.loginProcessingUrl("/perform_login")
+				.defaultSuccessUrl("/index.html", true)
+				.permitAll()		
 				.and()
+				.logout()
+				.logoutUrl("/perform_logout")
+		        .deleteCookies("JSESSIONID")
+		        .permitAll()
+		        .and()
 			.httpBasic();
 	}
 	
@@ -42,10 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			auth
 				.userDetailsService(userDetailsService)
 				.passwordEncoder(passwordEncoder);
-				
-			// .inMemoryAuthentication()
-			//		.withUser("user").password("{noop}password").roles("USER");
 			
 	}
-
+	
+	
 }
