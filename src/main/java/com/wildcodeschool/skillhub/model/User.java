@@ -21,6 +21,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 public class User implements UserDetails {
@@ -51,6 +53,7 @@ public class User implements UserDetails {
 	public User(String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode, String city,
 			String email, String password, String description) {
 		super();
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		this.imageURL = imageURL;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -58,7 +61,7 @@ public class User implements UserDetails {
 		this.zipCode = zipCode;
 		this.city = city;
 		this.email = email;
-		this.password = password;
+		this.password = passwordEncoder.encode(password);
 		this.description = description;
 	}
 
@@ -124,7 +127,6 @@ public class User implements UserDetails {
 	
 
 	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getDescription() {
@@ -195,12 +197,12 @@ public class User implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return getPassword();
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		return getEmail();
+		return this.email;
 	}
 
 	@Override
