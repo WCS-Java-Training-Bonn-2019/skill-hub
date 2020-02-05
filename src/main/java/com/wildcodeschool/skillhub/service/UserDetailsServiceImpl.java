@@ -17,21 +17,21 @@ import com.wildcodeschool.skillhub.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	private final UserRepository repository;
+	private final UserRepository userRepository;
 	private final String adminPassword;
 	
 	@Autowired
-	public UserDetailsServiceImpl(UserRepository repository, @Value("${admin.password}") String adminPassword) {
-		this.repository = repository;
+	public UserDetailsServiceImpl(UserRepository userRepository, @Value("${admin.password}") String adminPassword) {
+		this.userRepository = userRepository;
 		this.adminPassword = adminPassword;
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if ("admin".equals(username)) {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		if ("admin".equals(email)) {
 			return getAdminUserDetails();
 		}
-		return loadUserByName(username);
+		return loadUserByName(email);
 	}
 
 	private UserDetails getAdminUserDetails() {
@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	private UserDetails loadUserByName(String email) {
-		Optional<User> optionalUser = repository.findByEmail(email);
+		Optional<User> optionalUser = userRepository.findByEmail(email);
 		if (optionalUser.isPresent()) {
 			return optionalUser.get();
 		}
