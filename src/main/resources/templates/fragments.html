@@ -1,6 +1,7 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 	<title>SkillHub</title>
@@ -41,11 +42,143 @@
 						<a class="nav-link" href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
 					</li>
 
-					<li class="nav-item"><a class="nav-link" href="user/edit"> Register
-						</a></li>
+					<li class="nav-item"><a class="nav-link" href="user/edit"> Register	</a></li>
 
 				</ul>
 			</div>
+			
+			
+			
+			<!-- Start: LogIn / LogOut  ============================================================== -->
+			
+				<ul class="navbar-nav ml-auto">
+				
+				<!-- Working on it *********************************************************************************************
+				****************************************************************************************************************
+				
+				Link: https://stackoverflow.com/questions/7915134/how-to-use-the-spring-security-facelets-tag-library-in-jsf
+				
+				
+					<li class="nav-item">
+			  		
+			  		
+			  			<!-- Admin: a) Show if admin is logged-in / otherwise show nothing ===================== 	
+			  			
+			  			
+			  			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			  			<p>Only admin can see this !</p>
+			  			</sec:authorize>
+			  			
+			  			
+			  			
+			  			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+					 		<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" >Admin22222</a>
+					 	</sec:authorize>
+					 	
+					 
+					 
+					 
+					 <a class="nav-link" href="#" sec:authorize="!isAuthenticated()">wwwwwwww</a>
+					 
+					 
+					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a> 
+					 	
+					 	
+					 	
+					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a>
+					 	
+					 	
+				
+				
+					 
+					 
+					</li>
+				
+				
+				
+				
+				****************************************************************************************************************
+				****************************************************************************************************************
+				 -->
+				
+			  			
+			  			
+			  			
+			  			
+			  			
+			  			
+			  			
+			  			
+			  			
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!-- alt... -->
+			  		<li class="nav-item">
+			  		
+			  		
+			  			<!-- Admin: a) Show if admin is logged-in / otherwise show nothing ===================== -->	
+	
+					 	<a class="nav-link" href="#" sec:authorize="!isAuthenticated()"></a>
+					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a> 
+					 	
+
+					 <!--  
+					 	
+					 	<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+					 		<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" >Admin</a>
+					 	</sec:authorize>
+					 	
+					 	 -->
+					 
+					</li>
+					
+		
+					<li class="nav-item">			
+					
+						<!-- User: a) Show USER if logged-in / otherwise show Go-to Login/Register ============= -->
+						
+					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/user/edit}" sec:authorize="!isAuthenticated()">Log-in / Register</a>
+					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span> ( --> With Link the EDIT?)</a> 
+					 <!--	<a href="/users" class="btn btn-outline-secondary btn-sm" role="button" sec:authorize="isAuthenticated()" aria-pressed="true">Admin</a> -->
+					</li> 
+					
+				</ul>
+			
+	<!-- Ende: LogIn / LogOut  ============================================================== -->
+	
+			
+			
 		</nav>
 	</header>
 
