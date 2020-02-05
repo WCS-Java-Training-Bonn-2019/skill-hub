@@ -28,8 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure (HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/", "/images/**", "/style.css", "/webjars/**").permitAll()
-				.antMatchers("/skills", "/users/**").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/", "/images/**", "/style.css", "/webjars/**", "/skills", "/users/*", "/user/edit").permitAll()
+				.antMatchers("/users/**", "/user/**").hasAnyRole("USER", "ADMIN")
 				.anyRequest().hasRole("ADMIN")
 				.and()
 			.formLogin()
@@ -39,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure (AuthenticationManagerBuilder auth) throws Exception{
-			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+			auth
+				.userDetailsService(userDetailsService)
+				.passwordEncoder(passwordEncoder);
 				
 			// .inMemoryAuthentication()
 			//		.withUser("user").password("{noop}password").roles("USER");

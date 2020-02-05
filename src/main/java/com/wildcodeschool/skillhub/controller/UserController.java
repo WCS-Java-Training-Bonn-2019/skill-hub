@@ -55,7 +55,7 @@ public class UserController {
 
 	// TODO Remove or protect for admin use only
 	// Show all users for debugging
-	@GetMapping("/users")
+	@GetMapping("/usersoverview")
 	public String getAll(Model model) {
 
 		model.addAttribute("users", userService.getUsers());

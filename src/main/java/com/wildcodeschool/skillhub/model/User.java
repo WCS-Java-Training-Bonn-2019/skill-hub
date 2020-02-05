@@ -191,7 +191,7 @@ public class User implements UserDetails {
 	// Methods from User Details Interface
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_CUSTOMER");
+		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
 		return singletonList(authority);
 	}
 
