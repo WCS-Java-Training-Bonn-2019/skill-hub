@@ -1,6 +1,7 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 <title>SkillHub</title>
@@ -22,7 +23,6 @@
 </head>
 
 <body>
-
 	<header>
 		<nav class="navbar navbar-expand-md navbar-light bg-light">
 			<a class="navbar-brand" href="/">SkillHub</a>
@@ -36,9 +36,8 @@
 				</ul>
 			</div>
 		</nav>
-
-
 	</header>
+
 
 	<main>
 		<!--Jumbotron-->
@@ -53,8 +52,7 @@
 
 		<section>
 			<div class="flex-container container">
-
-				<form name="f" th:action="@{/login}" method="post">
+            <form name="f" th:action="@{/perform_login}" method="post">
 					<fieldset>
 						<h2>Please sign in</h2>
 						<div th:if="${param.error}" class="alert alert-error">
@@ -68,9 +66,9 @@
 						<div class="row no-gutters">
 							<div class="col-5">
 								<p>
-									<label for="email" class="sr-only">Email</label> <input
-										type="text" id="email" name="email" class="form-control"
-										placeholder="Email" required="" autofocus="">
+									<label for="username" class="sr-only">Email</label> <input
+										type="text" id="username" name="username" class="form-control"
+										placeholder="username" required="" autofocus="">
 								</p>
 							</div>
 						</div>
