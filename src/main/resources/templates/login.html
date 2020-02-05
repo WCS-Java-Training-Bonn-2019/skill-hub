@@ -52,7 +52,7 @@
 
 		<section>
 			<div class="flex-container container">
-            <form name="f" th:action="@{/perform_login}" method="post">
+				<form name="f" th:action="@{/perform_login}" method="post">
 					<fieldset>
 						<h2>Please sign in</h2>
 						<div th:if="${param.error}" class="alert alert-error">
@@ -81,14 +81,15 @@
 										class="form-control" placeholder="Password" required="">
 								</p>
 							</div>
-							
-							
+
+
 							<div class="col-2"></div>
-							
+
 							<div class="col-">
-							<p>If you don't have an user account yet, please register here. </p>
+								<p>If you don't have an user account yet, please register
+									here.</p>
 							</div>
-							
+
 						</div>
 
 						<div class="row no-gutters">
@@ -101,9 +102,9 @@
 							<div class="col-2"></div>
 
 							<div class="col-5">
-								<input name="_csrf" type="hidden"
-									value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-								<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+								<a class="btn btn-lg btn-primary btn-block" href="user/edit"
+									role="button">Register</a>
+
 							</div>
 						</div>
 
