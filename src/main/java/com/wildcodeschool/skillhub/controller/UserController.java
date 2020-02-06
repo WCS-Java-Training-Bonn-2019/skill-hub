@@ -95,12 +95,6 @@ public class UserController {
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
 
-		System.out.println("==============================================================================");
-		for (int i = 0; i < userSkills.size(); i++) {
-			System.out.println("(Create) User Form: " + userForm.getUserSkillLevels().get(i).getName());
-			System.out.println("==============================================================================");
-		}
-
 		return "user/edit";
 	}
 
