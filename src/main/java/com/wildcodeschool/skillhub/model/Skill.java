@@ -20,7 +20,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Skill {
+public class Skill implements Comparable<Skill> {
 
 	@Id
 	@Column(name = ("id"), updatable = false, nullable = false)
@@ -56,6 +56,11 @@ public class Skill {
 			return false;
 		Skill other = (Skill) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public int compareTo(Skill o) {
+		return this.getName().compareTo(o.getName());
 	}
 
 }

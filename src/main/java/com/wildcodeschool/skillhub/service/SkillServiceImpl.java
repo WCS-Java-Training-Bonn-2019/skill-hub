@@ -1,5 +1,6 @@
 package com.wildcodeschool.skillhub.service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,11 @@ public class SkillServiceImpl implements SkillService {
 
 	@Override
 	public List<Skill> getSkills() {
-		return skillRepository.findAll();
+		List<Skill> skills = skillRepository.findAll();
+		
+		skills.sort(Comparator.comparing(Skill::getName, Comparator.nullsLast(Comparator.naturalOrder())));;
+		
+		return skills; 
 	}
 
 	@Override
