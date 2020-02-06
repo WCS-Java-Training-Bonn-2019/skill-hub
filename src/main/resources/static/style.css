@@ -1,13 +1,18 @@
+html {
+	height: 100%;
+}
+
 body {
   height: 100%;
-  width: 100%;
-  position: relative;
+  display:grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .img {
   opacity: 0.5;
   position: relative;
-  width: 150rem;
+  width: 100%;
+  object-fit: cover;
 }
 
 .jumbotron {
@@ -43,12 +48,12 @@ body {
   padding-left: 5vw;
 }
 
-footer {
+/*footer {
   padding: 1em;
   width: 100%;
   top: 100%;
   position: absolute;
-}
+}*/
 
 .bg-light {
   background-color: gold !important;
