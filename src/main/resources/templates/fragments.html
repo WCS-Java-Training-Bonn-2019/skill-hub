@@ -1,21 +1,25 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
-	<title>SkillHub</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/style.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
+<title>SkillHub</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -23,8 +27,9 @@
 	<header th:fragment="top">
 		<nav class="navbar navbar-expand-md navbar-light bg-light">
 			<a class="navbar-brand" href="/">SkillHub</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -34,26 +39,59 @@
 							Skills</a></li>
 
 					<li class="nav-item"><a class="nav-link" href="#">My
-							Skills </a></li>
+							Profile </a></li>
 
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
-						<a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+					<!--<li class="nav-item"><a class="nav-link" th:href="@{/login}"
+						sec:authorize="!isAuthenticated()">Login</a> <a class="nav-link"
+						th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
 					</li>
 
-					<li class="nav-item"><a class="nav-link" href="user/edit"> Register
-						</a></li>
+					<li class="nav-item"><a class="nav-link" href="user/edit">
+							Register </a></li>-->
 
 				</ul>
 			</div>
+
+
+
+			<!-- Start: LogIn / LogOut  ============================================================== -->
+
+			<ul class="navbar-nav ml-auto">
+
+
+				<li class="nav-item">
+					<!-- Admin: a) Show if admin is logged-in / otherwise show nothing ===================== -->
+
+					<a class="nav-link" sec:authorize="!isAuthenticated()"></a> <a
+					class="btn btn-outline-secondary btn-sm"
+					th:href="@{/usersoverview}" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
+
+				</li>
+
+
+				<li class="nav-item"><a
+					class="btn btn-outline-secondary btn-sm" th:href="@{/login}"
+					sec:authorize="!isAuthenticated()">Login / Register</a> <a
+					class="btn btn-outline-secondary btn-sm" th:href="@{/logout}"
+					sec:authorize="isAuthenticated()"><span
+						sec:authentication="name"></span> </a></li>
+
+			</ul>
+
+			<!-- Ende: LogIn / LogOut  ============================================================== -->
+
+
+
 		</nav>
 	</header>
 
 
 	<!-- Fragment: Footer -->
-	<footer th:fragment="bottom" class="navbar bottom navbar-light bg-light">
-		<a class="navbar-brand" href="/">SkillHub</a> <a class="navbar-brand" href="#">Impressum</a> <a
-			class="navbar-brand" href="#">Privacy</a> <a class="navbar-brand" href="#">AGBs</a> <a class="navbar-brand"
+	<footer th:fragment="bottom"
+		class="navbar bottom navbar-light bg-light">
+		<a class="navbar-brand" href="/">SkillHub</a> <a class="navbar-brand"
+			href="#">Impressum</a> <a class="navbar-brand" href="#">Privacy</a> <a
+			class="navbar-brand" href="#">AGBs</a> <a class="navbar-brand"
 			href="#">Contact Us</a>
 		<p class="navbar-brand copyright">Copyright &copy; 2020</p>
 	</footer>
