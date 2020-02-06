@@ -9,10 +9,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,12 +34,11 @@ import lombok.ToString;
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name = ("id"), updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String imageURL;
 	private String firstName;
 	private String lastName;
@@ -52,13 +49,13 @@ public class User implements UserDetails {
 	private String zipCode;
 	private String city;
 
-	@Column(unique=true)
+	@Column(unique = true)
 	private String email;
 
 	private String password;
 	private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user")
+	@OneToMany(mappedBy = "user")
 	private Set<UserSkill> userSkills = new HashSet<>();
 
 	public User() {

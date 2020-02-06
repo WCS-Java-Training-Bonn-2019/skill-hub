@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -25,12 +24,10 @@ public class UserSkill {
 	private UserSkillId id;
 
 	@ManyToOne
-	@JoinColumn
 	@MapsId("userId")
 	private User user;
 
 	@ManyToOne
-	@JoinColumn
 	@MapsId("skillId")
 	private Skill skill;
 
