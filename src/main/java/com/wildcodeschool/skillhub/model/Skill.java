@@ -1,8 +1,8 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +30,7 @@ public class Skill {
 	private String imageURL;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
-	private List<UserSkill> userSkills = new ArrayList<>();
+	private Set<UserSkill> userSkills = new HashSet<>();
 
 	public Skill() {
 	}

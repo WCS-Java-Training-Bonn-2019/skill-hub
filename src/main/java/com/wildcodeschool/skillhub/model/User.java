@@ -4,10 +4,10 @@ import static java.util.Collections.singletonList;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,7 +59,7 @@ public class User implements UserDetails {
 	private String description;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user")
-	private List<UserSkill> userSkills = new ArrayList<>();
+	private Set<UserSkill> userSkills = new HashSet<>();
 
 	public User() {
 	}
@@ -83,8 +83,8 @@ public class User implements UserDetails {
 		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
 
-	public List<Long> getUserSkillIds() {
-		List<Long> userSkillIds = new ArrayList<>();
+	public Set<Long> getUserSkillIds() {
+		Set<Long> userSkillIds = new HashSet<>();
 		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
 		return userSkillIds;
 	}
