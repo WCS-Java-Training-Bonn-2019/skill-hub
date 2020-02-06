@@ -49,117 +49,19 @@
 			
 			
 			
-			<!-- Start: LogIn / LogOut  ============================================================== -->
+	<!-- Start: LogIn / LogOut  ============================================================== -->
 			
 				<ul class="navbar-nav ml-auto">
 				
-				<!-- Working on it *********************************************************************************************
-				****************************************************************************************************************
-				
-				Link: https://stackoverflow.com/questions/7915134/how-to-use-the-spring-security-facelets-tag-library-in-jsf
-				
-				
-					<li class="nav-item">
-			  		
-			  		
-			  			<!-- Admin: a) Show if admin is logged-in / otherwise show nothing ===================== 	
-			  			
-			  			
-			  			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			  			<p>Only admin can see this !</p>
-			  			</sec:authorize>
-			  			
-			  			
-			  			
-			  			
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-					 		<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" >Admin22222</a>
-					 	</sec:authorize>
-					 	
-					 
-					 
-					 
-					 <a class="nav-link" href="#" sec:authorize="!isAuthenticated()">wwwwwwww</a>
-					 
-					 
-					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a> 
-					 	
-					 	
-					 	
-					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a>
-					 	
-					 	
-				
-				
-					 
-					 
-					</li>
-				
-				
-				
-				
-				****************************************************************************************************************
-				****************************************************************************************************************
-				 -->
-				
-			  			
-			  			
-			  			
-			  			
-			  			
-			  			
-			  			
-			  			
-			  			
-
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				<!-- alt... -->
+					
 			  		<li class="nav-item">
 			  		
 			  		
 			  			<!-- Admin: a) Show if admin is logged-in / otherwise show nothing ===================== -->	
 	
 					 	<a class="nav-link" href="#" sec:authorize="!isAuthenticated()"></a>
-					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a> 
-					 	
-
-					 <!--  
-					 	
-					 	<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-					 		<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" >Admin</a>
-					 	</sec:authorize>
-					 	
-					 	 -->
+					 	<!-- alt:: <a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a>  -->
+					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
 					 
 					</li>
 					
