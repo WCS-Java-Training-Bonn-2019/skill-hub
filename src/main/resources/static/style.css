@@ -17,7 +17,7 @@ body {
 
 .jumbotron {
   position: relative;
-  height: 500px;
+  max-height: 500px;
   overflow: hidden;
   padding: 0;
 }
