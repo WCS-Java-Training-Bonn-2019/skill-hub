@@ -20,7 +20,7 @@
 
 <body>
 
-  <header th:replace="fragments.html :: top">Here goes the header</header>
+  <header th:replace="fragments.html :: top ('')">Here goes the header</header>
 
   <div class="container-edit">
   <h3 th:text="${userForm.id} ? 'Edit your profile' : 'Create your profile'">User3</h3>

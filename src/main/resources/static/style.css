@@ -15,6 +15,10 @@ body {
   object-fit: cover;
 }
 
+.avatar{
+  border-radius: 50%;
+}
+
 .jumbotron {
   position: relative;
   max-height: 500px;

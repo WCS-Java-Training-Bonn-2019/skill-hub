@@ -22,12 +22,14 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<header th:replace="fragments.html :: top">Here goes the header</header>
+<header th:replace="fragments.html :: top (iurl= ${user.imageURL})">Here
+	goes the header</header>
 
 <body>
 
 	<section>
 		<div class="flex-container">
+
 			<div class="container cards">
 				<div class="row no-gutters">
 					<div class="card" style="width: 28rem;">
@@ -44,9 +46,8 @@
 								<li th:text="|E-Mail: ${user.email}|">Email</li>
 								<li th:text="|Description: ${user.description}|">Description</li>
 							</ul>
-							
-							<a th:href="@{/user/edit(id=${user.id})}"
-								class="btn btn-primary">Edit</a>
+
+							<a th:href="@{/user/edit(id=${user.id})}" class="btn btn-primary">Edit</a>
 						</div>
 					</div>
 				</div>
