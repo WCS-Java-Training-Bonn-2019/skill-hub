@@ -65,7 +65,7 @@ public class SkillHubApplication {
 					"12594", "Kassel", "robert-schmitzzz@gmail.de", "1234", "");
 			User rolf = new User("rolf.png", "Rolf", "Langner", LocalDate.of(1960, 9, 13),
 					"78652", "Erfurt", "rolf-langner@gmail.de", "1234", "");
-			User till = new User("till.png", "Tipp", "Hausner", LocalDate.of(1970, 6, 2),
+			User till = new User("till.png", "Till", "Hausner", LocalDate.of(1970, 6, 2),
 					"38751", "Düsseldorf", "till_hausner1970@web.de", "1234", "");
 			
 			// Create users in DB

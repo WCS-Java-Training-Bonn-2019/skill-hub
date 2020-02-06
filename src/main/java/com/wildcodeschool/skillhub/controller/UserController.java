@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,6 @@ import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
-import com.wildcodeschool.skillhub.repository.UserRepository;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 import com.wildcodeschool.skillhub.service.UserSkillService;
@@ -26,23 +25,17 @@ import com.wildcodeschool.skillhub.service.UserSkillService;
 @Controller
 public class UserController {
 
-	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
+	private final UserService userService;
+	private final SkillService skillService;
+	private final UserSkillService userSkillService;
 
 	@Autowired
-	public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
+	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+		super();
+		this.userService = userService;
+		this.skillService = skillService;
+		this.userSkillService = userSkillService;
 	}
-
-	@Autowired
-	UserService userService;
-
-	@Autowired
-	SkillService skillService;
-
-	@Autowired
-	UserSkillService userSkillService;
 
 	@GetMapping("/users/search")
 	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
@@ -184,6 +177,26 @@ public class UserController {
 		model.addAttribute("user", user);
 
 		return "user/view";
+	}
+
+	// View user profile
+	@GetMapping("/user/profile")
+	public String viewProfile(Model model) {
+		User user = new User();
+
+		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long userId = user.getId();
+
+		if (userId != null) {
+			Optional<User> optionalUser = userService.getSingleUser(userId);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
+
+		model.addAttribute("user", user);
+
+		return "user/profile";
 	}
 
 	// Delete a user
