@@ -4,9 +4,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,13 +21,12 @@ import lombok.ToString;
 public class Skill implements Comparable<Skill> {
 
 	@Id
-	@Column(name = ("id"), updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skill_generator")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private String imageURL;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
+	@OneToMany(mappedBy = "skill")
 	private Set<UserSkill> userSkills = new HashSet<>();
 
 	public Skill() {
