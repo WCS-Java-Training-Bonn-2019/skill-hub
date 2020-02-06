@@ -24,7 +24,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -33,14 +38,20 @@ public class User implements UserDetails {
 	@Column(name = ("id"), updatable = false, nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
 	private Long id;
+	
 	private String imageURL;
 	private String firstName;
 	private String lastName;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
+
 	private String zipCode;
 	private String city;
+
+	@Column(unique=true)
 	private String email;
+
 	private String password;
 	private String description;
 
@@ -62,78 +73,6 @@ public class User implements UserDetails {
 		this.city = city;
 		this.email = email;
 		this.password = passwordEncoder.encode(password);
-		this.description = description;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-
-	public void setPassword(String password) {
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -175,29 +114,11 @@ public class User implements UserDetails {
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
 	}
 
-	public List<UserSkill> getUserSkills() {
-		return userSkills;
-	}
-
-	public void setUserSkills(List<UserSkill> userSkills) {
-		this.userSkills = userSkills;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	
-	// Methods from User Details Interface
+	// Methods required by UserDetails interface
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
 		return singletonList(authority);
-	}
-
-	@Override
-	public String getPassword() {
-		return this.password;
 	}
 
 	@Override
