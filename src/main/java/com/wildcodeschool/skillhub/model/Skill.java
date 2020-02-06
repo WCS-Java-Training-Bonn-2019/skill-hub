@@ -12,7 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
+@Getter
+@Setter
+@ToString
 public class Skill {
 
 	@Id
@@ -23,7 +30,7 @@ public class Skill {
 	private String imageURL;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
-	private List<UserSkill> users = new ArrayList<>();
+	private List<UserSkill> userSkills = new ArrayList<>();
 
 	public Skill() {
 	}
@@ -32,36 +39,6 @@ public class Skill {
 		super();
 		this.name = name;
 		this.imageURL = imageURL;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-
-	public List<UserSkill> getUserSkills() {
-		return users;
-	}
-
-	@Override
-	public String toString() {
-		return "Skill [getId=" + getId() + ", getName()=" + getName() + ", getImageURL()=" + getImageURL() + "]";
-
 	}
 
 	@Override
