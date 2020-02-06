@@ -11,6 +11,15 @@ public class LoginController {
 
 		return "login";
 	}
+	
+	
+	
+	@GetMapping("/login_ml")
+	public String getLoginPage2() {
+
+		return "login_ml";
+	}
+	
 
 	
 	@GetMapping("/logout")
