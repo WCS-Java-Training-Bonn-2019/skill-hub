@@ -24,7 +24,7 @@
 
 <body>
 	<!-- Fragment: Header -->
-	<header th:fragment="top">
+	<header th:fragment="top (iurl)">
 		<nav class="navbar navbar-expand-md navbar-light bg-light">
 			<a class="navbar-brand" href="/">SkillHub</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -64,7 +64,7 @@
 
 					<a class="nav-link" sec:authorize="!isAuthenticated()"></a> <a
 					class="btn btn-outline-secondary btn-sm"
-					th:href="@{/usersoverview}" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
+					th:href="@{/admin}" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
 
 				</li>
 

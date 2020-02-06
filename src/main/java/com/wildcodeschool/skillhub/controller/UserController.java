@@ -47,9 +47,8 @@ public class UserController {
 		return "users/get_by_skill";
 	}
 
-	// TODO Remove or protect for admin use only
-	// Show all users for debugging
-	@GetMapping("/usersoverview")
+	// Show administrator page
+	@GetMapping("/admin")
 	public String getAll(Model model) {
 
 		model.addAttribute("users", userService.getUsers());
@@ -57,7 +56,6 @@ public class UserController {
 		return "users/get_all";
 	}
 
-	// TODO For testing only
 	// Show edit user form
 	@GetMapping("/user/edit")
 	public String showEditUserForm(UserForm userForm, @RequestParam(name = "id", required = false) Long userId) {
