@@ -72,14 +72,19 @@ body {
   margin-left: 2rem;
 }
 
+
 .btn-danger{
 	margin-top: 2rem;
 }
+
+
 
 .btn-block {
     display: block;
     width: 100%;
 }
+
+
 
 .btn-primary{
 	display: felx;
@@ -119,8 +124,8 @@ ul {
 .card {
 	min-width: 50%;
 }
-*/
 
+*/
 
 .flex-container{
 	display: block
@@ -129,4 +134,51 @@ ul {
 }
 
 
+
+/* Martin's Übungen' */
+
+/* ==> css_selectors !!!
+=====> cssref/css_selectors
+
+==> background-size 
+
+==> flexbox guide
+
+
+
+
+
+.bar {
+	--> class ansprechen (mehrere Objeke ansprechen)
+}
+
+****************************************************************
+#baz {
+	--> id ansprechen (ist eindeutig pro HTML-Datei)
+}
+
+main {
+	--> main wird angesprochen
+}
+
+
+
+
+*/
+
+main.login_background {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-box {
+	width: 800px;
+	height: 300px;
+	background-color: rgb(255,255,255,0.5);
+	border-radius: 1em;
+	
+}
 
