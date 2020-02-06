@@ -1,9 +1,10 @@
 package com.wildcodeschool.skillhub.model;
 
+import static java.util.Collections.singletonList;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import static java.util.Collections.singletonList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -26,10 +27,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -84,14 +87,6 @@ public class User implements UserDetails {
 		List<Long> userSkillIds = new ArrayList<>();
 		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
 		return userSkillIds;
-	}
-
-	@Override
-	public String toString() {
-		return "User [getId()=" + getId() + ", getImageURL()=" + getImageURL() + ", getFirstName()=" + getFirstName()
-				+ ", getLastName()=" + getLastName() + ", getDateOfBirth()=" + getDateOfBirth() + ", getZipCode()="
-				+ getZipCode() + ", getCity()=" + getCity() + ", getEmail()=" + getEmail() + ", getDescription()="
-				+ getDescription() + ", getAge()=" + getAge() + "]";
 	}
 
 	@Override
