@@ -68,19 +68,6 @@ public class SkillHubApplication {
 			User till = new User("till.png", "Tipp", "Hausner", LocalDate.of(1970, 6, 2),
 					"38751", "Düsseldorf", "till_hausner1970@web.de", "1234", "");
 			
-			
-			// Create skill objects
-			Skill climbing = new Skill("Climbing", "climbing.jpg");
-			Skill cooking = new Skill("Cooking", "cooking.jpg");
-			Skill books = new Skill("Books", "books.jpg");
-			Skill photography = new Skill("Photography", "photography.jpg");
-			Skill fashion = new Skill("Fashion", "fashion.jpg");
-			Skill golf = new Skill("Golf", "golf.jpg");
-			Skill baking = new Skill("Baking", "baking.jpg");
-			Skill dogs = new Skill("Dogs", "dogs.jpg");
-			Skill motorbike = new Skill ("Motorbike", "motorbike.jpg");
-			
-			
 			// Create users in DB
 			userService.createNewUser(susanne);
 			userService.createNewUser(mia);
@@ -98,8 +85,21 @@ public class SkillHubApplication {
 			userService.createNewUser(robert);
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
+
+			
+			// Create skill objects
+			Skill climbing = new Skill("Climbing", "climbing.jpg");
+			Skill cooking = new Skill("Cooking", "cooking.jpg");
+			Skill books = new Skill("Books", "books.jpg");
+			Skill photography = new Skill("Photography", "photography.jpg");
+			Skill fashion = new Skill("Fashion", "fashion.jpg");
+			Skill golf = new Skill("Golf", "golf.jpg");
+			Skill baking = new Skill("Baking", "baking.jpg");
+			Skill dogs = new Skill("Dogs", "dogs.jpg");
+			Skill motorbike = new Skill ("Motorbike", "motorbike.jpg");
 			
 			// Create skills in DB
+			skillService.createNewSkill(climbing);
 			skillService.createNewSkill(cooking);
 			skillService.createNewSkill(books);
 			skillService.createNewSkill(photography);
