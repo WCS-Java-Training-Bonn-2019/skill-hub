@@ -1,6 +1,7 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 <title>SkillHub</title>
@@ -21,11 +22,9 @@
 	crossorigin="anonymous"></script>
 </head>
 
+<header th:replace="fragments.html :: top">Here goes the header</header>
+
 <body>
-
-	<header th:replace="fragments.html :: top">Here goes the
-		header</header>
-
 
 	<section>
 		<div class="flex-container">
@@ -45,8 +44,9 @@
 								<li th:text="|E-Mail: ${user.email}|">Email</li>
 								<li th:text="|Description: ${user.description}|">Description</li>
 							</ul>
-							<a href="javascript:javascript:history.go(-1)"
-								class="btn btn-primary">Back</a>
+							
+							<a th:href="@{/user/edit(id=${user.id})}"
+								class="btn btn-primary">Edit</a>
 						</div>
 					</div>
 				</div>
@@ -54,10 +54,6 @@
 
 		</div>
 	</section>
-
-
-	<hr />
-
 
 
 	<footer th:replace="fragments.html :: bottom">Here goes the

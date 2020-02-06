@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -184,6 +186,26 @@ public class UserController {
 		model.addAttribute("user", user);
 
 		return "user/view";
+	}
+
+	// View user profile
+	@GetMapping("/user/profile")
+	public String viewProfile(Model model) {
+		User user = new User();
+
+		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long userId = user.getId();
+
+		if (userId != null) {
+			Optional<User> optionalUser = userService.getSingleUser(userId);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
+
+		model.addAttribute("user", user);
+
+		return "user/profile";
 	}
 
 	// Delete a user
