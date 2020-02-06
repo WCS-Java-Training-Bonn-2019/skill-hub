@@ -1,7 +1,6 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 	<title>SkillHub</title>
@@ -38,49 +37,53 @@
 							Skills </a></li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
-						<a class="nav-link" href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+						<a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
+						<a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
 					</li>
 
-					<li class="nav-item"><a class="nav-link" href="user/edit"> Register	</a></li>
+					<li class="nav-item"><a class="nav-link" href="user/edit"> Register </a></li>
 
 				</ul>
 			</div>
-			
-			
-			
-	<!-- Start: LogIn / LogOut  ============================================================== -->
-			
-				<ul class="navbar-nav ml-auto">
-				
-					
-			  		<li class="nav-item">
-			  		
-			  		
-			  			<!-- Admin: a) Show if admin is logged-in / otherwise show nothing ===================== -->	
-	
-					 	<a class="nav-link" href="#" sec:authorize="!isAuthenticated()"></a>
-					 	<!-- alt:: <a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a>  -->
-					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
-					 
-					</li>
-					
-		
-					<li class="nav-item">			
-					
-						<!-- User: a) Show USER if logged-in / otherwise show Go-to Login/Register ============= -->
-						
-					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/user/edit}" sec:authorize="!isAuthenticated()">Log-in / Register</a>
-					 	<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span> ( --> With Link the EDIT?)</a> 
-					 <!--	<a href="/users" class="btn btn-outline-secondary btn-sm" role="button" sec:authorize="isAuthenticated()" aria-pressed="true">Admin</a> -->
-					</li> 
-					
-				</ul>
-			
-	<!-- Ende: LogIn / LogOut  ============================================================== -->
-	
-			
-			
+
+
+
+			<!-- Start: LogIn / LogOut  ============================================================== -->
+
+			<ul class="navbar-nav ml-auto">
+
+
+				<li class="nav-item">
+
+
+					<!-- Admin: a) Show if admin is logged-in / otherwise show nothing ===================== -->
+
+					<a class="nav-link" href="#" sec:authorize="!isAuthenticated()"></a>
+					<!-- alt:: <a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}" sec:authorize="isAuthenticated()">Admin</a>  -->
+					<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/users}"
+						sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
+
+				</li>
+
+
+				<li class="nav-item">
+
+					<!-- User: a) Show USER if logged-in / otherwise show Go-to Login/Register ============= -->
+
+					<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/user/edit}"
+						sec:authorize="!isAuthenticated()">Log-in / Register</a>
+					<a class="btn btn-outline-secondary btn-sm" href="#" th:href="@{/logout}"
+						sec:authorize="isAuthenticated()"><span sec:authentication="name"></span> ( --> With Link the
+						EDIT?)</a>
+					<!--	<a href="/users" class="btn btn-outline-secondary btn-sm" role="button" sec:authorize="isAuthenticated()" aria-pressed="true">Admin</a> -->
+				</li>
+
+			</ul>
+
+			<!-- Ende: LogIn / LogOut  ============================================================== -->
+
+
+
 		</nav>
 	</header>
 

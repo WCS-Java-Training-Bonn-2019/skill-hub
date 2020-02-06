@@ -28,22 +28,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure (HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/", "/images/**", "/style.css", "/webjars/**").permitAll()
-				.antMatchers("/skills", "/users/**").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/", "/images/**", "/style.css", "/webjars/**", "/skills", "/users/*", "/user/edit", "/logout").permitAll()
+				.antMatchers("/users/**", "/user/**").hasAnyRole("USER", "ADMIN")
 				.anyRequest().hasRole("ADMIN")
 				.and()
 			.formLogin()
+				.loginPage("/login")
+				.loginProcessingUrl("/perform_login")
+				.defaultSuccessUrl("/", true)
+				.permitAll()		
 				.and()
+				.logout()
+				.logoutUrl("/perform_logout")
+		        .deleteCookies("JSESSIONID")
+		        .permitAll()
+		        .and()
 			.httpBasic();
 	}
 	
 	@Override
 	protected void configure (AuthenticationManagerBuilder auth) throws Exception{
-			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-				
-			// .inMemoryAuthentication()
-			//		.withUser("user").password("{noop}password").roles("USER");
+			auth
+				.userDetailsService(userDetailsService)
+				.passwordEncoder(passwordEncoder);
 			
 	}
-
+	
+	
 }

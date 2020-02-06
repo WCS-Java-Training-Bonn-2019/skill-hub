@@ -2,6 +2,7 @@ package com.wildcodeschool.skillhub.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +25,7 @@ import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class UserController {
-	
+
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 
@@ -55,7 +56,7 @@ public class UserController {
 
 	// TODO Remove or protect for admin use only
 	// Show all users for debugging
-	@GetMapping("/users")
+	@GetMapping("/usersoverview")
 	public String getAll(Model model) {
 
 		model.addAttribute("users", userService.getUsers());
@@ -79,26 +80,19 @@ public class UserController {
 
 		userForm.setUser(user);
 
-		List<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> allSkills = skillService.getSkills();
+		Set<UserSkill> userSkills = user.getUserSkills();
+		List<Skill> skills = skillService.getSkills();
 
 		UserSkillLevel userSkillLevel;
 
-		for (int i = 0; i < allSkills.size(); i++) {
-			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false,
-					allSkills.get(i).getImageURL());
-			for (int j = 0; j < userSkills.size(); j++) {
-				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
+		for (Skill skill : skills) {
+			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+			for (UserSkill userSkill : userSkills) {
+				if (skill.getId() == userSkill.getId().getSkillId()) {
 					userSkillLevel.setChecked(true);
 				}
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
-		}
-
-		System.out.println("==============================================================================");
-		for (int i = 0; i < userSkills.size(); i++) {
-			System.out.println("(Create) User Form: " + userForm.getUserSkillLevels().get(i).getName());
-			System.out.println("==============================================================================");
 		}
 
 		return "user/edit";
@@ -129,7 +123,7 @@ public class UserController {
 			}
 		}
 
-		List<Long> userSkillIds = user.getUserSkillIds();
+		Set<Long> userSkillIds = user.getUserSkillIds();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
 		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills

@@ -1,8 +1,8 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
-public class Skill {
+@Getter
+@Setter
+@ToString
+public class Skill implements Comparable<Skill> {
 
 	@Id
 	@Column(name = ("id"), updatable = false, nullable = false)
@@ -23,7 +30,7 @@ public class Skill {
 	private String imageURL;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
-	private List<UserSkill> users = new ArrayList<>();
+	private Set<UserSkill> userSkills = new HashSet<>();
 
 	public Skill() {
 	}
@@ -32,36 +39,6 @@ public class Skill {
 		super();
 		this.name = name;
 		this.imageURL = imageURL;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-
-	public List<UserSkill> getUserSkills() {
-		return users;
-	}
-
-	@Override
-	public String toString() {
-		return "Skill [getId=" + getId() + ", getName()=" + getName() + ", getImageURL()=" + getImageURL() + "]";
-
 	}
 
 	@Override
@@ -79,6 +56,11 @@ public class Skill {
 			return false;
 		Skill other = (Skill) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public int compareTo(Skill o) {
+		return this.getName().compareTo(o.getName());
 	}
 
 }
