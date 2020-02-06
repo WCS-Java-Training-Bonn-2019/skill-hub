@@ -10,8 +10,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
 @Table(name = "user_skill" )
+@Getter
+@Setter
+@ToString
 public class UserSkill {
 
 	@EmbeddedId
@@ -39,44 +46,6 @@ public class UserSkill {
 		this.user = user;
 		this.skill = skill;
 		this.createdOn = createdOn;
-		this.isOfferingSkill = isOfferingSkill;
-	}
-
-	public UserSkillId getId() {
-		return id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-		this.id.setUserId(user.getId());
-	}
-
-	public Skill getSkill() {
-		return skill;
-	}
-
-	public void setSkill(Skill skill) {
-		this.skill = skill;
-		this.id.setSkillId(skill.getId());
-	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public Boolean getIsOfferingSkill() {
-		return isOfferingSkill;
-	}
-
-	public void setIsOfferingSkill(Boolean isOfferingSkill) {
 		this.isOfferingSkill = isOfferingSkill;
 	}
 
