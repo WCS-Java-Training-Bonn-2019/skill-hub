@@ -61,18 +61,46 @@
 
     <div class="form-group">
       <label for="password">Password</label> <input type="password" class="form-control" id="password"
-        aria-describedby="passwordHelp" name="password" required th:field="*{password}">
+        aria-describedby="passwordHelp" name="password"
+        onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
+        placeholder="Password"required th:field="*{password}">
     </div>
 
     <div class="form-group">
       <label for="passwordRepeated">Password (repeated)</label> <input type="password" class="form-control" id="passwordRepeated"
-        aria-describedby="passwordRepeatedHelp" name="passwordRepeated" required th:field="*{passwordRepeated}">
+        aria-describedby="passwordRepeatedHelp" name="passwordRepeated"
+        onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+        placeholder="Verify Password" required th:field="*{passwordRepeated}">
     </div>
+    
+    
+    
+    
+    
+
+<!--  Raus, nachdem getestet wurde !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+						<tr>
+							<td><input th:value=*{password} id="password"
+								name="password" type="password"
+								onchange="if(this.checkValidity()) form.password_two.pattern = this.value;"
+								placeholder="Password" required="required">
+						</tr>						<tr>
+							<td><input th:value=*{password} id="password_two"
+								name="password_two" type="password"
+								onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+								placeholder="Verify Password" required="required"></td>
+						</tr>
+
+-->
+
+
 
     <div class="form-group">
       <label for="user-description">Description</label>
-      <textarea class="form-control" id="user-description" name="description" th:field="*{description}"
-        rows="3"></textarea>
+      <textarea class="form-control" id="user-description" name="description" placeholder="Please enter your description here."
+      th:field="*{description}" rows="3"></textarea>
     </div>
 
     <div class="form-group">
