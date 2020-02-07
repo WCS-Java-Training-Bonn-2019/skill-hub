@@ -44,6 +44,7 @@
 							<form method="post" th:action="@{/user/upsert}"
 								th:object="${userForm}">
 								<input name="id" th:field="*{id}" type="hidden">
+								<!--<input name="age" th:field="*{age}" type="hidden">-->
 
 								<div class="form-group">
 									<label for="user-first-name">First name</label> <input

@@ -1,5 +1,6 @@
 package com.wildcodeschool.skillhub.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -104,7 +105,7 @@ public class UserController {
 	// Update or insert a user
 	@PostMapping("/user/upsert")
 	public String postUser(@ModelAttribute UserForm userForm,
-			@RequestParam(name = "id", required = false) Long userId) {
+			@RequestParam(name = "id", required = false) Long userId, Principal principal) {
 		boolean isNewUser = userId == null;
 
 		User user = new User();
@@ -161,19 +162,12 @@ public class UserController {
 		} else {
 			userService.updateUser(user);
 		}
-		return "redirect:/admin";
+		
+		if ("admin".equals(principal.getName())) {
+			return "redirect:/admin";
+		}
+		return "redirect:/user/profile";
 
-		/*
-		 * Needs to be adapted: User goes back to his page after editing it...
-		 * 
-		 * return "redirect:/user/view";
-		 * 
-		 * Steffis Try: if ("admin".equals(user.getEmail())) { return "redirect:/admin";
-		 * } else return "redirect:/user/view";
-		 * 
-		 * 
-		 * Example from Band: --> return "redirect:/band/" + band.getId() + "/view";
-		 */
 	}
 
 	// View a user
