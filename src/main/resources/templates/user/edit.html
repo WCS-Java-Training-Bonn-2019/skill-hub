@@ -86,22 +86,30 @@
 								</div>
 
 								<div class="form-group">
-									<label for="password">Password</label> <input type="password"
-										class="form-control" id="password"
-										aria-describedby="passwordHelp" name="password"
-										onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
-										placeholder="Password" required th:field="*{password}">
-								</div>
-
-								<div class="form-group">
-									<label for="passwordRepeated">Password (repeated)</label> <input
-										type="password" class="form-control" id="passwordRepeated"
-										aria-describedby="passwordRepeatedHelp"
-										name="passwordRepeated"
-										onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
-										placeholder="Verify Password" required
-										th:field="*{passwordRepeated}">
-								</div>
+									<label for="password">Password</label> <input type="password" class="form-control" id="password"
+									  aria-describedby="passwordHelp" name="password"
+									  onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
+									  placeholder="Password" required th:field="*{password}">
+								  </div>
+							  
+							  <!-- 
+								  ==> Problem: password & passwordRepeated wird nicht gezogen...!
+								  
+								  
+								  Lösung noch einbauen:
+								  1) PW Felder nur anzeigen, wenn sich ein User anmeldet
+								  2) Separates PW-Change-Feld anlegen...
+								  
+								  
+								   -->
+								  
+							  
+								  <div class="form-group">
+									<label for="passwordRepeated">Password (repeated)</label> <input type="password" class="form-control" id="passwordRepeated"
+									  aria-describedby="passwordRepeatedHelp" name="passwordRepeated"
+									  onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+									  placeholder="Verify Password" required th:field="*{passwordRepeated}">
+								  </div>
 
 								<div class="form-group">
 									<label for="user-description">Description</label>
@@ -154,6 +162,7 @@
 
 	<footer th:replace="fragments.html :: bottom">Here goes the
 		footer</footer>
+
 
 
 </body>

@@ -161,7 +161,6 @@ public class UserController {
 		} else {
 			userService.updateUser(user);
 		}
-
 		return "redirect:/admin";
 
 		/*
