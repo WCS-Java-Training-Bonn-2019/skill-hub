@@ -28,32 +28,121 @@
 <body>
 
 	<section>
-		<div class="flex-container">
 
+
+		<div class="flex-container">
 			<div class="container cards">
 				<div class="row no-gutters">
-					<div class="card" style="width: 28rem;">
-						<img class="card-img-top"
-							th:src="@{${'/images/' + user.imageURL}}" alt="Card image cap">
+
+					<div class="card w-75">
+						<div class="card-header">User Profile</div>
 						<div class="card-body">
-							<h5 th:text="|${user.firstName}|" class="card-title">Name</h5>
-							<p class="card-text"></p>
-							<ul>
-								<li th:text="|Firstname: ${user.firstName}|">Name</li>
-								<li th:text="|Lastname: ${user.lastName}|">Name</li>
-								<li th:text="|Age: ${user.age}|">Age</li>
-								<li th:text="|City: ${user.city}|">City</li>
-								<li th:text="|E-Mail: ${user.email}|">Email</li>
-								<li th:text="|Description: ${user.description}|">Description</li>
-							</ul>
+							<blockquote class="blockquote mb-0">
+
+								<div class="card mb-3">
+									<div class="row no-gutters">
+										<div class="col-md-4">
+
+											<img class="img-view"
+												th:src="@{${'/images/' + user.imageURL}}"
+												alt="Card image cap">
+
+										</div>
+										<div class="col-md-8">
+											<div class="card-body">
+												<p class="card-text">
+												<div class="flex-container">
+
+													<div class="row no-gutters">
+														<div class="col-4">
+															<p class="bold">Firstname:</p>
+														</div>
+														<div class="col-1">
+															<p></p>
+														</div>
+														<div class="col-6">
+															<p th:text="|${user.firstName}|"></p>
+														</div>
+													</div>
+
+													<div class="row no-gutters">
+														<div class="col-4">
+															<p class="bold">Lastname:</p>
+														</div>
+														<div class="col-1">
+															<p></p>
+														</div>
+														<div class="col-6">
+															<p th:text="|${user.lastName}|"></p>
+														</div>
+													</div>
+
+													<div class="row no-gutters">
+														<div class="col-4">
+															<p class="bold">Age:</p>
+														</div>
+														<div class="col-1">
+															<p></p>
+														</div>
+														<div class="col-6">
+															<p th:text="|${user.age}|"></p>
+														</div>
+													</div>
+
+													<div class="row no-gutters">
+														<div class="col-4">
+															<p class="bold">City:</p>
+														</div>
+														<div class="col-1">
+															<p></p>
+														</div>
+														<div class="col-6">
+															<p th:text="|${user.city}|"></p>
+														</div>
+													</div>
+
+													<div class="row no-gutters">
+														<div class="col-4">
+															<p class="bold">E-Mail:</p>
+														</div>
+														<div class="col-1">
+															<p></p>
+														</div>
+														<div class="col-6">
+															<p th:text="|${user.email}|"></p>
+														</div>
+													</div>
+
+
+													<div class="row no-gutters">
+														<div class="col-4">
+															<p class="bold">Description</p>
+														</div>
+														<div class="col-1">
+															<p></p>
+														</div>
+														<div class="col-6">
+															<p th:text="|${user.description}|"></p>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</blockquote>
 
 							<a th:href="@{/user/edit(id=${user.id})}" class="btn btn-primary">Edit</a>
 						</div>
+
 					</div>
 				</div>
-			</div>
 
+			</div>
 		</div>
+
 	</section>
 
 
