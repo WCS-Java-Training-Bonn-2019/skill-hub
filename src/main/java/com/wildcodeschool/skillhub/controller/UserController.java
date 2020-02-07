@@ -140,7 +140,7 @@ public class UserController {
 				}
 			}
 		}
-		
+
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 		user.setId(userForm.getId());
@@ -150,9 +150,9 @@ public class UserController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
-		//user.setPassword(userForm.getPassword());
+		// user.setPassword(userForm.getPassword());
 		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
-		
+
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 
@@ -161,15 +161,20 @@ public class UserController {
 		} else {
 			userService.updateUser(user);
 		}
+
 		return "redirect:/admin";
-		
-		/* Needs to be adapted: User goes back to his page after editing it...
-		
-		return "redirect:/user/view";
-		
-		Example from Band:
-		--> return "redirect:/band/" + band.getId() + "/view";
-		*/
+
+		/*
+		 * Needs to be adapted: User goes back to his page after editing it...
+		 * 
+		 * return "redirect:/user/view";
+		 * 
+		 * Steffis Try: if ("admin".equals(user.getEmail())) { return "redirect:/admin";
+		 * } else return "redirect:/user/view";
+		 * 
+		 * 
+		 * Example from Band: --> return "redirect:/band/" + band.getId() + "/view";
+		 */
 	}
 
 	// View a user
