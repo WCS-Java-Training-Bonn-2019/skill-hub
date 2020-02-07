@@ -161,6 +161,15 @@ public class UserController {
 		} else {
 			userService.updateUser(user);
 		}
+		//*****************************************************************
+		/*
+		if (hasRole('ROLE_ADMIN')) {
+			userService.createNewUser(user);
+		} else {
+			userService.updateUser(user);
+		}
+		*/
+		
 		return "redirect:/admin";
 		
 		/* Needs to be adapted: User goes back to his page after editing it...
