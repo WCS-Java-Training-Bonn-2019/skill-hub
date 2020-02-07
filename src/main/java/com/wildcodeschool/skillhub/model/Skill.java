@@ -26,8 +26,8 @@ import lombok.Setter;
 @Entity
 @Builder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(value = AccessLevel.PACKAGE)
+@NoArgsConstructor
+@Setter
 @Getter
 public class Skill implements Comparable<Skill> {
 
