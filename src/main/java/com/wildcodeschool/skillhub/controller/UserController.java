@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -138,6 +140,8 @@ public class UserController {
 				}
 			}
 		}
+		
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 		user.setId(userForm.getId());
 		user.setFirstName(userForm.getFirstName());
@@ -146,7 +150,9 @@ public class UserController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
-		user.setPassword(userForm.getPassword());
+		//user.setPassword(userForm.getPassword());
+		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+		
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 
@@ -155,8 +161,15 @@ public class UserController {
 		} else {
 			userService.updateUser(user);
 		}
-
-		return "redirect:/users";
+		return "redirect:/admin";
+		
+		/* Needs to be adapted: User goes back to his page after editing it...
+		
+		return "redirect:/user/view";
+		
+		Example from Band:
+		--> return "redirect:/band/" + band.getId() + "/view";
+		*/
 	}
 
 	// View a user
