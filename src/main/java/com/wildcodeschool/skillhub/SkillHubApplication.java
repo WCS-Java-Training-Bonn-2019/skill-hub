@@ -1,6 +1,7 @@
 package com.wildcodeschool.skillhub;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
+import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 import com.wildcodeschool.skillhub.service.UserSkillService;
@@ -30,10 +32,38 @@ public class SkillHubApplication {
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
-	public CommandLineRunner demo(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public CommandLineRunner demo(UserService userService, SkillService skillService,
+			UserSkillService userSkillService) {
 		return (args) -> {
-			
+
+			// Create skill objects
+			Skill climbing = Skill.builder().name("Climbing").imageURL("climbing.jpg").build();
+			Skill cooking = Skill.builder().name("Cooking").imageURL("cooking.jpg").build();
+			Skill books = Skill.builder().name("Books").imageURL("books.jpg").build();
+			Skill photography = Skill.builder().name("Photography").imageURL("photography.jpg").build();
+			Skill fashion = Skill.builder().name("Fashion").imageURL("fashion.jpg").build();
+			Skill golf = Skill.builder().name("Golf").imageURL("golf.jpg").build();
+			Skill baking = Skill.builder().name("Baking").imageURL("baking.jpg").build();
+			Skill dogs = Skill.builder().name("Dogs").imageURL("dogs.jpg").build();
+			Skill motorbike = Skill.builder().name("Motorbike").imageURL("motorbike.jpg").build();
+
+//			climbing.getUserSkills()
+//					.add(new UserSkill(new User("susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
+//							"28215", "Bremen", "susanne-heer@web.de", "1234", ""), climbing, new Date(), true));
+//
+			// Create skills in DB
+			skillService.createNewSkill(climbing);
+			skillService.createNewSkill(cooking);
+			skillService.createNewSkill(books);
+			skillService.createNewSkill(photography);
+			skillService.createNewSkill(fashion);
+			skillService.createNewSkill(golf);
+			skillService.createNewSkill(baking);
+			skillService.createNewSkill(dogs);
+			skillService.createNewSkill(motorbike);
+
 			// Create user objects
 			User susanne = new User("susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
 					"28215", "Bremen", "susanne-heer@web.de", "1234", "");
@@ -86,52 +116,29 @@ public class SkillHubApplication {
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
 
-			
-			// Create skill objects
-			Skill climbing = new Skill("Climbing", "climbing.jpg");
-			Skill cooking = new Skill("Cooking", "cooking.jpg");
-			Skill books = new Skill("Books", "books.jpg");
-			Skill photography = new Skill("Photography", "photography.jpg");
-			Skill fashion = new Skill("Fashion", "fashion.jpg");
-			Skill golf = new Skill("Golf", "golf.jpg");
-			Skill baking = new Skill("Baking", "baking.jpg");
-			Skill dogs = new Skill("Dogs", "dogs.jpg");
-			Skill motorbike = new Skill ("Motorbike", "motorbike.jpg");
-			
-			// Create skills in DB
-			skillService.createNewSkill(climbing);
-			skillService.createNewSkill(cooking);
-			skillService.createNewSkill(books);
-			skillService.createNewSkill(photography);
-			skillService.createNewSkill(fashion);
-			skillService.createNewSkill(golf);
-			skillService.createNewSkill(baking);
-			skillService.createNewSkill(dogs);
-			skillService.createNewSkill(motorbike);
-
-			// Add some skills to user in DB
-			userSkillService.addNewUserSkill(susanne, cooking);
-			userSkillService.addNewUserSkill(susanne, baking);
-			userSkillService.addNewUserSkill(susanne, books);
-			userSkillService.addNewUserSkill(mia ,fashion);
-			userSkillService.addNewUserSkill(lasse, books);
-			userSkillService.addNewUserSkill(alex, climbing);
-			userSkillService.addNewUserSkill(antonia, fashion);
-			userSkillService.addNewUserSkill(cem, photography);
-			userSkillService.addNewUserSkill(claudia, fashion);
-			userSkillService.addNewUserSkill(daniel, motorbike);
-			userSkillService.addNewUserSkill(harald, golf);
-			userSkillService.addNewUserSkill(lennart, climbing);
-			userSkillService.addNewUserSkill(maike, baking);
-			userSkillService.addNewUserSkill(marina, baking);
-			userSkillService.addNewUserSkill(reinhardt, motorbike);
-			userSkillService.addNewUserSkill(robert, photography);
-			userSkillService.addNewUserSkill(rolf, books);
-			userSkillService.addNewUserSkill(till, dogs);
-
-			// Test UserService methods
-			userSkillService.removeUserSkill(susanne, climbing);
-			userService.createNewUser(susanne);
+//			// Add some skills to user in DB
+//			userSkillService.addNewUserSkill(susanne, cooking);
+//			userSkillService.addNewUserSkill(susanne, baking);
+//			userSkillService.addNewUserSkill(susanne, books);
+//			userSkillService.addNewUserSkill(mia ,fashion);
+//			userSkillService.addNewUserSkill(lasse, books);
+//			userSkillService.addNewUserSkill(alex, climbing);
+//			userSkillService.addNewUserSkill(antonia, fashion);
+//			userSkillService.addNewUserSkill(cem, photography);
+//			userSkillService.addNewUserSkill(claudia, fashion);
+//			userSkillService.addNewUserSkill(daniel, motorbike);
+//			userSkillService.addNewUserSkill(harald, golf);
+//			userSkillService.addNewUserSkill(lennart, climbing);
+//			userSkillService.addNewUserSkill(maike, baking);
+//			userSkillService.addNewUserSkill(marina, baking);
+//			userSkillService.addNewUserSkill(reinhardt, motorbike);
+//			userSkillService.addNewUserSkill(robert, photography);
+//			userSkillService.addNewUserSkill(rolf, books);
+//			userSkillService.addNewUserSkill(till, dogs);
+//
+//			// Test UserService methods
+//			userSkillService.removeUserSkill(susanne, climbing);
+//			userService.createNewUser(susanne);
 		};
 	}
 
