@@ -1,9 +1,14 @@
 package com.wildcodeschool.skillhub.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,54 +21,52 @@ import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
-import com.wildcodeschool.skillhub.repository.UserRepository;
-import com.wildcodeschool.skillhub.repository.UserSkillRepository;
+import com.wildcodeschool.skillhub.service.SkillService;
+import com.wildcodeschool.skillhub.service.UserService;
+import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class UserController {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserService userService;
+	private final SkillService skillService;
+	private final UserSkillService userSkillService;
 
 	@Autowired
-	private SkillRepository skillRepository;
-
-	@Autowired
-	private UserSkillRepository userSkillRepository;
+	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+		super();
+		this.userService = userService;
+		this.skillService = skillService;
+		this.userSkillService = userSkillService;
+	}
 
 	@GetMapping("/users/search")
-	public String getBySkill(Model model, @RequestParam Long id) {
-		model.addAttribute("users", userRepository.findByuserSkills_SkillId(id));
+	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
+		model.addAttribute("users", userService.getUsersBySkillId(skillId));
 
-		Optional<Skill> optionalSkill = skillRepository.findById(id);
-
-		if (optionalSkill.isPresent()) {
-			model.addAttribute("skill", optionalSkill.get());
-		}
+		Skill skill = skillService.getSingleSkill(skillId);
+		model.addAttribute("skill", skill);
 
 		return "users/get_by_skill";
 	}
 
-	// TODO Remove or protect for admin use only
-	// Show all users for debugging
-	@GetMapping("/users")
+	// Show administrator page
+	@GetMapping("/admin")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("users", userService.getUsers());
 
 		return "users/get_all";
 	}
 
-	// TODO For testing only
 	// Show edit user form
 	@GetMapping("/user/edit")
-	public String showEditUserForm(UserForm userForm, @RequestParam(required = false) Long id) {
+	public String showEditUserForm(UserForm userForm, @RequestParam(name = "id", required = false) Long userId) {
 
 		User user = new User();
 
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
+		if (userId != null) {
+			Optional<User> optionalUser = userService.getSingleUser(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -71,26 +74,19 @@ public class UserController {
 
 		userForm.setUser(user);
 
-		List<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> allSkills = skillRepository.findAll();
+		Set<UserSkill> userSkills = user.getUserSkills();
+		List<Skill> skills = skillService.getSkills();
 
 		UserSkillLevel userSkillLevel;
 
-		for (int i = 0; i < allSkills.size(); i++) {
-			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false,
-					allSkills.get(i).getImageURL());
-			for (int j = 0; j < userSkills.size(); j++) {
-				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
+		for (Skill skill : skills) {
+			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+			for (UserSkill userSkill : userSkills) {
+				if (skill.getId() == userSkill.getId().getSkillId()) {
 					userSkillLevel.setChecked(true);
 				}
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
-		}
-
-		System.out.println("==============================================================================");
-		for (int i = 0; i < userSkills.size(); i++) {
-			System.out.println("(Create) User Form: " + userForm.getUserSkillLevels().get(i).getName());
-			System.out.println("==============================================================================");
 		}
 
 		return "user/edit";
@@ -106,102 +102,82 @@ public class UserController {
 		return "user/edit";
 	}
 
-	// Edit a user
-//	@GetMapping("/user/edit")
-//	public String getUser(Model model, @RequestParam(required = false) Long id) {
-//
-//		User user = new User();
-//
-//		if (id != null) {
-//			Optional<User> optionalUser = userRepository.findById(id);
-//			if (optionalUser.isPresent()) {
-//				user = optionalUser.get();
-//			}
-//		}
-//		
-//		model.addAttribute("user", user);
-//		return "user/edit";
-//	}
-
-//	// Create a new user
-//	@GetMapping("/user/new")
-//	public String getUser2(Model model) {
-//		User user = new User();
-//		model.addAttribute("user", user);
-//
-//		return "user/edit";
-//
-//	}
-
 	// Update or insert a user
 	@PostMapping("/user/upsert")
-	public String postUser(@ModelAttribute UserForm userForm, @RequestParam(required = false) Long id) {
+	public String postUser(@ModelAttribute UserForm userForm,
+			@RequestParam(name = "id", required = false) Long userId, Principal principal) {
+		boolean isNewUser = userId == null;
+
 		User user = new User();
 
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
+		if (!isNewUser) {
+			Optional<User> optionalUser = userService.getSingleUser(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
 		}
 
-		List<Long> userSkillIds = user.getUserSkillIds();
+		Set<Long> userSkillIds = user.getUserSkillIds();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
 		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
 		for (UserSkillLevel userSkillLevel : userSkillLevels) {
 
 			if (userSkillLevel.isChecked()) {
-				Skill skill = null;
+				Skill skill;
 
-				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
-
-				if (optionalSkill.isPresent()) {
-					skill = optionalSkill.get();
-				}
+				skill = skillService.getSingleSkill(userSkillLevel.getId());
 
 				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					user.addSkill(skill);
+					userSkillService.addNewUserSkill(user, skill);
 				}
 			} else {
 				Skill skill = null;
 
-				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
-
-				if (optionalSkill.isPresent()) {
-					skill = optionalSkill.get();
-				}
+				skill = skillService.getSingleSkill(userSkillLevel.getId());
 
 				if (userSkillIds.contains(userSkillLevel.getId())) {
-					user.removeSkill(skill, userSkillRepository);
+					userSkillService.removeUserSkill(user, skill);
 				}
 			}
 		}
 
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 		user.setId(userForm.getId());
-		user.setUserName(userForm.getUserName());
 		user.setFirstName(userForm.getFirstName());
 		user.setLastName(userForm.getLastName());
 		user.setZipCode(userForm.getZipCode());
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
+		// user.setPassword(userForm.getPassword());
+		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 
-		userRepository.save(user);
+		if (isNewUser) {
+			userService.createNewUser(user);
+		} else {
+			userService.updateUser(user);
+		}
+		
+		if ("admin".equals(principal.getName())) {
+			return "redirect:/admin";
+		}
+		return "redirect:/user/profile";
 
-		return "redirect:/users";
 	}
 
 	// View a user
 	@GetMapping("/user/view")
-	public String viewUser(Model model, @RequestParam(required = false) Long id) {
+	public String viewUser(Model model, @RequestParam(name = "id", required = false) Long userId) {
 
 		User user = new User();
 
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
+		if (userId != null) {
+			Optional<User> optionalUser = userService.getSingleUser(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -212,11 +188,31 @@ public class UserController {
 		return "user/view";
 	}
 
+	// View user profile
+	@GetMapping("/user/profile")
+	public String viewProfile(Model model) {
+		User user = new User();
+
+		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long userId = user.getId();
+
+		if (userId != null) {
+			Optional<User> optionalUser = userService.getSingleUser(userId);
+			if (optionalUser.isPresent()) {
+				user = optionalUser.get();
+			}
+		}
+
+		model.addAttribute("user", user);
+
+		return "user/profile";
+	}
+
 	// Delete a user
 	@GetMapping("/user/delete")
 	public String deleteUser(@RequestParam Long id) {
 
-		userRepository.deleteById(id);
+		userService.deleteUser(id);
 
 		return "redirect:/user/deleted";
 	}

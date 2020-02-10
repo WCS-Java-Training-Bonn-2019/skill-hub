@@ -1,6 +1,7 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 <title>SkillHub</title>
@@ -21,13 +22,14 @@
 	crossorigin="anonymous"></script>
 </head>
 
+<header th:replace="fragments.html :: top (iurl= ${user.imageURL})">Here
+	goes the header</header>
+
 <body>
 
-	<header th:replace="fragments.html :: top ('')">Here goes the
-		header</header>
-
-
 	<section>
+
+
 		<div class="flex-container">
 			<div class="container cards">
 				<div class="row no-gutters">
@@ -75,7 +77,7 @@
 														</div>
 													</div>
 
-													<!--<div class="row no-gutters">
+													<div class="row no-gutters">
 														<div class="col-4">
 															<p class="bold">Age:</p>
 														</div>
@@ -85,7 +87,7 @@
 														<div class="col-6">
 															<p th:text="|${user.age}|"></p>
 														</div>
-													</div>-->
+													</div>
 
 													<div class="row no-gutters">
 														<div class="col-4">
@@ -130,10 +132,9 @@
 									</div>
 
 								</div>
-								</blockquote>
+							</blockquote>
 
-								<a href="javascript:javascript:history.go(-1)"
-									class="btn btn-primary">Go Back</a>
+							<a th:href="@{/user/edit(id=${user.id})}" class="btn btn-primary">Edit</a>
 						</div>
 
 					</div>
@@ -141,16 +142,12 @@
 
 			</div>
 		</div>
+
 	</section>
-
-
-	<hr />
-
 
 
 	<footer th:replace="fragments.html :: bottom">Here goes the
 		footer</footer>
 
 </body>
-
 </html>

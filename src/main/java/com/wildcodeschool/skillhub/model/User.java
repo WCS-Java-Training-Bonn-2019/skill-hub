@@ -1,55 +1,70 @@
 package com.wildcodeschool.skillhub.model;
 
+import static java.util.Collections.singletonList;
+
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.wildcodeschool.skillhub.repository.UserSkillRepository;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-public class User {
+@Getter
+@Setter
+@ToString
+public class User implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = ("id"), updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String userName;
+
 	private String imageURL;
 	private String firstName;
 	private String lastName;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
+
 	private String zipCode;
 	private String city;
+
+	@Column(unique = true)
 	private String email;
+
+	private String password;
 	private String description;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserSkill> userSkills = new ArrayList<>();
+	@OneToMany(mappedBy = "user")
+	private Set<UserSkill> userSkills = new HashSet<>();
 
-	@SuppressWarnings("unused")
 	public User() {
 	}
 
-	public User(String userName, String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode,
-			String city, String email, String description) {
+	public User(String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode, String city,
+			String email, String password, String description) {
 		super();
-		this.userName = userName;
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		this.imageURL = imageURL;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -57,82 +72,7 @@ public class User {
 		this.zipCode = zipCode;
 		this.city = city;
 		this.email = email;
-		this.description = description;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
+		this.password = passwordEncoder.encode(password);
 		this.description = description;
 	}
 
@@ -140,76 +80,15 @@ public class User {
 		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
 	}
 
-	public List<Long> getUserSkillIds() {
-		List<Long> userSkillIds = new ArrayList<>();
+	public Set<Long> getUserSkillIds() {
+		Set<Long> userSkillIds = new HashSet<>();
 		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
 		return userSkillIds;
-	}
-	
-	public void addSkill(Skill skill) {
-		UserSkill userSkill = new UserSkill(this, skill, new Date(), true);
-
-		// Add UserSkill to List in User
-		userSkills.add(userSkill);
-
-		// Add UserSkill to List in Skill
-		skill.getUsers().add(userSkill);
-	}
-
-//  TODO Make this work!	
-//	public void removeSkill(Skill skill) {
-//
-//		// Iterate over all UserSkills of the User
-//		for (Iterator<UserSkill> iterator = skills.iterator(); iterator.hasNext();) {
-//			UserSkill userSkill = iterator.next();
-//
-//			// If UserSkill matches this User and the Skill to be removed
-//			if (userSkill.getUser().equals(this) && userSkill.getSkill().equals(skill)) {
-//
-//				// Remove UserSkill from List in User
-//				iterator.remove();
-//
-//				// Remove UserSkill from List in Skill
-//				userSkill.getSkill().getUsers().remove(userSkill);
-//			}
-//		}
-//	}
-
-	public void removeSkill(Skill skill, UserSkillRepository userSkillRepository) {
-
-		// Iterate over all UserSkills of the User
-		for (Iterator<UserSkill> iterator = userSkills.iterator(); iterator.hasNext();) {
-			UserSkill userSkill = iterator.next();
-
-			// If UserSkill matches this User and the Skill to be removed
-			if (userSkill.getUser().equals(this) && userSkill.getSkill().equals(skill)) {
-
-				// Remove UserSkill
-				userSkillRepository.deleteById(new UserSkillId(this.getId(), skill.getId()));
-
-				// Remove UserSkill from List in User
-				iterator.remove();
-
-				// Remove UserSkill from List in Skill
-				userSkill.getSkill().getUsers().remove(userSkill);
-
-			}
-		}
-	}
-	
-	
-	
-	@Override
-	public String toString() {
-		return "User [getId()=" + getId() + ", getUserName()=" + getUserName() + ", getImageURL()=" + getImageURL()
-				+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDateOfBirth()="
-				+ getDateOfBirth() + ", getZipCode()=" + getZipCode() + ", getCity()=" + getCity() + ", getEmail()="
-				+ getEmail() + ", getDescription()=" + getDescription() + ", getAge()=" + getAge() + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
+		return Objects.hash(city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
 	}
 
 	@Override
@@ -221,23 +100,42 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(userName, other.userName) && Objects.equals(city, other.city)
-				&& Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(description, other.description)
-				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(imageURL, other.imageURL) && Objects.equals(lastName, other.lastName)
-				&& Objects.equals(zipCode, other.zipCode);
+		return Objects.equals(city, other.city) && Objects.equals(dateOfBirth, other.dateOfBirth)
+				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
 	}
 
-	public List<UserSkill> getUserSkills() {
-		return userSkills;
+	// Methods required by UserDetails interface
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
+		return singletonList(authority);
 	}
 
-	public void setUserSkills(List<UserSkill> userSkills) {
-		this.userSkills = userSkills;
+	@Override
+	public String getUsername() {
+		return this.email;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }
