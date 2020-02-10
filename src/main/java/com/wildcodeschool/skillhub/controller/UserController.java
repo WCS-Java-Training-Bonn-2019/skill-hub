@@ -92,80 +92,63 @@ public class UserController {
 		return "user/edit";
 	}
 
-	// Create a new user
-	@GetMapping("/user/new")
-	public String getUser2(Model model) {
-
-		User user = new User();
-		model.addAttribute("user", user);
-
-		return "user/edit";
-	}
-
 	// Update or insert a user
 	@PostMapping("/user/upsert")
-	public String postUser(@ModelAttribute UserForm userForm,
-			@RequestParam(name = "id", required = false) Long userId, Principal principal) {
-		boolean isNewUser = userId == null;
+	public String postUser(@ModelAttribute UserForm userForm, @RequestParam(name = "id", required = false) Long userId,
+			Principal principal) {
+		Optional<User> optionalUser = userService.getSingleUser(userId);
 
-		User user = new User();
+		if (optionalUser.isPresent()) {
+			User user = optionalUser.get();
 
-		if (!isNewUser) {
-			Optional<User> optionalUser = userService.getSingleUser(userId);
-			if (optionalUser.isPresent()) {
-				user = optionalUser.get();
-			}
-		}
+			Set<Long> userSkillIds = user.getUserSkillIds();
+			List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
-		Set<Long> userSkillIds = user.getUserSkillIds();
-		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
+			// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
+			for (UserSkillLevel userSkillLevel : userSkillLevels) {
 
-		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
-		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+				if (userSkillLevel.isChecked()) {
+					Skill skill;
 
-			if (userSkillLevel.isChecked()) {
-				Skill skill;
+					skill = skillService.getSingleSkill(userSkillLevel.getId());
 
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
+					if (!(userSkillIds.contains(userSkillLevel.getId()))) {
+						userSkillService.addNewUserSkill(user, skill);
+					}
+				} else {
+					Skill skill = null;
 
-				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					userSkillService.addNewUserSkill(user, skill);
-				}
-			} else {
-				Skill skill = null;
+					skill = skillService.getSingleSkill(userSkillLevel.getId());
 
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				if (userSkillIds.contains(userSkillLevel.getId())) {
-					userSkillService.removeUserSkill(user, skill);
+					if (userSkillIds.contains(userSkillLevel.getId())) {
+						userSkillService.removeUserSkill(user, skill);
+					}
 				}
 			}
-		}
 
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-		user.setId(userForm.getId());
-		user.setFirstName(userForm.getFirstName());
-		user.setLastName(userForm.getLastName());
-		user.setZipCode(userForm.getZipCode());
-		user.setCity(userForm.getCity());
-		user.setDateOfBirth(userForm.getDateOfBirth());
-		user.setEmail(userForm.getEmail());
-		// user.setPassword(userForm.getPassword());
-		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+			user.setId(userForm.getId());
+			user.setFirstName(userForm.getFirstName());
+			user.setLastName(userForm.getLastName());
+			user.setZipCode(userForm.getZipCode());
+			user.setCity(userForm.getCity());
+			user.setDateOfBirth(userForm.getDateOfBirth());
+			user.setEmail(userForm.getEmail());
+			// user.setPassword(userForm.getPassword());
+			user.setPassword(passwordEncoder.encode(userForm.getPassword()));
 
-		user.setDescription(userForm.getDescription());
-		user.setImageURL(userForm.getImageURL());
+			user.setDescription(userForm.getDescription());
+			user.setImageURL(userForm.getImageURL());
 
-		if (isNewUser) {
-			userService.createNewUser(user);
-		} else {
 			userService.updateUser(user);
+
+			if ("admin".equals(principal.getName())) {
+				return "redirect:/admin";
+			}
+
 		}
-		
-		if ("admin".equals(principal.getName())) {
-			return "redirect:/admin";
-		}
+
 		return "redirect:/user/profile";
 
 	}
