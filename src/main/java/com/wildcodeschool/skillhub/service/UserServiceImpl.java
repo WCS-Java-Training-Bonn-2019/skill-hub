@@ -27,6 +27,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Optional<User> getSingleUserByEmail(String email) {
+		// TODO Add checks
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
 	public List<User> getUsersBySkillId(Long skillId) {
 		return userRepository.findByuserSkills_SkillId(skillId);
 	}
@@ -43,9 +49,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createNewUser(User user) {
+	public User createNewUser(User user) {
 		// TODO Check if user exists
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	@Override

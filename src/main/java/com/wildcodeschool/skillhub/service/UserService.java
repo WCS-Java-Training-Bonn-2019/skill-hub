@@ -9,13 +9,15 @@ public interface UserService {
 
 	Optional<User> getSingleUser(Long userId);
 
+	Optional<User> getSingleUserByEmail(String email);
+	
 	List<User> getUsersBySkillId(Long skillid);
 
 	List<User> getUsers();
 
 	void deleteUser(Long userId);
 
-	void createNewUser(User user);
+	User createNewUser(User user);
 	
 	void updateUser(User user);
 
