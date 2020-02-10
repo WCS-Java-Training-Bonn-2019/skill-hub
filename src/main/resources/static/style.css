@@ -95,7 +95,7 @@ body {
 
 
 .btn-primary{
-	display: felx;
+	display: flex;
 	justify-content: center;
 }
 
@@ -140,8 +140,8 @@ ul {
 */
 
 .flex-container{
-	display: block
-	allign-items: center;
+	display: block;
+	align-items: center;
 	justify-content: center;
 }
 
@@ -173,9 +173,6 @@ main {
 	--> main wird angesprochen
 }
 
-
-
-
 */
 
 main.login_background {
@@ -193,4 +190,37 @@ main.login_background {
 	border-radius: 1em;
 	
 }
+
+
+
+main.changePw_background {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.changePw-box {
+	width: 1000px;
+	height: 500px;
+	background-color: rgb(255,255,255,0.5);
+	border-radius: 1em;
+	
+}
+
+
+.changePwButtonRight {
+	padding-right: 16px;
+}
+
+
+
+
+
+
+
+
+
+
 
