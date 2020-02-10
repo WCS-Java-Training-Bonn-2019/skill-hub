@@ -1,11 +1,14 @@
 package com.wildcodeschool.skillhub.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,7 +105,7 @@ public class UserController {
 	// Update or insert a user
 	@PostMapping("/user/upsert")
 	public String postUser(@ModelAttribute UserForm userForm,
-			@RequestParam(name = "id", required = false) Long userId) {
+			@RequestParam(name = "id", required = false) Long userId, Principal principal) {
 		boolean isNewUser = userId == null;
 
 		User user = new User();
@@ -139,6 +142,8 @@ public class UserController {
 			}
 		}
 
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 		user.setId(userForm.getId());
 		user.setFirstName(userForm.getFirstName());
 		user.setLastName(userForm.getLastName());
@@ -146,7 +151,9 @@ public class UserController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
-		user.setPassword(userForm.getPassword());
+		// user.setPassword(userForm.getPassword());
+		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());
 
@@ -155,8 +162,12 @@ public class UserController {
 		} else {
 			userService.updateUser(user);
 		}
+		
+		if ("admin".equals(principal.getName())) {
+			return "redirect:/admin";
+		}
+		return "redirect:/user/profile";
 
-		return "redirect:/users";
 	}
 
 	// View a user

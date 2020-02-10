@@ -43,7 +43,7 @@
 				<div class="container cards">
 					<div class="row no-gutters">
 						<!--Thymleaf-->
-						<div th:each="skill : ${skills}" class="card"
+						<div th:each="skill : ${skills}" class="card text-center"
 							style="width: 18rem;">
 							<img class="card-img-top"
 								th:src="@{${'../images/' + skill.imageURL}}"

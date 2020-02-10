@@ -43,32 +43,86 @@
 
 		<!--Cards-->
 		<section>
-			<div class="container cards">
-				<div class="row no-gutters">
-					<!--Thymleaf-->
-					<div th:each="user : ${users}" class="card" style="width: 18rem;">
-						<img class="card-img-top"
-							th:src="@{${'/images/' + user.imageURL}}" alt="Card image cap">
-						<!--src="../images/th:text="${user.imageURL}"-->
-						<div class="card-body">
-							<h5 th:text="${user.firstName}" class="card-title">Name</h5>
-							<p class="card-text">
-							<ul>
-								<li th:text="|Age: ${user.age}|">Age</li>
-								<li th:text="|City: ${user.city}|">City</li>
-							</ul>
-							</p>
-							<a th:href="@{${'/user/view?id=' + user.id}}"
-								class="btn btn-primary">See profile</a>
+			<div class="flex-container">
+				<div class="container cards">
+					<div class="row no-gutters">
+						<div class="col">
+
+							<div th:each="user : ${users}" class="card w-75">
+								<div class="card-header">User Profile</div>
+								<div class="card-body">
+									<blockquote class="blockquote mb-0">
+
+										<div class="card mb-3">
+											<div class="row no-gutters">
+												<div class="col-md-4">
+
+													<img class="img-view"
+														th:src="@{${'/images/' + user.imageURL}}"
+														alt="Card image cap">
+
+												</div>
+												<div class="col-md-8">
+													<div class="card-body">
+														<p class="card-text">
+														<div class="flex-container">
+
+															<div class="row no-gutters">
+																<div class="col-4">
+																	<p class="bold">Firstname:</p>
+																</div>
+																<div class="col-1">
+																	<p></p>
+																</div>
+																<div class="col-6">
+																	<p th:text="|${user.firstName}|"></p>
+																</div>
+															</div>
+
+															<div class="row no-gutters">
+																<div class="col-4">
+																	<p class="bold">Age:</p>
+																</div>
+																<div class="col-1">
+																	<p></p>
+																</div>
+																<div class="col-6">
+																	<p th:text="|${user.age}|"></p>
+																</div>
+															</div>
+
+															<div class="row no-gutters">
+																<div class="col-4">
+																	<p class="bold">City:</p>
+																</div>
+																<div class="col-1">
+																	<p></p>
+																</div>
+																<div class="col-6">
+																	<p th:text="|${user.city}|"></p>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</blockquote>
+
+									<a th:href="@{${'/user/view?id=' + user.id}}"
+										class="btn btn-primary">See profile</a>
+								</div>
+
+							</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</section>
 
-
-		<hr />
 
 	</main>
 
