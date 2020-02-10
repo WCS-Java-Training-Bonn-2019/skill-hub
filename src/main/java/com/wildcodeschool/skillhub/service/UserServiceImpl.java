@@ -60,4 +60,14 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(user);
 	}
 
+	@Override
+	public boolean emailExists(String email) {
+
+		Optional<User> optionalUser = userRepository.findByEmail(email);
+		if (optionalUser.isPresent()) {
+			return true;
+		}
+		return false;
+	}
+
 }

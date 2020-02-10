@@ -21,6 +21,7 @@ import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
+import com.wildcodeschool.skillhub.repository.UserRepository;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 import com.wildcodeschool.skillhub.service.UserSkillService;
@@ -31,13 +32,16 @@ public class UserController {
 	private final UserService userService;
 	private final SkillService skillService;
 	private final UserSkillService userSkillService;
+	private final UserRepository userRepository;
 
 	@Autowired
-	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService,
+			UserRepository userRepository) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
 		this.userSkillService = userSkillService;
+		this.userRepository = userRepository;
 	}
 
 	@GetMapping("/users/search")
@@ -100,6 +104,18 @@ public class UserController {
 
 		if (optionalUser.isPresent()) {
 			User user = optionalUser.get();
+
+			// Get E-Mail from Principal
+			User userEmail = new User();
+			userEmail = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String email = userEmail.getEmail();
+
+			// Email Validation
+			if (userService.emailExists(userForm.getEmail())) {
+				if (!(email.equals(userForm.getEmail()))) {
+					return "emailExists";
+				}
+			}
 
 			Set<Long> userSkillIds = user.getUserSkillIds();
 			List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
