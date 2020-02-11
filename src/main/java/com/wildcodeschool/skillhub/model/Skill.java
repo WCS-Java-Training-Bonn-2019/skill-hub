@@ -46,7 +46,7 @@ public class Skill implements Comparable<Skill> {
 	private Set<UserSkill> userSkills = new HashSet<>();
 
 	// Make the Collection read-only
-	Set<UserSkill> getUserSkills() {
+	public Set<UserSkill> getUserSkills() {
 		return Collections.unmodifiableSet(this.userSkills);
 	}
 
