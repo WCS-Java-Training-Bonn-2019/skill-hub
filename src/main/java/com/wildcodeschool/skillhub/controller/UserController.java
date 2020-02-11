@@ -142,7 +142,7 @@ public class UserController {
 			}
 		}
 
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		//--> PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 		user.setId(userForm.getId());
 		user.setFirstName(userForm.getFirstName());
@@ -152,7 +152,7 @@ public class UserController {
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
 		// user.setPassword(userForm.getPassword());
-		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+		//--> user.setPassword(passwordEncoder.encode(userForm.getPassword()));
 
 		user.setDescription(userForm.getDescription());
 		user.setImageURL(userForm.getImageURL());

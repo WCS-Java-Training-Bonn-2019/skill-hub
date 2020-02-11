@@ -28,10 +28,7 @@
 	<!-- ***************************************************************************************************************************
 <!-- Besser dieser Header???? Aber im Augenlick stürzt das Ganze noch ab...  -->
 	<!-- ***************************************************************************************************************************
-	<header th:replace="fragments.html :: top ('')">Here goes the header</header>
-ALT *******************************************************************************************************************************-->
-
-	<header>
+		<header>
 		<nav class="navbar navbar-expand-md navbar-light bg-light">
 			<a class="navbar-brand" href="/">SkillHub</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -45,14 +42,27 @@ ALT ****************************************************************************
 			</div>
 		</nav>
 	</header>
+ALT *******************************************************************************************************************************-->
 
+
+	<header th:replace="fragments.html :: top ('')">Here goes the
+		header</header>
 
 	<main class="changePw_background">
 
 		<div class="changePw-box">
 			<section>
 				<div class="flex-container container">
-					<form name="f" th:action="@{/perform_login}" method="post">
+					<form method="post" th:action="@{/perform_login}" name="f"  >
+					
+					
+					
+					<form method="post" th:action="@{/user/upsert}" th:object="${userForm}"> <input name="id" th:field="*{id}" type="hidden">
+					<!--<input name="age" th:field="*{age}" type="hidden">-->
+					
+					
+					
+					
 						<fieldset>
 							<h2>Change Password</h2>
 							<div th:if="${param.error}" class="alert alert-error">
@@ -61,42 +71,76 @@ ALT ****************************************************************************
 								have changed your password.</div>
 
 
-
+							
+							
 							<div class="row no-gutters">
-								<div class="col-12">
-									<p>
-										<label for="username" class="sr-only">Email2</label> <input
-											type="text" id="username" name="username"
-											class="form-control" placeholder="username" required=""
-											autofocus="">
-									</p>
+								<div class="col-7">
+								
+								<input name="_csrf" type="hidden"
+								value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
+								href="javascript:javascript:history.go(-1)"
+								class="btn btn-dark btn-block"><span sec:authentication="name"></a>
+								
 								</div>
 							</div>
 
+
 							<div class="row no-gutters">
-								<div class="col-5">
+								<p></p>
+							</div>
+
+							<div class="row no-gutters">
+								<div class="col-7">
 									<p>
 										<label for="password" class="sr-only">Password2</label> <input
 											type="password" id="password" name="password"
-											class="form-control" placeholder="Password" required="">
+											class="form-control" placeholder="New password" required="">
 									</p>
 								</div>
 							</div>
 
 							<div class="row no-gutters">
-								<div class="col-12">
+								<div class="col-7">
 									<p>
 										<label for="username" class="sr-only">Email2</label> <input
 											type="text" id="username" name="username"
-											class="form-control" placeholder="username" required=""
-											autofocus="">
+											class="form-control" placeholder="Repeat new password"
+											required="" autofocus="">
 									</p>
 								</div>
 							</div>
+						</fieldset>
+					</form>
+					<div class="row no-gutters">
+						<p></p>
+					</div>
+
+					<div class="row no-gutters">
+						<div class="col-7">
+							<input name="_csrf" type="hidden"
+								value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
+							<button class="btn btn-lg btn-success btn-block" type="submit">Change
+								Password</button>
+						</div>
+					</div>
 
 
+					<div class="row no-gutters">
+						<div class="col-7">
+							<input name="_csrf" type="hidden"
+								value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
+								href="javascript:javascript:history.go(-1)"
+								class="btn btn-lg btn-danger btn-block">Don't change
+								Password</a>
 
-							<!-- 
+						</div>
+					</div>
+				</div>
+
+			</section>
+		</div>
+
+		<!-- 
 								<div class="form-group">
 									<label for="password">Password</label> <input type="password"
 										class="form-control" id="password"
@@ -118,83 +162,6 @@ ALT ****************************************************************************
  -->
 
 
-
-
-
-
-
-
-
-
-
-
-							<!-- 
-
-							<div class="col-2"></div>
-
-							<div class="col-5">
-								<p>If you don't have an user account yet, please register
-									here.</p>
-							</div>
-							 -->
-
-
-							<div class="row no-gutters">
-								<div class="col-5">
-									<input name="_csrf" type="hidden"
-										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">Change
-										Password</button>
-								</div>
-							</div>
-
-							<div class="row no-gutters">
-								<div class="col-5">
-									<input name="_csrf" type="hidden"
-										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">Change
-										Password</button>
-								</div>
-							</div>
-
-
-							<div class="row no-gutters">
-								<div class="col-5">
-									<input name="_csrf" type="hidden"
-										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">Change
-										Password</button>
-								</div>
-							</div>
-
-							<!-- 
-								
-							<div class="col-2"></div>
-
-							<div class="col-5">
-								<a class="btn btn-lg btn-primary btn-block" href="user/edit"
-									role="button">Register</a>  
-
- -->
-				</div>
-		</div>
-
-		<div class="row no-gutters">
-			<p></p>
-		</div>
-
-		</fieldset>
-		</form>
-		</div>
-		</section>
-
-
-
-
-
-
-
-		</div>
 
 
 
