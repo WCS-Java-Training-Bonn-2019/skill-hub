@@ -22,7 +22,15 @@
 	crossorigin="anonymous"></script>
 </head>
 
+
 <body>
+
+	<!-- ***************************************************************************************************************************
+<!-- Besser dieser Header???? Aber im Augenlick stürzt das Ganze noch ab...  -->
+	<!-- ***************************************************************************************************************************
+	<header th:replace="fragments.html :: top ('')">Here goes the header</header>
+ALT *******************************************************************************************************************************-->
+
 	<header>
 		<nav class="navbar navbar-expand-md navbar-light bg-light">
 			<a class="navbar-brand" href="/">SkillHub</a>
@@ -42,49 +50,53 @@
 	<main class="changePw_background">
 
 		<div class="changePw-box">
-
-			
-
-
-
-
 			<section>
-			<div class="flex-container container">
-				<form name="f" th:action="@{/perform_login}" method="post">
-					<fieldset>
-						<h2>Change Password</h2>
-						<div th:if="${param.error}" class="alert alert-error">
-							Invalid username or password.</div>
-						<div th:if="${param.logout}" class="alert alert-success">You
-							have changed your password.</div>
+				<div class="flex-container container">
+					<form name="f" th:action="@{/perform_login}" method="post">
+						<fieldset>
+							<h2>Change Password</h2>
+							<div th:if="${param.error}" class="alert alert-error">
+								Invalid username or password.</div>
+							<div th:if="${param.logout}" class="alert alert-success">You
+								have changed your password.</div>
 
 
 
-						<div class="row no-gutters">
-							<div class="col-5">
-								<p>
-									<label for="username" class="sr-only">Email2</label> <input
-										type="text" id="username" name="username" class="form-control"
-										placeholder="username" required="" autofocus="">
-								</p>
-							</div>
-						</div>
-
-						<div class="row no-gutters">
-							<div class="col-5">
-								<p>
-									<label for="password" class="sr-only">Password2</label> <input
-										type="password" id="password" name="password"
-										class="form-control" placeholder="Password" required="">
-								</p>
+							<div class="row no-gutters">
+								<div class="col-12">
+									<p>
+										<label for="username" class="sr-only">Email2</label> <input
+											type="text" id="username" name="username"
+											class="form-control" placeholder="username" required=""
+											autofocus="">
+									</p>
+								</div>
 							</div>
 
+							<div class="row no-gutters">
+								<div class="col-5">
+									<p>
+										<label for="password" class="sr-only">Password2</label> <input
+											type="password" id="password" name="password"
+											class="form-control" placeholder="Password" required="">
+									</p>
+								</div>
+							</div>
+
+							<div class="row no-gutters">
+								<div class="col-12">
+									<p>
+										<label for="username" class="sr-only">Email2</label> <input
+											type="text" id="username" name="username"
+											class="form-control" placeholder="username" required=""
+											autofocus="">
+									</p>
+								</div>
+							</div>
 
 
 
-
-
-<!-- 
+							<!-- 
 								<div class="form-group">
 									<label for="password">Password</label> <input type="password"
 										class="form-control" id="password"
@@ -116,7 +128,7 @@
 
 
 
-<!-- 
+							<!-- 
 
 							<div class="col-2"></div>
 
@@ -126,33 +138,54 @@
 							</div>
 							 -->
 
-						</div>
 
-						<div class="row no-gutters">
-							<div class="col-5">
-								<input name="_csrf" type="hidden"
-									value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-								<button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+							<div class="row no-gutters">
+								<div class="col-5">
+									<input name="_csrf" type="hidden"
+										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
+									<button class="btn btn-lg btn-primary btn-block" type="submit">Change
+										Password</button>
+								</div>
 							</div>
 
-<!-- 
+							<div class="row no-gutters">
+								<div class="col-5">
+									<input name="_csrf" type="hidden"
+										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
+									<button class="btn btn-lg btn-primary btn-block" type="submit">Change
+										Password</button>
+								</div>
+							</div>
+
+
+							<div class="row no-gutters">
+								<div class="col-5">
+									<input name="_csrf" type="hidden"
+										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
+									<button class="btn btn-lg btn-primary btn-block" type="submit">Change
+										Password</button>
+								</div>
+							</div>
+
+							<!-- 
+								
 							<div class="col-2"></div>
 
 							<div class="col-5">
 								<a class="btn btn-lg btn-primary btn-block" href="user/edit"
-									role="button">Register</a>  -->
+									role="button">Register</a>  
 
-							</div>
-						</div>
+ -->
+				</div>
+		</div>
 
-						<div class="row no-gutters">
-							<p></p>
-						</div>
+		<div class="row no-gutters">
+			<p></p>
+		</div>
 
-					</fieldset>
-				</form>
-
-			</div>
+		</fieldset>
+		</form>
+		</div>
 		</section>
 
 
