@@ -23,8 +23,9 @@
 
 <body>
 
-	<header th:replace="fragments.html :: top ('')">Here goes the header</header>
-	
+	<header th:replace="fragments.html :: top ('')">Here goes the
+		header</header>
+
 
 
 	<!-- Card-Header  ============================================================ Start-->
@@ -53,10 +54,10 @@
 
 							</div>
 
-	<!-- Card-Header  ============================================================ End-->
+							<!-- Card-Header  ============================================================ End-->
 
 
-					<!-- Card-Body  ============================================================== -->
+							<!-- Card-Body  ============================================================== -->
 						</div>
 						<div class="card-body">
 
@@ -76,13 +77,13 @@
 								<div class="form-group">
 									<label for="user-last-name">Last name</label> <input
 										type="text" class="form-control" id="lastName" name="lastName"
-										placeholder="Bauer" required th:field="*{lastName}">
+										placeholder="Bauer" th:field="*{lastName}">
 								</div>
 
 								<div class="form-group">
 									<label for="zip-code">Zip code</label> <input type="text"
 										class="form-control" id="zip-code" name="zipName"
-										placeholder="90427" required th:field="*{zipCode}">
+										placeholder="90427" th:field="*{zipCode}">
 								</div>
 
 								<div class="form-group">
@@ -105,26 +106,7 @@
 										class="form-text text-muted">We'll never share your
 										email with anyone else.</small>
 								</div>
-<!-- 
-								<div class="form-group">
-									<label for="password">Password</label> <input type="password"
-										class="form-control" id="password"
-										aria-describedby="passwordHelp" name="password"
-										onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
-										placeholder="Password" required th:field="*{password}">
-								</div>
 
-
-								<div class="form-group">
-									<label for="passwordRepeated">Password (repeated)</label> <input
-										type="password" class="form-control" id="passwordRepeated"
-										aria-describedby="passwordRepeatedHelp"
-										name="passwordRepeated"
-										onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
-										placeholder="Verify Password" required
-										th:field="*{passwordRepeated}">
-								</div>
- -->
 								<div class="form-group">
 									<label for="user-description">Description</label>
 									<textarea class="form-control" id="user-description"
