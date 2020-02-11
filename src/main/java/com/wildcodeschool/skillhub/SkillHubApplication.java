@@ -1,7 +1,6 @@
 package com.wildcodeschool.skillhub;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 import com.wildcodeschool.skillhub.service.UserSkillService;
@@ -150,29 +148,29 @@ public class SkillHubApplication {
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
 
-//			// Add some skills to user in DB
-//			userSkillService.addNewUserSkill(susanne, cooking);
-//			userSkillService.addNewUserSkill(susanne, baking);
-//			userSkillService.addNewUserSkill(susanne, books);
-//			userSkillService.addNewUserSkill(mia ,fashion);
-//			userSkillService.addNewUserSkill(lasse, books);
-//			userSkillService.addNewUserSkill(alex, climbing);
-//			userSkillService.addNewUserSkill(antonia, fashion);
-//			userSkillService.addNewUserSkill(cem, photography);
-//			userSkillService.addNewUserSkill(claudia, fashion);
-//			userSkillService.addNewUserSkill(daniel, motorbike);
-//			userSkillService.addNewUserSkill(harald, golf);
-//			userSkillService.addNewUserSkill(lennart, climbing);
-//			userSkillService.addNewUserSkill(maike, baking);
-//			userSkillService.addNewUserSkill(marina, baking);
-//			userSkillService.addNewUserSkill(reinhardt, motorbike);
-//			userSkillService.addNewUserSkill(robert, photography);
-//			userSkillService.addNewUserSkill(rolf, books);
-//			userSkillService.addNewUserSkill(till, dogs);
-//
-//			// Test UserService methods
-//			userSkillService.removeUserSkill(susanne, climbing);
-//			userService.createNewUser(susanne);
+			// Add some skills to user in DB
+			userSkillService.addNewUserSkill(susanne, cooking);
+			userSkillService.addNewUserSkill(susanne, baking);
+			userSkillService.addNewUserSkill(susanne, books);
+			userSkillService.addNewUserSkill(mia ,fashion);
+			userSkillService.addNewUserSkill(lasse, books);
+			userSkillService.addNewUserSkill(alex, climbing);
+			userSkillService.addNewUserSkill(antonia, fashion);
+			userSkillService.addNewUserSkill(cem, photography);
+			userSkillService.addNewUserSkill(claudia, fashion);
+			userSkillService.addNewUserSkill(daniel, motorbike);
+			userSkillService.addNewUserSkill(harald, golf);
+			userSkillService.addNewUserSkill(lennart, climbing);
+			userSkillService.addNewUserSkill(maike, baking);
+			userSkillService.addNewUserSkill(marina, baking);
+			userSkillService.addNewUserSkill(reinhardt, motorbike);
+			userSkillService.addNewUserSkill(robert, photography);
+			userSkillService.addNewUserSkill(rolf, books);
+			userSkillService.addNewUserSkill(till, dogs);
+
+			// Test UserService methods
+			userSkillService.removeUserSkill(susanne, climbing);
+			userService.createNewUser(susanne);
 		};
 	}
 
