@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +19,27 @@ import com.wildcodeschool.skillhub.form.UserForm;
 import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
+import com.wildcodeschool.skillhub.model.UserSkill;
+import com.wildcodeschool.skillhub.service.SkillService;
+import com.wildcodeschool.skillhub.service.UserService;
+import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class ChangePwController {
+	
+	//definiere Variable
+	private final UserService userService;
+	private final SkillService skillService;
+	private final UserSkillService userSkillService;
+	
+	//ChangePwController
+	@Autowired
+	public ChangePwController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+		super();
+		this.userService = userService;
+		this.skillService = skillService;
+		this.userSkillService = userSkillService;
+	}
 	
 	@GetMapping("/changePw")
 	public String getLoginPage() {
@@ -26,13 +48,8 @@ public class ChangePwController {
 	}
 	
 	
-	
-	
-	
-	
-	
 	// Change Password
-	@PostMapping("/user/upsert")
+	@PostMapping("/perform_login")
 	public String postUser(@ModelAttribute UserForm userForm,
 			@RequestParam(name = "id", required = false) Long userId, Principal principal) {
 		boolean isNewUser = userId == null;
@@ -46,51 +63,16 @@ public class ChangePwController {
 			}
 		}
 
-		Set<Long> userSkillIds = user.getUserSkillIds();
-		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
+		//Set<Long> userSkillIds = user.getUserSkillIds();
+		//List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
-		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
-		for (UserSkillLevel userSkillLevel : userSkillLevels) {
 
-			if (userSkillLevel.isChecked()) {
-				Skill skill;
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					userSkillService.addNewUserSkill(user, skill);
-				}
-			} else {
-				Skill skill = null;
-
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				if (userSkillIds.contains(userSkillLevel.getId())) {
-					userSkillService.removeUserSkill(user, skill);
-				}
-			}
-		}
-
-		//--> PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-		user.setId(userForm.getId());
-		user.setFirstName(userForm.getFirstName());
-		user.setLastName(userForm.getLastName());
-		user.setZipCode(userForm.getZipCode());
-		user.setCity(userForm.getCity());
-		user.setDateOfBirth(userForm.getDateOfBirth());
-		user.setEmail(userForm.getEmail());
 		// user.setPassword(userForm.getPassword());
-		//--> user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+		user.setPassword(passwordEncoder.encode(passwordForm.getPassword()));
 
-		user.setDescription(userForm.getDescription());
-		user.setImageURL(userForm.getImageURL());
-
-		if (isNewUser) {
-			userService.createNewUser(user);
-		} else {
-			userService.updateUser(user);
-		}
+		userService.updateUser(user);
 		
 		if ("admin".equals(principal.getName())) {
 			return "redirect:/admin";
@@ -98,10 +80,6 @@ public class ChangePwController {
 		return "redirect:/user/profile";
 
 	}
-	
-	
-	
-	
 	
 }
 
