@@ -34,7 +34,7 @@
 			<div class="container cards">
 				<div class="row no-gutters">
 
-					<div class="card w-75">
+					<div class="card" style="width: 50rem;">
 						<div class="card-header">User Profile</div>
 						<div class="card-body">
 							<blockquote class="blockquote mb-0">
@@ -43,11 +43,16 @@
 									<div class="row no-gutters">
 										<div class="col-md-4">
 
-											<img class="img-view"
-												th:src="@{${'/images/' + user.imageURL}}"
-												th:alt="@{/images/avatar.png}">
-												
-												
+											<!--	<img class="img-view" th:src= "${user.imageURL.empty ? 'images/avatar.png' : ''/images/' + user.imageURL}">
+											th:src="@{${'/images/' + user.imageURL}}"
+												alt="/images/avatar.png">
+												th:src= "${user.imageURL.empty ? 'images/avatar.png' : ''/images/' + user.imageURL}"-->
+
+
+											<img class="img-view" th:unless="${user.imageURL.empty}"
+												th:src="@{${'/images/' + user.imageURL}}" alt="" /> <img class="img-view"
+												th:if="${user.imageURL.empty}" height="150" width="150"
+												src="../images/avatar.png" />
 
 										</div>
 										<div class="col-md-8">

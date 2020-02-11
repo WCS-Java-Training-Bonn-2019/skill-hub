@@ -17,6 +17,7 @@ body {
 
 .img-view{
 	margin-top: 2rem;
+	margin-left: 2rem;
 }
 
 .bold {
@@ -94,10 +95,10 @@ body {
 
 
 
-.btn-primary{
+/*.btn-primary{
 	display: flex;
 	justify-content: center;
-}
+}*/
 
 .edit{
 	margin-top: 2rem;
