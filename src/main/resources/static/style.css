@@ -17,6 +17,7 @@ body {
 
 .img-view{
 	margin-top: 2rem;
+	margin-left: 2rem;
 }
 
 .bold {
@@ -29,7 +30,7 @@ body {
 
 .jumbotron {
   position: relative;
-  max-height: 500px;
+  max-height: 350px;
   overflow: hidden;
   padding: 0;
 }
@@ -94,10 +95,10 @@ body {
 
 
 
-.btn-primary{
+/*.btn-primary{
 	display: flex;
 	justify-content: center;
-}
+}*/
 
 .edit{
 	margin-top: 2rem;
@@ -121,9 +122,9 @@ ul {
 }*/
 
 
-.index{
+/*.index{
 	felx-direction: colum;
-}
+}*/
 
 
 
@@ -222,12 +223,25 @@ main.changePw_background {
 }
 
 
+main.index {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-warp:
+}
 
+.index-text{
+	background-color: rgb(255,255,255,0.6);
+}
 
+.p-index{
+	padding-bottom: 2rem;
+	font-size: 1.5rem;
+	font-weight: 490;
+}
 
-
-
-
-
-
-
+.h1-index{
+	padding-top: 2rem;
+}

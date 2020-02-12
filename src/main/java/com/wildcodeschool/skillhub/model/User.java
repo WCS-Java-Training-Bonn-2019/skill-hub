@@ -1,12 +1,10 @@
 package com.wildcodeschool.skillhub.model;
 
-import static java.util.Collections.singletonList;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,102 +13,79 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
+//IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
-@Getter
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
 @Setter
-@ToString
+@Getter
 public class User implements UserDetails {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5641612720821997134L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String imageURL;
+	@Column(unique = true)
+	@NotNull
+	private String email;
+
+	@NotNull
+	private String password;
+
 	private String firstName;
 	private String lastName;
+
+	@NotNull
+	private String zipCode;
+
+	private String city;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 
-	private String zipCode;
-	private String city;
-
-	@Column(unique = true)
-	private String email;
-
-	private String password;
 	private String description;
+	private String imageURL;
 
 	@OneToMany(mappedBy = "user")
+	@Builder.Default
 	private Set<UserSkill> userSkills = new HashSet<>();
 
-	public User() {
-	}
-
-	public User(String imageURL, String firstName, String lastName, LocalDate dateOfBirth, String zipCode, String city,
-			String email, String password, String description) {
-		super();
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		this.imageURL = imageURL;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.zipCode = zipCode;
-		this.city = city;
-		this.email = email;
-		this.password = passwordEncoder.encode(password);
-		this.description = description;
-	}
-
 	public int getAge() {
-		return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
+		return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
 	}
 
+	// TODO Remove the need for this method
 	public Set<Long> getUserSkillIds() {
 		Set<Long> userSkillIds = new HashSet<>();
 		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
 		return userSkillIds;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(city, dateOfBirth, description, email, firstName, imageURL, lastName, zipCode);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return Objects.equals(city, other.city) && Objects.equals(dateOfBirth, other.dateOfBirth)
-				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(imageURL, other.imageURL)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(zipCode, other.zipCode);
-	}
-
+	
 	// Methods required by UserDetails interface
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
-		return singletonList(authority);
+		return Collections.singletonList(authority);
 	}
 
 	@Override

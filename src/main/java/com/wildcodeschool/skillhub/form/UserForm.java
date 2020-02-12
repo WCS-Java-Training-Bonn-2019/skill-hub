@@ -9,15 +9,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.wildcodeschool.skillhub.model.User;
 
-
-
 public class UserForm {
 
 	private Long id;
 	private String imageURL;
 	private String firstName;
 	private String lastName;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
@@ -25,12 +23,12 @@ public class UserForm {
 	private String password;
 	private String repeatedPassword;
 	private String description;
-	
+
 	private List<UserSkillLevel> userSkillLevels = new ArrayList<>();
-	
+
 	public UserForm() {
 	}
-	
+
 	public void setUser(User user) {
 		this.imageURL = user.getImageURL();
 		this.firstName = user.getFirstName();
@@ -45,7 +43,7 @@ public class UserForm {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -141,5 +139,5 @@ public class UserForm {
 	public void setUserSkillLevels(List<UserSkillLevel> userSkillLevel) {
 		this.userSkillLevels = userSkillLevel;
 	}
-	
+
 }

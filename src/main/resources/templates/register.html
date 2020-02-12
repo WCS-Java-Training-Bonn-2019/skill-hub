@@ -27,42 +27,20 @@
 		header</header>
 
 
-
-	<!-- Card-Header  ============================================================ Start-->
 	<section>
 		<div class="flex-container">
 			<div class="container cards">
 				<div class="row no-gutters">
 
+
 					<div class="card w-75">
 						<div class="card-header">
-
-							<div class="row">
-								<div class="col">
-									<h3
-										th:text="${userForm.id} ? 'Edit your profile' : 'Create your profile'">User3</h3>
-								</div>
-
-								<div class="changePwButtonRight">
-
-									<ul class="navbar-nav ml-auto">
-										<li class="nav-item"><a class="btn btn-success"
-											th:href="@{/changePw}">Change Password</a></li>
-									</ul>
-
-								</div>
-
-							</div>
-
-							<!-- Card-Header  ============================================================ End-->
-
-
-							<!-- Card-Body  ============================================================== -->
+							<h3>Create your account</h3>
 						</div>
 						<div class="card-body">
 
 
-							<form method="post" th:action="@{/user/upsert}"
+							<form method="post" th:action="@{/register}"
 								th:object="${userForm}">
 								<input name="id" th:field="*{id}" type="hidden">
 								<!--<input name="age" th:field="*{age}" type="hidden">-->
@@ -108,6 +86,36 @@
 								</div>
 
 								<div class="form-group">
+									<label for="password">Password</label> <input type="password"
+										class="form-control" id="password"
+										aria-describedby="passwordHelp" name="password"
+										onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
+										placeholder="Password" required th:field="*{password}">
+								</div>
+
+								<!-- 
+								  ==> Problem: password & passwordRepeated wird nicht gezogen...!
+								  
+								  
+								  Lösung noch einbauen:
+								  1) PW Felder nur anzeigen, wenn sich ein User anmeldet
+								  2) Separates PW-Change-Feld anlegen...
+								  
+								  
+								   -->
+
+
+								<div class="form-group">
+									<label for="passwordRepeated">Password (repeated)</label> <input
+										type="password" class="form-control" id="passwordRepeated"
+										aria-describedby="passwordRepeatedHelp"
+										name="passwordRepeated"
+										onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+										placeholder="Verify Password" required
+										th:field="*{passwordRepeated}">
+								</div>
+
+								<div class="form-group">
 									<label for="user-description">Description</label>
 									<textarea class="form-control" id="user-description"
 										name="description"
@@ -138,15 +146,7 @@
 								</ul>
 
 								<button type="submit" value="Submit"
-									class="btn btn-primary edit">Submit</button>
-							</form>
-
-							<form th:if="${userForm.id != null}" method="get"
-								th:action="@{/user/delete}" th:object="${userForm}">
-								<input name="id" th:field="*{id}" type="hidden">
-
-								<button type="submit" value="Submit" class="btn btn-danger">Permanently
-									delete my Account</button>
+									class="btn btn-primary edit">Create Account</button>
 							</form>
 						</div>
 					</div>
