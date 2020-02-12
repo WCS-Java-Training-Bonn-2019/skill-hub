@@ -92,14 +92,6 @@ body {
     width: 100%;
 }
 
-.btn-outline-secondary{
-	margin-top:1.5rem;
-}
-/*.btn-primary{
-	display: flex;
-	justify-content: center;
-}*/
-
 .edit{
 	margin-top: 2rem;
 }
@@ -237,4 +229,10 @@ main.index {
 
 .h1-index{
 	padding-top: 2rem;
+}
+
+.avatar{
+/* 	background-image: url(../images/avatar.png); */
+	width: 80px;
+	height:80px;
 }

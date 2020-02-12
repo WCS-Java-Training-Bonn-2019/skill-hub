@@ -48,7 +48,7 @@
 
 			<!-- Start: LogIn / LogOut  ============================================================== -->
 
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar navbar-expand-md navbar-light bg-light">
 
 
 				<li class="nav-item">
@@ -67,11 +67,24 @@
 					th:href="@{/logout}" sec:authorize="isAuthenticated()"><span
 						sec:authentication="name"></span> </a></li>
 
-				<li><pic>
-					<a th:href="@{'/user/profile'}"> <img class="avatar"
-						sec:authorize="hasRole('ROLE_USER')" th:src="@{'/avatar/image'}"
-						alt="Avatar" style="width: 80px"></a> </pic></li>
+				<!--<li><pic> <a th:href="@{'/user/profile'}"> <img
+						class="avatar" sec:authorize="hasRole('ROLE_USER')"
+						th:src="@{'/avatar/image'}" alt="Avatar" style="width: 80px"></a>
+					</pic></li>-->
 
+				<!-- 				<li><pic> <a th:href="@{'/user/profile'}"> -->
+				<!-- 						<img sec:authorize="hasRole('ROLE_USER')" -->
+				<!-- 						th:unless="@{'/avatar/image'}" src="/images/avatar.png"> <img -->
+				<!-- 						class="avatar" sec:authorize="hasRole('ROLE_USER')" -->
+				<!-- 						th:if="@{'/avatar/image'}" th:src="@{'/avatar/image'}" -->
+				<!-- 						alt="Avatar"> -->
+				<!-- 					</a> </pic></li> -->
+
+				<li><pic> <a th:href="@{'/user/profile'}"> <img
+						class="avatar" sec:authorize="hasRole('ROLE_USER')"
+						th:src="@{'/avatar/image'} != null ? @{'/avatar/image'} : '/images/avatar.png'"
+						alt="Avatar">
+					</a> </pic></li>
 			</ul>
 			<!-- Ende: LogIn / LogOut  ============================================================== -->
 		</nav>
