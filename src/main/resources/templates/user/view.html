@@ -41,9 +41,11 @@
 									<div class="row no-gutters">
 										<div class="col-md-4">
 
-											<img class="img-view"
-												th:src="@{'/user/' + ${user.id} + '/image'}"
-												th:alt="../images/avatar.png">
+											<img class="img-view" th:unless="${user.image}"
+												src="../images/avatar.png" height="150" width="150"> <img
+												class="img-view" th:if="${user.image}"
+												th:src="@{'/user/' + ${user.id} + '/image'}" height="150"
+												width="150">
 
 										</div>
 										<div class="col-md-8">
