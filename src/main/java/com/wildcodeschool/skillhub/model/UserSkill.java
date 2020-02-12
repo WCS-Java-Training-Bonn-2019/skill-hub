@@ -1,11 +1,10 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.util.Objects;
-
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -17,7 +16,8 @@ import lombok.Setter;
 
 //IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
-@Table(name = "user_skill" )
+@Table(name = "user_skill")
+@IdClass(UserSkillId.class)
 @Builder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
@@ -25,39 +25,20 @@ import lombok.Setter;
 @Getter
 public class UserSkill {
 
-	@EmbeddedId
-	private UserSkillId id;
+	@Id
+	private Long userId;
+
+	@Id
+	private Long skillId;
 
 	@ManyToOne
-	@MapsId("userId")
+//	@PrimaryKeyJoinColumn(name="user_id", referencedColumnName="id")
+	@JoinColumn(name = "user_id", updatable = false, insertable = false)
 	private User user;
 
 	@ManyToOne
-	@MapsId("skillId")
+//	@PrimaryKeyJoinColumn(name="skill_id", referencedColumnName="id")
+	@JoinColumn(name = "skill_id", updatable = false, insertable = false)
 	private Skill skill;
-
-	public UserSkill(User user, Skill skill) {
-		super();
-		this.id = new UserSkillId(user.getId(), skill.getId());
-		this.user = user;
-		this.skill = skill;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserSkill other = (UserSkill) obj;
-		return Objects.equals(id, other.id);
-	}
 
 }

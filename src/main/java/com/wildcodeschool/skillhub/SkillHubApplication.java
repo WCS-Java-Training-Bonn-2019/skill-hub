@@ -149,28 +149,28 @@ public class SkillHubApplication {
 			userService.createNewUser(till);
 
 			// Add some skills to user in DB
-			userSkillService.addNewUserSkill(susanne, cooking);
-			userSkillService.addNewUserSkill(susanne, baking);
-			userSkillService.addNewUserSkill(susanne, books);
-			userSkillService.addNewUserSkill(mia ,fashion);
-			userSkillService.addNewUserSkill(lasse, books);
-			userSkillService.addNewUserSkill(alex, climbing);
-			userSkillService.addNewUserSkill(antonia, fashion);
-			userSkillService.addNewUserSkill(cem, photography);
-			userSkillService.addNewUserSkill(claudia, fashion);
-			userSkillService.addNewUserSkill(daniel, motorbike);
-			userSkillService.addNewUserSkill(harald, golf);
-			userSkillService.addNewUserSkill(lennart, climbing);
-			userSkillService.addNewUserSkill(maike, baking);
-			userSkillService.addNewUserSkill(marina, baking);
-			userSkillService.addNewUserSkill(reinhardt, motorbike);
-			userSkillService.addNewUserSkill(robert, photography);
-			userSkillService.addNewUserSkill(rolf, books);
-			userSkillService.addNewUserSkill(till, dogs);
-
-			// Test UserService methods
-			userSkillService.removeUserSkill(susanne, climbing);
-			userService.createNewUser(susanne);
+//			userSkillService.addNewUserSkill(susanne, cooking);
+//			userSkillService.addNewUserSkill(susanne, baking);
+//			userSkillService.addNewUserSkill(susanne, books);
+//			userSkillService.addNewUserSkill(mia ,fashion);
+//			userSkillService.addNewUserSkill(lasse, books);
+//			userSkillService.addNewUserSkill(alex, climbing);
+//			userSkillService.addNewUserSkill(antonia, fashion);
+//			userSkillService.addNewUserSkill(cem, photography);
+//			userSkillService.addNewUserSkill(claudia, fashion);
+//			userSkillService.addNewUserSkill(daniel, motorbike);
+//			userSkillService.addNewUserSkill(harald, golf);
+//			userSkillService.addNewUserSkill(lennart, climbing);
+//			userSkillService.addNewUserSkill(maike, baking);
+//			userSkillService.addNewUserSkill(marina, baking);
+//			userSkillService.addNewUserSkill(reinhardt, motorbike);
+//			userSkillService.addNewUserSkill(robert, photography);
+//			userSkillService.addNewUserSkill(rolf, books);
+//			userSkillService.addNewUserSkill(till, dogs);
+//
+//			// Test UserService methods
+//			userSkillService.removeUserSkill(susanne, climbing);
+//			userService.createNewUser(susanne);
 		};
 	}
 

@@ -20,7 +20,7 @@ public class UserSkillServiceImpl implements UserSkillService {
 	@Override
 	public void addNewUserSkill(User user, Skill skill) {
 		// TODO Add checks
-		UserSkill userSkill = new UserSkill(user, skill);
+		UserSkill userSkill = UserSkill.builder().user(user).skill(skill).build();
 
 		// Add UserSkill to List in User
 		user.getUserSkills().add(userSkill);

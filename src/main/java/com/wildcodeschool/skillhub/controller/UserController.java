@@ -78,7 +78,7 @@ public class UserController {
 		for (Skill skill : skills) {
 			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
 			for (UserSkill userSkill : userSkills) {
-				if (skill.getId() == userSkill.getId().getSkillId()) {
+				if (skill.getId() == userSkill.getSkillId()) {
 					userSkillLevel.setChecked(true);
 				}
 			}
