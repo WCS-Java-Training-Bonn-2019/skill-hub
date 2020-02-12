@@ -42,8 +42,8 @@
 										<div class="col-md-4">
 
 											<img class="img-view"
-												th:src="@{${'/images/' + user.imageURL}}"
-												alt="../images/avatar.png">
+												th:src="@{'/user/' + ${user.id} + '/image'}"
+												th:alt="../images/avatar.png">
 
 										</div>
 										<div class="col-md-8">
@@ -130,10 +130,10 @@
 									</div>
 
 								</div>
-								</blockquote>
+							</blockquote>
 
-								<a href="javascript:javascript:history.go(-1)"
-									class="btn btn-primary">Go Back</a>
+							<a href="javascript:javascript:history.go(-1)"
+								class="btn btn-primary">Go Back</a>
 						</div>
 
 					</div>

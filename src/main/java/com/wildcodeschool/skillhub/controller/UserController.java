@@ -7,12 +7,14 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,6 +40,22 @@ public class UserController {
 		this.userService = userService;
 		this.skillService = skillService;
 		this.userSkillService = userSkillService;
+	}
+	
+	
+	@GetMapping("/user/{userId}/image")
+	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId){
+		
+		Optional<User> optionalUser = userService.getSingleUser(userId);
+		if (optionalUser.isPresent() && optionalUser.get().getImage() != null) {
+			User user = optionalUser.get();
+			
+			return ResponseEntity.status(HttpStatus.OK)
+					.contentType(MediaType.IMAGE_PNG)
+					.body(user.getImage());
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.build();
 	}
 
 	// Show users with a certain skill
@@ -143,7 +161,8 @@ public class UserController {
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
 		user.setDescription(userForm.getDescription());
-		user.setImageURL(userForm.getImageURL());
+		//user.setImageURL(userForm.getImageURL());
+		user.setImage(userForm.getImage());
 
 		userService.updateUser(user);
 
