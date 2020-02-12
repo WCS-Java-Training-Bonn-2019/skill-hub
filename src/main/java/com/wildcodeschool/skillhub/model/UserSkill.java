@@ -1,10 +1,12 @@
 package com.wildcodeschool.skillhub.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -26,19 +28,28 @@ import lombok.Setter;
 public class UserSkill {
 
 	@Id
-	private Long userId;
-
-	@Id
-	private Long skillId;
-
 	@ManyToOne
-//	@PrimaryKeyJoinColumn(name="user_id", referencedColumnName="id")
-	@JoinColumn(name = "user_id", updatable = false, insertable = false)
+	@PrimaryKeyJoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 
+	@Id
 	@ManyToOne
-//	@PrimaryKeyJoinColumn(name="skill_id", referencedColumnName="id")
-	@JoinColumn(name = "skill_id", updatable = false, insertable = false)
+	@PrimaryKeyJoinColumn(name="skill_id", referencedColumnName="id")
 	private Skill skill;
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(skill, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof UserSkill))
+			return false;
+		UserSkill other = (UserSkill) obj;
+		return Objects.equals(skill, other.skill) && Objects.equals(user, other.user);
+	}
 
 }

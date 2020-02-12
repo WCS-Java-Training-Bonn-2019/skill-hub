@@ -33,11 +33,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUsersBySkillId(Long skillId) {
-		return userRepository.findByuserSkills_SkillId(skillId);
-	}
-
-	@Override
 	public List<User> getUsers() {
 		return userRepository.findAll();
 	}

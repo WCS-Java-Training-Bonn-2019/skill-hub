@@ -12,7 +12,6 @@ import com.wildcodeschool.skillhub.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	List<User> findAll();
-	List<User> findByuserSkills_SkillId(Long id);
 	Optional<User> findById(Long id);
 	Optional<User> findByEmail(String email);
 

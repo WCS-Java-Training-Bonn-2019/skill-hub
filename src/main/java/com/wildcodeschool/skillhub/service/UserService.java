@@ -10,17 +10,15 @@ public interface UserService {
 	Optional<User> getSingleUser(Long userId);
 
 	Optional<User> getSingleUserByEmail(String email);
-	
-	List<User> getUsersBySkillId(Long skillid);
 
 	List<User> getUsers();
 
 	void deleteUser(Long userId);
 
 	User createNewUser(User user);
-	
+
 	void updateUser(User user);
-	
-	boolean emailExists(String email); 
+
+	boolean emailExists(String email);
 
 }

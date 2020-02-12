@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,6 +56,7 @@ public class User implements UserDetails {
 
 	@NotNull
 	private String firstName;
+
 	private String lastName;
 
 	private String zipCode;
@@ -69,19 +71,12 @@ public class User implements UserDetails {
 	private String description;
 	private String imageURL;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.ALL })
 	@Builder.Default
 	private Set<UserSkill> userSkills = new HashSet<>();
 
 	public int getAge() {
 		return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
-	}
-
-	// TODO Remove the need for this method
-	public Set<Long> getUserSkillIds() {
-		Set<Long> userSkillIds = new HashSet<>();
-		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
-		return userSkillIds;
 	}
 
 	@Override

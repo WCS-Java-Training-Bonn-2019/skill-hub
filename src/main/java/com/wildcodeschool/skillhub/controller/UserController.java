@@ -78,7 +78,7 @@ public class UserController {
 		for (Skill skill : skills) {
 			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
 			for (UserSkill userSkill : userSkills) {
-				if (skill.getId() == userSkill.getSkillId()) {
+				if (skill.getId() == userSkill.getSkill().getId()) {
 					userSkillLevel.setChecked(true);
 				}
 			}
@@ -108,7 +108,7 @@ public class UserController {
 			}
 		}
 
-		Set<Long> userSkillIds = user.getUserSkillIds();
+//		Set<Long> userSkillIds = user.getUserSkillIds();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
 		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
@@ -119,17 +119,17 @@ public class UserController {
 
 				skill = skillService.getSingleSkill(userSkillLevel.getId());
 
-				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					userSkillService.addNewUserSkill(user, skill);
-				}
+//				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
+//					userSkillService.addNewUserSkill(user, skill);
+//				}
 			} else {
 				Skill skill = null;
 
 				skill = skillService.getSingleSkill(userSkillLevel.getId());
 
-				if (userSkillIds.contains(userSkillLevel.getId())) {
-					userSkillService.removeUserSkill(user, skill);
-				}
+//				if (userSkillIds.contains(userSkillLevel.getId())) {
+//					userSkillService.removeUserSkill(user, skill);
+//				}
 			}
 		}
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
-import com.wildcodeschool.skillhub.model.UserSkillId;
 import com.wildcodeschool.skillhub.repository.UserSkillRepository;
 
 @Service
@@ -43,7 +42,7 @@ public class UserSkillServiceImpl implements UserSkillService {
 				iterator.remove();
 
 				// Remove UserSkill from repository
-				userSkillRepository.deleteById(new UserSkillId(user.getId(), skill.getId()));
+//				userSkillRepository.deleteById(new UserSkillId(user.getId(), skill.getId()));
 			}
 		}
 	}

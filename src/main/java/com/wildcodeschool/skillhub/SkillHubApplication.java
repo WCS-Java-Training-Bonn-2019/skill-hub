@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
+import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 import com.wildcodeschool.skillhub.service.UserSkillService;
@@ -130,8 +131,29 @@ public class SkillHubApplication {
 					.lastName("Hausner").zipCode("38751").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
 					.imageURL("till.png").build();
 
+			
+			
+			
+			
+			
 			// Create users in DB
 			userService.createNewUser(susanne);
+			userService.updateUser(susanne);
+			userService.updateUser(susanne);
+
+			// Add skills to user
+			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(cooking).build());
+			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(cooking).build());
+			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(climbing).build());
+			susanne.getUserSkills().remove(UserSkill.builder().user(susanne).skill(cooking).build());
+			
+			userService.updateUser(susanne);
+
+			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(climbing).build());
+			
+//			userService.updateUser(susanne);
+			
+			
 			userService.createNewUser(mia);
 			userService.createNewUser(lasse);
 			userService.createNewUser(alex);
@@ -147,7 +169,7 @@ public class SkillHubApplication {
 			userService.createNewUser(robert);
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
-
+			
 			// Add some skills to user in DB
 //			userSkillService.addNewUserSkill(susanne, cooking);
 //			userSkillService.addNewUserSkill(susanne, baking);
