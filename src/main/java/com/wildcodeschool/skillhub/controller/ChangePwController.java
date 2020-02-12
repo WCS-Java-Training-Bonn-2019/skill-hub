@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.wildcodeschool.skillhub.form.PasswordForm;
 import com.wildcodeschool.skillhub.form.UserForm;
 import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
@@ -23,6 +24,7 @@ import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 import com.wildcodeschool.skillhub.service.UserSkillService;
+
 
 @Controller
 public class ChangePwController {
@@ -49,10 +51,10 @@ public class ChangePwController {
 	
 	
 	// Change Password
-	@PostMapping("/perform_login")
+	@PostMapping("/changePw")
 	public String postUser(@ModelAttribute UserForm userForm,
 			@RequestParam(name = "id", required = false) Long userId, Principal principal) {
-		boolean isNewUser = userId == null;
+	/*	boolean isNewUser = userId == null;
 
 		User user = new User();
 
@@ -70,13 +72,13 @@ public class ChangePwController {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 		// user.setPassword(userForm.getPassword());
-		user.setPassword(passwordEncoder.encode(passwordForm.getPassword()));
+//		user.setPassword(passwordEncoder.encode(passwordForm.getPassword()));
 
 		userService.updateUser(user);
 		
 		if ("admin".equals(principal.getName())) {
 			return "redirect:/admin";
-		}
+		}*/
 		return "redirect:/user/profile";
 
 	}

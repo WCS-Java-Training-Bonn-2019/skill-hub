@@ -24,7 +24,7 @@
 <body>
 
 	<header th:replace="fragments.html :: top ('')">Here goes the header</header>
-	
+
 
 
 	<!-- Card-Header  ============================================================ Start-->
@@ -53,10 +53,10 @@
 
 							</div>
 
-	<!-- Card-Header  ============================================================ End-->
+							<!-- Card-Header  ============================================================ End-->
 
 
-					<!-- Card-Body  ============================================================== -->
+							<!-- Card-Body  ============================================================== -->
 						</div>
 						<div class="card-body">
 
@@ -105,7 +105,7 @@
 										class="form-text text-muted">We'll never share your
 										email with anyone else.</small>
 								</div>
-<!-- 
+								<!--  
 								<div class="form-group">
 									<label for="password">Password</label> <input type="password"
 										class="form-control" id="password"
@@ -144,8 +144,8 @@
 									<li th:each="userSkillLevel, stat : *{userSkillLevels}">
 										<div class="custom-control custom-switch">
 											<input type="hidden"
-												th:field="*{userSkillLevels[__${stat.index}__].id}" />
-											<input class="custom-control-input" type="checkbox"
+												th:field="*{userSkillLevels[__${stat.index}__].id}" /> <input
+												class="custom-control-input" type="checkbox"
 												th:id="${'toggle' + userSkillLevel.id}"
 												th:field="*{userSkillLevels[__${stat.index}__].checked}" />
 											<label class="custom-control-label"
