@@ -5,6 +5,7 @@ import java.time.Period;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -52,15 +53,17 @@ public class User implements UserDetails {
 	@NotNull
 	private String password;
 
+	@NotNull
 	private String firstName;
 	private String lastName;
 
-	@NotNull
 	private String zipCode;
 
+	@NotNull
 	private String city;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
 	private LocalDate dateOfBirth;
 
 	private String description;
@@ -80,7 +83,29 @@ public class User implements UserDetails {
 		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
 		return userSkillIds;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof User))
+			return false;
+		User other = (User) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", zipCode=" + zipCode + ", city=" + city + ", dateOfBirth=" + dateOfBirth
+				+ ", description=" + description + ", imageURL=" + imageURL + "]";
+	}
+
 	// Methods required by UserDetails interface
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

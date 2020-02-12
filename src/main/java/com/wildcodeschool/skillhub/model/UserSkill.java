@@ -1,6 +1,5 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
@@ -9,15 +8,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
+//IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
 @Table(name = "user_skill" )
-@Getter
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
 @Setter
-@ToString
+@Getter
 public class UserSkill {
 
 	@EmbeddedId
@@ -31,19 +36,11 @@ public class UserSkill {
 	@MapsId("skillId")
 	private Skill skill;
 
-	private Date createdOn;
-	private Boolean isOfferingSkill;
-
-	public UserSkill() {
-	}
-
-	public UserSkill(User user, Skill skill, Date createdOn, Boolean isOfferingSkill) {
+	public UserSkill(User user, Skill skill) {
 		super();
 		this.id = new UserSkillId(user.getId(), skill.getId());
 		this.user = user;
 		this.skill = skill;
-		this.createdOn = createdOn;
-		this.isOfferingSkill = isOfferingSkill;
 	}
 
 	@Override

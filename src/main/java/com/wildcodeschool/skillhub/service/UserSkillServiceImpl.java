@@ -1,6 +1,5 @@
 package com.wildcodeschool.skillhub.service;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class UserSkillServiceImpl implements UserSkillService {
 	@Override
 	public void addNewUserSkill(User user, Skill skill) {
 		// TODO Add checks
-		UserSkill userSkill = new UserSkill(user, skill, new Date(), true);
+		UserSkill userSkill = new UserSkill(user, skill);
 
 		// Add UserSkill to List in User
 		user.getUserSkills().add(userSkill);
