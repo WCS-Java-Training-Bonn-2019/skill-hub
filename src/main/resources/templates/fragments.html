@@ -80,10 +80,10 @@
 				<!-- 						alt="Avatar"> -->
 				<!-- 					</a> </pic></li> -->
 
-				<li><pic> <a th:href="@{'/user/profile'}"> <img
-						class="avatar" sec:authorize="hasRole('ROLE_USER')"
+				<li><pic> <a th:href="@{'/user/profile'}"> <img class="avatar"
+						 sec:authorize="hasRole('ROLE_USER')"
 						th:src="@{'/avatar/image'} != null ? @{'/avatar/image'} : '/images/avatar.png'"
-						alt="Avatar">
+						alt=" ">
 					</a> </pic></li>
 			</ul>
 			<!-- Ende: LogIn / LogOut  ============================================================== -->

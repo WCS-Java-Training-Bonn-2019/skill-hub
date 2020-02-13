@@ -232,7 +232,9 @@ main.index {
 }
 
 .avatar{
-/* 	background-image: url(../images/avatar.png); */
+	background-image: url(../images/avatar.png);
 	width: 80px;
 	height:80px;
+	background-size: cover;
+	display: inline-block;
 }
