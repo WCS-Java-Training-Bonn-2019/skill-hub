@@ -17,6 +17,11 @@ body {
 
 .img-view{
 	margin-top: 2rem;
+	margin-left: 2rem;
+	margin-bottom: 2rem;
+	background-image: url(../images/avatar.png);
+	background-size: cover;
+	display: inline-block;
 }
 
 .bold {
@@ -29,7 +34,7 @@ body {
 
 .jumbotron {
   position: relative;
-  max-height: 500px;
+  max-height: 350px;
   overflow: hidden;
   padding: 0;
 }
@@ -60,15 +65,18 @@ body {
   padding-left: 5vw;
 }
 
-/*footer {
-  padding: 1em;
-  width: 100%;
-  top: 100%;
-  position: absolute;
-}*/
-
 .bg-light {
-  background-color: gold !important;
+  background-color: peachpuff  !important;
+  padding: 0;
+  padding-left: 2rem;
+  padding-right: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
+}
+
+.copyright {
+	margin-bottom: 1rem;
 }
 
 .card {
@@ -80,23 +88,19 @@ body {
   margin-left: 2rem;
 }
 
+/* Settings für Buttons*/
 
 .btn-danger{
 	margin-top: 2rem;
 }
-
-
 
 .btn-block {
     display: block;
     width: 100%;
 }
 
-
-
-.btn-primary{
-	display: felx;
-	justify-content: center;
+.backbutton {
+	margin-top: 2rem;
 }
 
 .edit{
@@ -110,38 +114,13 @@ ul {
   padding: 0;
 }
 
-.backbutton {
-	margin-top: 2rem;
-}
-
-/* Text in card: View 
-.card-body {
-  margin-left: 2rem;
-  font-size: 24px;
-}*/
-
-
-.index{
-	felx-direction: colum;
-}
-
-
-
 .card-title {
 	font-size: 36px;
 }
 
-
-/*
-.card {
-	min-width: 50%;
-}
-
-*/
-
 .flex-container{
-	display: block
-	allign-items: center;
+	display: block;
+	align-items: center;
 	justify-content: center;
 }
 
@@ -173,9 +152,6 @@ main {
 	--> main wird angesprochen
 }
 
-
-
-
 */
 
 main.login_background {
@@ -194,3 +170,64 @@ main.login_background {
 	
 }
 
+
+
+main.changePw_background {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.changePw-box {
+	width: 1200px;
+	height: 400px;
+	background-color: rgb(255,255,255,0.5);
+	border-radius: 1em;
+	margin: ($spacer * 3) !important;
+	
+}
+
+
+/*
+.m-1 {
+  margin-left: ($spacer * .25) !important;
+}
+*/
+
+.changePwButtonRight {
+	padding-right: 16px;
+}
+
+
+main.index {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-warp:
+}
+
+.index-text{
+	background-color: rgb(255,255,255,0.6);
+}
+
+.p-index{
+	padding-bottom: 2rem;
+	font-size: 1rem;
+	font-weight: 490;
+}
+
+.h1-index{
+	padding-top: 2rem;
+}
+
+.avatar{
+	background-image: url(../images/avatar.png);
+	width: 60px;
+	height:60px;
+	background-size: cover;
+	display: inline-block;
+}

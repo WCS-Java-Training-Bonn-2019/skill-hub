@@ -30,44 +30,106 @@ public class SkillHubApplication {
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
-	public CommandLineRunner demo(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public CommandLineRunner demo(UserService userService, SkillService skillService,
+			UserSkillService userSkillService) {
 		return (args) -> {
-			
+			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String endcodedPassword = passwordEncoder.encode("1234");
+
+			// Create skill objects
+			Skill climbing = Skill.builder().name("Climbing").imageURL("climbing.jpg").build();
+			Skill cooking = Skill.builder().name("Cooking").imageURL("cooking.jpg").build();
+			Skill books = Skill.builder().name("Books").imageURL("books.jpg").build();
+			Skill photography = Skill.builder().name("Photography").imageURL("photography.jpg").build();
+			Skill fashion = Skill.builder().name("Fashion").imageURL("fashion.jpg").build();
+			Skill golf = Skill.builder().name("Golf").imageURL("golf.jpg").build();
+			Skill baking = Skill.builder().name("Baking").imageURL("baking.jpg").build();
+			Skill dogs = Skill.builder().name("Dogs").imageURL("dogs.jpg").build();
+			Skill motorbike = Skill.builder().name("Motorbike").imageURL("motorbike.jpg").build();
+
+//			climbing.getUserSkills()
+//					.add(new UserSkill(new User("susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
+//							"28215", "Bremen", "susanne-heer@web.de", endcodedPassword, ""), climbing, new Date(), true));
+//
+			// Create skills in DB
+			skillService.createNewSkill(climbing);
+			skillService.createNewSkill(cooking);
+			skillService.createNewSkill(books);
+			skillService.createNewSkill(photography);
+			skillService.createNewSkill(fashion);
+			skillService.createNewSkill(golf);
+			skillService.createNewSkill(baking);
+			skillService.createNewSkill(dogs);
+			skillService.createNewSkill(motorbike);
+
 			// Create user objects
-			User susanne = new User("susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
-					"28215", "Bremen", "susanne-heer@web.de", "1234", "");
-			User mia = new User("mia.png", "Mia", "Sommer", LocalDate.of(2002, 8, 1), "30453", "Hannover",
-					"mia-sommer07@gmx.de", "1234", "");
-			User lasse = new User("lasse.png", "Lasse", "Ruckart", LocalDate.of(1982, 3, 14), "99092",
-					"Erfurt", "lasse82@outlook.de", "1234", "");
-			User alex = new User("alex.png", "Alex", "Schmidt", LocalDate.of(1978, 2, 18),
-					"10319", "Berlin", "alexander-Boy@gmx.de", "1234", "Hi, I'm Alex and I'm cool!");
-			User antonia = new User("antonia.png", "Antonia", "Müller", LocalDate.of(1992, 4, 17),
-					"1992", "Köln", "antonia-mueller@gmx.de", "1234", "");
-			User cem = new User("cem.png", "Cem", "Alan", LocalDate.of(2000, 5, 20),
-					"53290", "Frankfurt", "cem-champ@gmail.de", "1234", "");
-			User claudia = new User("claudia.png", "Claudia", "Siebert", LocalDate.of(1979, 11, 18),
-					"90427", "Erlangen", "claudi-minigolf@arcor.de", "1234", "");
-			User daniel = new User("daniel.png", "Daniel", "Jäger", LocalDate.of(1970, 9, 4),
-					"43268", "Fulda", "daniel-jaeger1970@web.de", "1234", "");
-			User harald = new User("harald.png", "Harald", "Krüger", LocalDate.of(1964, 3, 10),
-					"23456", "Braunschweig", "harald_Krueger@web.de", "1234", "");
-			User lennart = new User("lennart.png", "Lennart", "Peter", LocalDate.of(1995, 6, 21),
-					"78561", "Leipzig", "lennipeter95@web.de", "1234", "");
-			User maike = new User("maike.png", "Maike", "Berger", LocalDate.of(1996, 4, 16),
-					"96325", "Hannover", "itsmemaike96@web.de", "1234", "");
-			User marina = new User("marina.png", "Marina", "Bauer", LocalDate.of(1980, 7, 8),
-					"65123", "Offenbach", "marryM@web.de", "1234", "");
-			User reinhardt = new User("reinhardt.png", "Reinhardt", "Lalalalal", LocalDate.of(1950, 5, 1),
-					"25456", "Bremen", "reini50-lalalal@t-online.de", "1234", "");
-			User robert = new User("robert.png", "Robert", "Schmitz", LocalDate.of(1989, 10, 12),
-					"12594", "Kassel", "robert-schmitzzz@gmail.de", "1234", "");
-			User rolf = new User("rolf.png", "Rolf", "Langner", LocalDate.of(1960, 9, 13),
-					"78652", "Erfurt", "rolf-langner@gmail.de", "1234", "");
-			User till = new User("till.png", "Till", "Hausner", LocalDate.of(1970, 6, 2),
-					"38751", "Düsseldorf", "till_hausner1970@web.de", "1234", "");
+			User susanne = User.builder().email("susanne-heer@web.de").password(endcodedPassword).firstName("Susanne")
+					.lastName("GehtEuchNixAn").zipCode("28215").city("Bremen").dateOfBirth(LocalDate.of(1952, 5, 17))
+					.imageURL("susanne.png").build();
+
+			User mia = User.builder().email("mia-sommer07@gmx.de").password(endcodedPassword).firstName("Mia")
+					.lastName("Sommer").zipCode("30453").city("Hannover").dateOfBirth(LocalDate.of(2002, 8, 1))
+					.imageURL("mia.png").build();
+
+			User lasse = User.builder().email("lasse82@outlook.de").password(endcodedPassword).firstName("Lasse")
+					.lastName("Ruckart").zipCode("99092").city("Erfurt").dateOfBirth(LocalDate.of(1982, 3, 14))
+					.imageURL("lasse.png").build();
+
+			User alex = User.builder().email("alexander-Boy@gmx.de").password(endcodedPassword).firstName("Alex")
+					.lastName("Schmidt").zipCode("10319").city("Berlin").dateOfBirth(LocalDate.of(1978, 2, 18))
+					.imageURL("alex.png").description("Hi, I'm Alex and I'm cool!").build();
+
+			User antonia = User.builder().email("antonia-mueller@gmx.de").password(endcodedPassword).firstName("Antonia")
+					.lastName("Müller").zipCode("50676").city("Köln").dateOfBirth(LocalDate.of(1992, 4, 17))
+					.imageURL("antonia.png").build();
+
+			User cem = User.builder().email("cem-champ@gmail.de").password(endcodedPassword).firstName("Cem")
+					.lastName("Alan").zipCode("61290").city("Frankfurt").dateOfBirth(LocalDate.of(2000, 5, 20))
+					.imageURL("cem.png").build();
+
+			User claudia = User.builder().email("claudi-minigolf@arcor.de").password(endcodedPassword).firstName("Claudia")
+					.lastName("Siebert").zipCode("90427").city("Erlangen").dateOfBirth(LocalDate.of(1979, 11, 18))
+					.imageURL("claudia.png").build();
+
+			User daniel = User.builder().email("daniel-jaeger1970@web.de").password(endcodedPassword).firstName("Daniel")
+					.lastName("Jäger").zipCode("43268").city("Fulda").dateOfBirth(LocalDate.of(1970, 9, 4))
+					.imageURL("daniel.png").build();
+
+
+			User harald = User.builder().email("harald_Krueger@web.de").password(endcodedPassword).firstName("Harald")
+					.lastName("Krüger").zipCode("23456").city("Braunschweig").dateOfBirth(LocalDate.of(1964, 3, 10))
+					.imageURL("harald.png").build();
+
+			User lennart = User.builder().email("lennipeter95@web.de").password(endcodedPassword).firstName("Lennart")
+					.lastName("Peter").zipCode("78561").city("Leipzig").dateOfBirth(LocalDate.of(1995, 6, 21))
+					.imageURL("lennart.png").build();
 			
+			User maike = User.builder().email("itsmemaike96@web.de").password(endcodedPassword).firstName("Maike")
+					.lastName("Berger").zipCode("96325").city("Hannover").dateOfBirth(LocalDate.of(1996, 4, 16))
+					.imageURL("maike.png").build();
+			
+			User marina = User.builder().email("marryM@web.de").password(endcodedPassword).firstName("Marina")
+					.lastName("Bauer").zipCode("65123").city("Offenbach").dateOfBirth(LocalDate.of(1980, 7, 8))
+					.imageURL("marina.png").build();
+
+			User reinhardt = User.builder().email("reini50-lalalal@t-online.de").password(endcodedPassword).firstName("Reinhardt")
+					.lastName("Lalalalal").zipCode("25456").city("Bremen").dateOfBirth(LocalDate.of(1950, 5, 1))
+					.imageURL("reinhardt.png").build();
+
+			User robert = User.builder().email("robert-schmitzzz@gmail.de").password(endcodedPassword).firstName("Robert")
+					.lastName("Schmitz").zipCode("12594").city("Kassel").dateOfBirth(LocalDate.of(1989, 10, 12))
+					.imageURL("robert.png").build();
+
+			User rolf = User.builder().email("rolf-langner@gmail.de").password(endcodedPassword).firstName("Rolf")
+					.lastName("Langner").zipCode("78652").city("Erfurt").dateOfBirth(LocalDate.of(1960, 9, 13))
+					.imageURL("rolf.png").build();
+
+			User till = User.builder().email("till_hausner1970@web.de").password(endcodedPassword).firstName("Till")
+					.lastName("Hausner").zipCode("38751").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("till.png").build();
+
 			// Create users in DB
 			userService.createNewUser(susanne);
 			userService.createNewUser(mia);
@@ -85,29 +147,6 @@ public class SkillHubApplication {
 			userService.createNewUser(robert);
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
-
-			
-			// Create skill objects
-			Skill climbing = new Skill("Climbing", "climbing.jpg");
-			Skill cooking = new Skill("Cooking", "cooking.jpg");
-			Skill books = new Skill("Books", "books.jpg");
-			Skill photography = new Skill("Photography", "photography.jpg");
-			Skill fashion = new Skill("Fashion", "fashion.jpg");
-			Skill golf = new Skill("Golf", "golf.jpg");
-			Skill baking = new Skill("Baking", "baking.jpg");
-			Skill dogs = new Skill("Dogs", "dogs.jpg");
-			Skill motorbike = new Skill ("Motorbike", "motorbike.jpg");
-			
-			// Create skills in DB
-			skillService.createNewSkill(climbing);
-			skillService.createNewSkill(cooking);
-			skillService.createNewSkill(books);
-			skillService.createNewSkill(photography);
-			skillService.createNewSkill(fashion);
-			skillService.createNewSkill(golf);
-			skillService.createNewSkill(baking);
-			skillService.createNewSkill(dogs);
-			skillService.createNewSkill(motorbike);
 
 			// Add some skills to user in DB
 			userSkillService.addNewUserSkill(susanne, cooking);

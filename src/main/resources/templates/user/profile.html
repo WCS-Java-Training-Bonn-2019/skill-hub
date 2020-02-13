@@ -22,7 +22,7 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<header th:replace="fragments.html :: top (iurl= ${user.imageURL})">Here
+<header th:replace="fragments.html :: top">Here
 	goes the header</header>
 
 <body>
@@ -34,7 +34,7 @@
 			<div class="container cards">
 				<div class="row no-gutters">
 
-					<div class="card w-75">
+					<div class="card" style="width: 50rem;">
 						<div class="card-header">User Profile</div>
 						<div class="card-body">
 							<blockquote class="blockquote mb-0">
@@ -43,9 +43,12 @@
 									<div class="row no-gutters">
 										<div class="col-md-4">
 
-											<img class="img-view"
-												th:src="@{${'/images/' + user.imageURL}}"
-												alt="Card image cap">
+
+											<img class="img-view" th:unless="${user.image}"
+												src="../images/avatar.png" height="150" width="150"> <img
+												class="img-view" th:if="${user.image}"
+												th:src="@{'/user/' + ${user.id} + '/image'}" height="150"
+												width="150">
 
 										</div>
 										<div class="col-md-8">

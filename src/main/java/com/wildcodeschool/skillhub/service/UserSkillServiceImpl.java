@@ -26,9 +26,6 @@ public class UserSkillServiceImpl implements UserSkillService {
 		// Add UserSkill to List in User
 		user.getUserSkills().add(userSkill);
 
-		// Add UserSkill to List in Skill
-		skill.getUserSkills().add(userSkill);
-
 		// Add UserSkill to repository
 		userSkillRepository.save(userSkill);
 	}
@@ -45,9 +42,6 @@ public class UserSkillServiceImpl implements UserSkillService {
 
 				// Remove UserSkill from List in User
 				iterator.remove();
-
-				// Remove UserSkill from List in Skill
-				userSkill.getSkill().getUserSkills().remove(userSkill);
 
 				// Remove UserSkill from repository
 				userSkillRepository.deleteById(new UserSkillId(user.getId(), skill.getId()));
