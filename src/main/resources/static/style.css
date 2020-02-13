@@ -19,6 +19,9 @@ body {
 	margin-top: 2rem;
 	margin-left: 2rem;
 	margin-bottom: 2rem;
+	background-image: url(../images/avatar.png);
+	background-size: cover;
+	display: inline-block;
 }
 
 .bold {
