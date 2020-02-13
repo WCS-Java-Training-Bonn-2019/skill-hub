@@ -73,8 +73,15 @@ body {
 }*/
 
 .bg-light {
-  background-color: gold !important;
+  background-color: peachpuff  !important;
+  padding: 0;
+  padding-left: 2rem;
+  padding-right: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
 }
+
 
 .card {
   margin: 2rem;
@@ -236,8 +243,8 @@ main.index {
 
 .avatar{
 	background-image: url(../images/avatar.png);
-	width: 80px;
-	height:80px;
+	width: 60px;
+	height:60px;
 	background-size: cover;
 	display: inline-block;
 }
