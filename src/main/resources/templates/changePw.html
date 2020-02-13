@@ -33,14 +33,14 @@
 		<div class="changePw-box">
 			<section>
 				<div class="flex-container container">
-					<form method="post" th:action="@{/changePw}"
+					<form method="post" th:action="@{/password/upsert}"
 						th:object="${passwordForm}">
-						
+
 						<!-- <input name="id" th:field="*{id}" type="hidden">  -->
 
 
 						<fieldset>
-							<h2>Change Password</h2> 
+							<h2>Change Password</h2>
 
 							<!-- 
 							<div th:if="${param.error}" class="alert alert-error">Invalid
@@ -57,8 +57,7 @@
 									<input name="_csrf" type="hidden"
 										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
 										href="javascript:javascript:history.go(-1)"
-										class="btn btn-dark btn-block"><span
-										sec:authentication="name"></span></a>
+										class="btn btn-dark btn-block"><span sec:authentication="name"></span></a>
 
 								</div>
 							</div>
@@ -74,18 +73,34 @@
 
 
 									<p>
-										<!-- ALT =======================================================================>
-									<div class="form-group">
-									<label for="password">Password</label>
-									<input type="password" class="form-control" id="password" aria-describedby="passwordHelp" name="password" 
-									onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
-										placeholder="Password" required th:field="*{password}" >
+									<!-- class="btn btn-lg btn-danger btn-block">Don't change Password</a> -->
+
+									<!-- Label weggelassen - passt auch so... altes Label ==>    <label for="password">Password</label>
+									... Änderung der Schriftgröße: <p class="pwChange-password">
+									
+									Und in CSS: ===========================================>
+									.pwChange-password{
+										font-size: 1.5rem;
+										font-weight: 600;
+									}
+									<<======================================================
+									
 									-->
+									<!-- btn-lg  -->
+									
+										 <input type="password"
+											class="form-control " id="password"
+											aria-describedby="passwordHelp" name="password"
+											onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
+											placeholder="New password" required th:field="*{password}">
+									<!-- required th:field="*{password}" -->
 
 
 
+									</p>
 
-										<!-- NEU =======================================================================>
+
+								<!-- NEU =======================================================================>
 									<div class="form-group">
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" aria-describedby="passwordHelp" name="password" 
@@ -96,17 +111,18 @@
 									-->
 
 
-
+									<!-- ALT =======================================================================>
 										<label for="password" class="sr-only">Password2</label> <input
 											type="password" id="password" name="password"
 											onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
 											class="form-control" placeholder="New password" required="">
+-->
 
-									</p>
+
+
 
 								</div>
-							
-				</div>
+							</div>
 
 
 
@@ -117,24 +133,22 @@
 
 
 
+							<div class="row no-gutters">
+								<div class="col-7">
 
-				<div class="row no-gutters">
-					<div class="col-7">
-
-						<!-- ALT =======================================================================>
-									<label for="passwordRepeated">Password (repeated)</label> <input
-										type="password" class="form-control" id="passwordRepeated"
+									
+									 <input type="password" class="form-control" id="passwordRepeated"
 										aria-describedby="passwordRepeatedHelp"
 										name="passwordRepeated"
 										onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
-										placeholder="Verify Password" required
+										placeholder="Repeat new password" required 
 										th:field="*{passwordRepeated}">
+										<!--  th:field="*{passwordRepeated}"  -->
 										
-										-->
 
-						<p>
+									<p>
 
-							<!-- NEU =======================================================================>
+										<!-- NEU =======================================================================>
 									
 									<div class="form-group">
 									<label for="passwordRepeated">Password (repeated)</label> <input
@@ -149,70 +163,71 @@
 									
 									 -->
 
+<!-- ALT =======================================================================>
+										<label for="username" class="sr-only">Email2</label> <input
+											type="text" id="username" name="username"
+											onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+											class="form-control" placeholder="Repeat new password"
+											required="" autofocus="">
+											-->
 
-							<label for="username" class="sr-only">Email2</label> <input
-								type="text" id="username" name="username"
-								onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
-								class="form-control" placeholder="Repeat new password"
-								required="" autofocus="">
+									</p>
+								</div>
+							</div>
+						</fieldset>
 
-						</p>
+
+						
+
+
+
+
+
+
+
+
+
+
+
+						<div class="row no-gutters">
+							<div class="col-7">
+								<input name="_csrf" type="hidden"
+									value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
+
+								<button type="submit" value="Submit"
+									class="btn btn-lg btn-success btn-block">Change
+									Password</button>
+
+							</div>
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+					</form>
+
+
+					<div class="row no-gutters">
+						<div class="col-7">
+							<input name="_csrf" type="hidden"
+								value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
+								href="javascript:javascript:history.go(-1)"
+								class="btn btn-lg btn-danger btn-block">Don't change
+								Password</a>
+
+						</div>
 					</div>
 				</div>
-				</fieldset>
 
-
-				<div class="row no-gutters">
-					<p></p>
-				</div>
-
-
-
-
-
-
-
-
-
-
-
-				<div class="row no-gutters">
-					<div class="col-7">
-						<input name="_csrf" type="hidden"
-							value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-
-						<button type="submit" value="Submit"
-							class="btn btn-lg btn-success btn-block">Change Password</button>
-
-					</div>
-				</div>
-
-
-
-
-
-
-
-
-
-
-
-
-				</form>
-
-
-				<div class="row no-gutters">
-					<div class="col-7">
-						<input name="_csrf" type="hidden"
-							value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
-							href="javascript:javascript:history.go(-1)"
-							class="btn btn-lg btn-danger btn-block">Don't change Password</a>
-
-					</div>
-				</div>
-		</div>
-
-		</section>
+			</section>
 		</div>
 
 	</main>

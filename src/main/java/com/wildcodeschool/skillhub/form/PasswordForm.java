@@ -8,7 +8,6 @@ import com.wildcodeschool.skillhub.model.User;
 public class PasswordForm {
 	
 	private Long id;
-	//private String email;
 	private String password;
 	private String repeatedPassword;
 	

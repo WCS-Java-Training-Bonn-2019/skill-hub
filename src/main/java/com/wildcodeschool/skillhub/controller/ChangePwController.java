@@ -1,96 +1,83 @@
 package com.wildcodeschool.skillhub.controller;
 
-import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wildcodeschool.skillhub.form.PasswordForm;
-import com.wildcodeschool.skillhub.form.UserForm;
-import com.wildcodeschool.skillhub.form.UserSkillLevel;
-import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.model.UserSkill;
-import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
-import com.wildcodeschool.skillhub.service.UserSkillService;
-
 
 @Controller
 public class ChangePwController {
-	
-	//definiere Variable
+
+	// definiere Variable
 	private final UserService userService;
-	private final SkillService skillService;
-	private final UserSkillService userSkillService;
-	
-	//ChangePwController
+
+	// ChangePwController
 	@Autowired
-	public ChangePwController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public ChangePwController(UserService userService) {
 		super();
 		this.userService = userService;
-		this.skillService = skillService;
-		this.userSkillService = userSkillService;
 	}
-	
+
 	@GetMapping("/changePw")
 	public String getLoginPage() {
 
 		return "changePw";
 	}
-	
-	
+
 	// Change Password
-	@PostMapping("/changePw")
-	public String postUser(@ModelAttribute UserForm userForm,
-			@RequestParam(name = "id", required = false) Long userId, Principal principal) {
-	/*	boolean isNewUser = userId == null;
+	@PostMapping("/password/upsert")
+	public String postUser(@ModelAttribute PasswordForm passwordForm,
+			@RequestParam(name = "id", required = false) Long userId, HttpServletRequest request) {
 
-		User user = new User();
+		User user = getUser(userId, request);
 
-		if (!isNewUser) {
-			Optional<User> optionalUser = userService.getSingleUser(userId);
-			if (optionalUser.isPresent()) {
-				user = optionalUser.get();
-			}
+		if (user == null) {
+			return "redirect:/";
 		}
-
-		//Set<Long> userSkillIds = user.getUserSkillIds();
-		//List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
-
 
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-		// user.setPassword(userForm.getPassword());
-//		user.setPassword(passwordEncoder.encode(passwordForm.getPassword()));
+		user.setPassword(passwordEncoder.encode(passwordForm.getPassword()));
 
 		userService.updateUser(user);
-		
-		if ("admin".equals(principal.getName())) {
+
+		if ("admin".equals(request.getUserPrincipal().getName())) {
 			return "redirect:/admin";
-		}*/
+		}
+
 		return "redirect:/user/profile";
 
 	}
-	
+
+	// Helper function to retrieve the user either from the principal or by userId,
+	// if the user has ADMIN role
+	private User getUser(Long userId, HttpServletRequest request) {
+		Optional<User> optionalUser = Optional.empty();
+
+		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
+			if (userId != null) {
+				optionalUser = userService.getSingleUser(userId);
+			}
+
+		} else {
+			if (request != null && request.getUserPrincipal() != null) {
+				optionalUser = userService.getSingleUserByEmail(request.getUserPrincipal().getName());
+			}
+		}
+
+		return optionalUser.orElse(null);
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
