@@ -153,8 +153,6 @@ public class UserController {
 			}
 		}
 
-		//--> PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 		user.setId(userForm.getId());
 		user.setFirstName(userForm.getFirstName());
 		user.setLastName(userForm.getLastName());
@@ -162,12 +160,11 @@ public class UserController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
-		// user.setPassword(userForm.getPassword());
-		//--> user.setPassword(passwordEncoder.encode(userForm.getPassword()));
-
 		user.setDescription(userForm.getDescription());
-		//user.setImageURL(userForm.getImageURL());
-		user.setImage(userForm.getImage());
+
+		if (userForm.getImage().length != 0) {
+			user.setImage(userForm.getImage());
+		}
 
 		userService.updateUser(user);
 
