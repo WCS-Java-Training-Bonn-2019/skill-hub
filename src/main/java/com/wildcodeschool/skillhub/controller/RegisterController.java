@@ -1,7 +1,6 @@
 package com.wildcodeschool.skillhub.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,28 +15,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.wildcodeschool.skillhub.form.UserForm;
 import com.wildcodeschool.skillhub.form.UserSkillLevel;
-import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
-import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class RegisterController {
 
 	private final UserService userService;
 	private final SkillService skillService;
-	private final UserSkillService userSkillService;
 	private final UserRepository userRepository;
 
 	@Autowired
-	public RegisterController(UserService userService, SkillService skillService, UserSkillService userSkillService,
-			UserRepository userRepository) {
+	public RegisterController(UserService userService, SkillService skillService, UserRepository userRepository) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
-		this.userSkillService = userSkillService;
 		this.userRepository = userRepository;
 	}
 
@@ -53,22 +47,22 @@ public class RegisterController {
 	public String postUser(@ModelAttribute UserForm userForm) {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		User user = new User();
-		
-		//Email Validation
+
+		// Email Validation
 		if (userService.emailExists(userForm.getEmail())) {
 			return "emailExists";
 		}
-		
+
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
-		for (UserSkillLevel userSkillLevel : userSkillLevels) {
-
-			if (userSkillLevel.isChecked()) {
-				Skill skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				userSkillService.addNewUserSkill(user, skill);
-			}
-		}
+//		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+//
+//			if (userSkillLevel.isChecked()) {
+//				Skill skill = skillService.getSingleSkill(userSkillLevel.getId());
+//
+//				userSkillService.addNewUserSkill(user, skill);
+//			}
+//		}
 
 		user.setId(userForm.getId());
 		user.setEmail(userForm.getEmail());

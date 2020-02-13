@@ -21,33 +21,30 @@ import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
-import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class UserController {
 
 	private final UserService userService;
 	private final SkillService skillService;
-	private final UserSkillService userSkillService;
 
 	@Autowired
-	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public UserController(UserService userService, SkillService skillService) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
-		this.userSkillService = userSkillService;
 	}
 
 	// Show users with a certain skill
-	@GetMapping("/users/search")
-	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
-		model.addAttribute("users", userService.getUsersBySkillId(skillId));
-
-		Skill skill = skillService.getSingleSkill(skillId);
-		model.addAttribute("skill", skill);
-
-		return "users/get_by_skill";
-	}
+//	@GetMapping("/users/search")
+//	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
+//		model.addAttribute("users", userService.getUsersBySkillId(skillId));
+//
+//		Skill skill = skillService.getSingleSkill(skillId);
+//		model.addAttribute("skill", skill);
+//
+//		return "users/get_by_skill";
+//	}
 
 	// Show administrator page
 	@GetMapping("/admin")
@@ -160,7 +157,7 @@ public class UserController {
 		User user = new User();
 
 		if (userId != null) {
-			Optional<User> optionalUser = userService.getSingleUser(userId);
+			Optional<User> optionalUser = userService.getSingleUserById(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -214,7 +211,7 @@ public class UserController {
 
 		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
 			if (userId != null) {
-				optionalUser = userService.getSingleUser(userId);
+				optionalUser = userService.getSingleUserById(userId);
 			}
 
 		} else {

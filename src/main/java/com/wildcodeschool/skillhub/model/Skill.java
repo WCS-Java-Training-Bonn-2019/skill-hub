@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.NaturalId;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ import lombok.Setter;
 
 // IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
 @Setter
@@ -35,6 +36,7 @@ public class Skill implements Comparable<Skill> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NaturalId
 	@Column(unique = true)
 	@NotNull
 	private String name;

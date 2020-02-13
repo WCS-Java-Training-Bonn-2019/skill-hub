@@ -3,6 +3,7 @@ package com.wildcodeschool.skillhub.model;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "user_skill")
 @IdClass(UserSkillId.class)
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
 @Setter
@@ -28,13 +29,13 @@ import lombok.Setter;
 public class UserSkill {
 
 	@Id
-	@ManyToOne
-	@PrimaryKeyJoinColumn(name="user_id", referencedColumnName="id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
 	@Id
-	@ManyToOne
-	@PrimaryKeyJoinColumn(name="skill_id", referencedColumnName="id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name = "skill_id", referencedColumnName = "id")
 	private Skill skill;
 
 	@Override
@@ -50,6 +51,11 @@ public class UserSkill {
 			return false;
 		UserSkill other = (UserSkill) obj;
 		return Objects.equals(skill, other.skill) && Objects.equals(user, other.user);
+	}
+
+	@Override
+	public String toString() {
+		return "UserSkill [user=" + user + ", skill=" + skill + "]";
 	}
 
 }

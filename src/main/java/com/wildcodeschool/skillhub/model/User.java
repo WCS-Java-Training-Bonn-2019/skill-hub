@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.NaturalId;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,7 +32,7 @@ import lombok.Setter;
 
 //IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
 @Setter
@@ -47,6 +48,7 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NaturalId
 	@Column(unique = true)
 	@NotNull
 	private String email;

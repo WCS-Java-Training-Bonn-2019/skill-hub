@@ -16,7 +16,6 @@ import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
-import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @SpringBootApplication
 public class SkillHubApplication {
@@ -33,8 +32,7 @@ public class SkillHubApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserService userService, SkillService skillService,
-			UserSkillService userSkillService) {
+	public CommandLineRunner demo(UserService userService, SkillService skillService) {
 		return (args) -> {
 			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String endcodedPassword = passwordEncoder.encode("1234");
@@ -50,10 +48,6 @@ public class SkillHubApplication {
 			Skill dogs = Skill.builder().name("Dogs").imageURL("dogs.jpg").build();
 			Skill motorbike = Skill.builder().name("Motorbike").imageURL("motorbike.jpg").build();
 
-//			climbing.getUserSkills()
-//					.add(new UserSkill(new User("susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
-//							"28215", "Bremen", "susanne-heer@web.de", endcodedPassword, ""), climbing, new Date(), true));
-//
 			// Create skills in DB
 			skillService.createNewSkill(climbing);
 			skillService.createNewSkill(cooking);
@@ -82,22 +76,21 @@ public class SkillHubApplication {
 					.lastName("Schmidt").zipCode("10319").city("Berlin").dateOfBirth(LocalDate.of(1978, 2, 18))
 					.imageURL("alex.png").description("Hi, I'm Alex and I'm cool!").build();
 
-			User antonia = User.builder().email("antonia-mueller@gmx.de").password(endcodedPassword).firstName("Antonia")
-					.lastName("Müller").zipCode("50676").city("Köln").dateOfBirth(LocalDate.of(1992, 4, 17))
-					.imageURL("antonia.png").build();
+			User antonia = User.builder().email("antonia-mueller@gmx.de").password(endcodedPassword)
+					.firstName("Antonia").lastName("Müller").zipCode("50676").city("Köln")
+					.dateOfBirth(LocalDate.of(1992, 4, 17)).imageURL("antonia.png").build();
 
 			User cem = User.builder().email("cem-champ@gmail.de").password(endcodedPassword).firstName("Cem")
 					.lastName("Alan").zipCode("61290").city("Frankfurt").dateOfBirth(LocalDate.of(2000, 5, 20))
 					.imageURL("cem.png").build();
 
-			User claudia = User.builder().email("claudi-minigolf@arcor.de").password(endcodedPassword).firstName("Claudia")
-					.lastName("Siebert").zipCode("90427").city("Erlangen").dateOfBirth(LocalDate.of(1979, 11, 18))
-					.imageURL("claudia.png").build();
+			User claudia = User.builder().email("claudi-minigolf@arcor.de").password(endcodedPassword)
+					.firstName("Claudia").lastName("Siebert").zipCode("90427").city("Erlangen")
+					.dateOfBirth(LocalDate.of(1979, 11, 18)).imageURL("claudia.png").build();
 
-			User daniel = User.builder().email("daniel-jaeger1970@web.de").password(endcodedPassword).firstName("Daniel")
-					.lastName("Jäger").zipCode("43268").city("Fulda").dateOfBirth(LocalDate.of(1970, 9, 4))
-					.imageURL("daniel.png").build();
-
+			User daniel = User.builder().email("daniel-jaeger1970@web.de").password(endcodedPassword)
+					.firstName("Daniel").lastName("Jäger").zipCode("43268").city("Fulda")
+					.dateOfBirth(LocalDate.of(1970, 9, 4)).imageURL("daniel.png").build();
 
 			User harald = User.builder().email("harald_Krueger@web.de").password(endcodedPassword).firstName("Harald")
 					.lastName("Krüger").zipCode("23456").city("Braunschweig").dateOfBirth(LocalDate.of(1964, 3, 10))
@@ -106,22 +99,22 @@ public class SkillHubApplication {
 			User lennart = User.builder().email("lennipeter95@web.de").password(endcodedPassword).firstName("Lennart")
 					.lastName("Peter").zipCode("78561").city("Leipzig").dateOfBirth(LocalDate.of(1995, 6, 21))
 					.imageURL("lennart.png").build();
-			
+
 			User maike = User.builder().email("itsmemaike96@web.de").password(endcodedPassword).firstName("Maike")
 					.lastName("Berger").zipCode("96325").city("Hannover").dateOfBirth(LocalDate.of(1996, 4, 16))
 					.imageURL("maike.png").build();
-			
+
 			User marina = User.builder().email("marryM@web.de").password(endcodedPassword).firstName("Marina")
 					.lastName("Bauer").zipCode("65123").city("Offenbach").dateOfBirth(LocalDate.of(1980, 7, 8))
 					.imageURL("marina.png").build();
 
-			User reinhardt = User.builder().email("reini50-lalalal@t-online.de").password(endcodedPassword).firstName("Reinhardt")
-					.lastName("Lalalalal").zipCode("25456").city("Bremen").dateOfBirth(LocalDate.of(1950, 5, 1))
-					.imageURL("reinhardt.png").build();
+			User reinhardt = User.builder().email("reini50-lalalal@t-online.de").password(endcodedPassword)
+					.firstName("Reinhardt").lastName("Lalalalal").zipCode("25456").city("Bremen")
+					.dateOfBirth(LocalDate.of(1950, 5, 1)).imageURL("reinhardt.png").build();
 
-			User robert = User.builder().email("robert-schmitzzz@gmail.de").password(endcodedPassword).firstName("Robert")
-					.lastName("Schmitz").zipCode("12594").city("Kassel").dateOfBirth(LocalDate.of(1989, 10, 12))
-					.imageURL("robert.png").build();
+			User robert = User.builder().email("robert-schmitzzz@gmail.de").password(endcodedPassword)
+					.firstName("Robert").lastName("Schmitz").zipCode("12594").city("Kassel")
+					.dateOfBirth(LocalDate.of(1989, 10, 12)).imageURL("robert.png").build();
 
 			User rolf = User.builder().email("rolf-langner@gmail.de").password(endcodedPassword).firstName("Rolf")
 					.lastName("Langner").zipCode("78652").city("Erfurt").dateOfBirth(LocalDate.of(1960, 9, 13))
@@ -131,11 +124,6 @@ public class SkillHubApplication {
 					.lastName("Hausner").zipCode("38751").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
 					.imageURL("till.png").build();
 
-			
-			
-			
-			
-			
 			// Create users in DB
 			userService.createNewUser(susanne);
 			userService.updateUser(susanne);
@@ -146,14 +134,13 @@ public class SkillHubApplication {
 			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(cooking).build());
 			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(climbing).build());
 			susanne.getUserSkills().remove(UserSkill.builder().user(susanne).skill(cooking).build());
-			
+
 			userService.updateUser(susanne);
 
 			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(climbing).build());
-			
+
 //			userService.updateUser(susanne);
-			
-			
+
 			userService.createNewUser(mia);
 			userService.createNewUser(lasse);
 			userService.createNewUser(alex);
@@ -169,30 +156,22 @@ public class SkillHubApplication {
 			userService.createNewUser(robert);
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
+
+			// Test a wrong association
+			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(cooking).build());
+			userService.updateUser(susanne);
 			
-			// Add some skills to user in DB
-//			userSkillService.addNewUserSkill(susanne, cooking);
-//			userSkillService.addNewUserSkill(susanne, baking);
-//			userSkillService.addNewUserSkill(susanne, books);
-//			userSkillService.addNewUserSkill(mia ,fashion);
-//			userSkillService.addNewUserSkill(lasse, books);
-//			userSkillService.addNewUserSkill(alex, climbing);
-//			userSkillService.addNewUserSkill(antonia, fashion);
-//			userSkillService.addNewUserSkill(cem, photography);
-//			userSkillService.addNewUserSkill(claudia, fashion);
-//			userSkillService.addNewUserSkill(daniel, motorbike);
-//			userSkillService.addNewUserSkill(harald, golf);
-//			userSkillService.addNewUserSkill(lennart, climbing);
-//			userSkillService.addNewUserSkill(maike, baking);
-//			userSkillService.addNewUserSkill(marina, baking);
-//			userSkillService.addNewUserSkill(reinhardt, motorbike);
-//			userSkillService.addNewUserSkill(robert, photography);
-//			userSkillService.addNewUserSkill(rolf, books);
-//			userSkillService.addNewUserSkill(till, dogs);
-//
-//			// Test UserService methods
-//			userSkillService.removeUserSkill(susanne, climbing);
-//			userService.createNewUser(susanne);
+			
+			
+			System.out.println("---> Skill testClimbing = skillService.getSingleSkill(1L);");
+			Skill testClimbing = skillService.getSingleSkill(1L);
+
+			System.out.println("---> System.out.println(testClimbing.getUserSkills());");
+			System.out.println(testClimbing.getUserSkills());
+			
+			System.out.println("---> System.out.println(userService.getUsersWithSkill(climbing));");
+			System.out.println(userService.getUsersWithSkill(climbing));
+		
 		};
 	}
 
