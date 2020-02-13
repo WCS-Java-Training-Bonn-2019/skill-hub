@@ -40,8 +40,8 @@
 						<div class="card-body">
 
 
-							<form method="post" th:action="@{/register}"
-								th:object="${userForm}">
+							<form enctype="multipart/form-data" method="post"
+								th:action="@{/register}" th:object="${userForm}">
 								<input name="id" th:field="*{id}" type="hidden">
 								<!--<input name="age" th:field="*{age}" type="hidden">-->
 
@@ -92,17 +92,6 @@
 										onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
 										placeholder="Password" required th:field="*{password}">
 								</div>
-
-								<!-- 
-								  ==> Problem: password & passwordRepeated wird nicht gezogen...!
-								  
-								  
-								  Lösung noch einbauen:
-								  1) PW Felder nur anzeigen, wenn sich ein User anmeldet
-								  2) Separates PW-Change-Feld anlegen...
-								  
-								  
-								   -->
 
 
 								<div class="form-group">
