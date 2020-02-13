@@ -65,15 +65,18 @@ body {
   padding-left: 5vw;
 }
 
-/*footer {
-  padding: 1em;
-  width: 100%;
-  top: 100%;
-  position: absolute;
-}*/
-
 .bg-light {
-  background-color: gold !important;
+  background-color: peachpuff  !important;
+  padding: 0;
+  padding-left: 2rem;
+  padding-right: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
+}
+
+.copyright {
+	margin-bottom: 1rem;
 }
 
 .card {
@@ -85,6 +88,7 @@ body {
   margin-left: 2rem;
 }
 
+/* Settings für Buttons*/
 
 .btn-danger{
 	margin-top: 2rem;
@@ -93,6 +97,10 @@ body {
 .btn-block {
     display: block;
     width: 100%;
+}
+
+.backbutton {
+	margin-top: 2rem;
 }
 
 .edit{
@@ -106,34 +114,9 @@ ul {
   padding: 0;
 }
 
-.backbutton {
-	margin-top: 2rem;
-}
-
-/* Text in card: View 
-.card-body {
-  margin-left: 2rem;
-  font-size: 24px;
-}*/
-
-
-/*.index{
-	felx-direction: colum;
-}*/
-
-
-
 .card-title {
 	font-size: 36px;
 }
-
-
-/*
-.card {
-	min-width: 50%;
-}
-
-*/
 
 .flex-container{
 	display: block;
@@ -233,7 +216,7 @@ main.index {
 
 .p-index{
 	padding-bottom: 2rem;
-	font-size: 1.5rem;
+	font-size: 1rem;
 	font-weight: 490;
 }
 
@@ -243,8 +226,8 @@ main.index {
 
 .avatar{
 	background-image: url(../images/avatar.png);
-	width: 80px;
-	height:80px;
+	width: 60px;
+	height:60px;
 	background-size: cover;
 	display: inline-block;
 }
