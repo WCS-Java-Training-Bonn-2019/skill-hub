@@ -22,7 +22,7 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<header th:replace="fragments.html :: top (iurl= ${user.imageURL})">Here
+<header th:replace="fragments.html :: top">Here
 	goes the header</header>
 
 <body>
@@ -43,16 +43,12 @@
 									<div class="row no-gutters">
 										<div class="col-md-4">
 
-											<!--	<img class="img-view" th:src= "${user.imageURL.empty ? 'images/avatar.png' : ''/images/' + user.imageURL}">
-											th:src="@{${'/images/' + user.imageURL}}"
-												alt="/images/avatar.png">
-												th:src= "${user.imageURL.empty ? 'images/avatar.png' : ''/images/' + user.imageURL}"-->
 
-
-											<img class="img-view" th:unless="${user.imageURL.empty}"
-												th:src="@{${'/images/' + user.imageURL}}" alt="" /> <img class="img-view"
-												th:if="${user.imageURL.empty}" height="150" width="150"
-												src="../images/avatar.png" />
+											<img class="img-view" th:unless="${user.image}"
+												src="../images/avatar.png" height="150" width="150"> <img
+												class="img-view" th:if="${user.image}"
+												th:src="@{'/user/' + ${user.id} + '/image'}" height="150"
+												width="150">
 
 										</div>
 										<div class="col-md-8">

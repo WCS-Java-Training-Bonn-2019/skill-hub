@@ -18,6 +18,10 @@ body {
 .img-view{
 	margin-top: 2rem;
 	margin-left: 2rem;
+	margin-bottom: 2rem;
+	background-image: url(../images/avatar.png);
+	background-size: cover;
+	display: inline-block;
 }
 
 .bold {
@@ -86,19 +90,10 @@ body {
 	margin-top: 2rem;
 }
 
-
-
 .btn-block {
     display: block;
     width: 100%;
 }
-
-
-
-/*.btn-primary{
-	display: flex;
-	justify-content: center;
-}*/
 
 .edit{
 	margin-top: 2rem;
@@ -246,15 +241,10 @@ main.index {
 	padding-top: 2rem;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+.avatar{
+	background-image: url(../images/avatar.png);
+	width: 80px;
+	height:80px;
+	background-size: cover;
+	display: inline-block;
+}

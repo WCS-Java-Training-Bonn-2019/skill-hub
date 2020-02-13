@@ -1,7 +1,6 @@
 package com.wildcodeschool.skillhub.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +17,6 @@ import com.wildcodeschool.skillhub.form.UserForm;
 import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.repository.UserRepository;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 import com.wildcodeschool.skillhub.service.UserSkillService;
@@ -29,16 +27,13 @@ public class RegisterController {
 	private final UserService userService;
 	private final SkillService skillService;
 	private final UserSkillService userSkillService;
-	private final UserRepository userRepository;
 
 	@Autowired
-	public RegisterController(UserService userService, SkillService skillService, UserSkillService userSkillService,
-			UserRepository userRepository) {
+	public RegisterController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
 		this.userSkillService = userSkillService;
-		this.userRepository = userRepository;
 	}
 
 	// Show registration page
@@ -79,7 +74,7 @@ public class RegisterController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setDescription(userForm.getDescription());
-		user.setImageURL(userForm.getImageURL());
+		user.setImage(userForm.getImage());
 
 		user = userService.createNewUser(user);
 

@@ -53,15 +53,15 @@
 
 							</div>
 
-							<!-- Card-Header  ============================================================ End-->
+		<!-- Card-Header  ============================================================ End-->
 
 
-							<!-- Card-Body  ============================================================== -->
+					<!-- Card-Body  ============================================================== -->
 						</div>
 						<div class="card-body">
 
 
-							<form method="post" th:action="@{/user/upsert}"
+							<form  enctype="multipart/form-data" method="post" th:action="@{/user/upsert}"
 								th:object="${userForm}">
 								<input name="id" th:field="*{id}" type="hidden">
 								<!--<input name="age" th:field="*{age}" type="hidden">-->
@@ -114,11 +114,25 @@
 										th:field="*{description}" rows="3"></textarea>
 								</div>
 
-								<div class="form-group">
+								<!--<div class="form-group">
 									<label for="imageURL">Upload your Photo</label> <input
 										type="text" class="form-control-file" id="imageURL"
 										name="imageURL" th:field="*{imageURL}">
+								</div> -->
+
+
+								<div class="form-group">
+									<label for="image">Upload your photo</label>
+									<div class="col-sm-10">
+										<input type="file" class="form-control-file" id="image"
+											name="image" th:field="*{image}">
+									</div>
+									<span th:if="${#fields.hasErrors('*{image}')}"
+										th:errors="*{image}">Image error</span>
 								</div>
+
+
+
 
 
 								<ul>
