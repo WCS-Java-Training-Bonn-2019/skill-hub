@@ -29,12 +29,20 @@ public class ChangePwController {
 		super();
 		this.userService = userService;
 	}
-
+	
+	
+	
 	@GetMapping("/changePw")
-	public String getLoginPage() {
-
+	public String getLoginPage(PasswordForm passwordForm, HttpServletRequest request) {
+		User user = getUser((long) 0, request);
+		if (user == null) {
+			return "redirect:/";
+		}
 		return "changePw";
 	}
+	
+	
+
 
 	// Change Password
 	@PostMapping("/password/upsert")
