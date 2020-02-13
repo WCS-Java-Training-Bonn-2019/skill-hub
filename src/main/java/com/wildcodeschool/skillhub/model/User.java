@@ -37,9 +37,6 @@ import lombok.Setter;
 @Getter
 public class User implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5641612720821997134L;
 
 	@Id
@@ -66,10 +63,10 @@ public class User implements UserDetails {
 
 	private String description;
 	private String imageURL;
-	
+
 	@Lob
 	private byte[] image;
-	
+
 	@OneToMany(mappedBy = "user")
 	@Builder.Default
 	private Set<UserSkill> userSkills = new HashSet<>();
@@ -84,7 +81,7 @@ public class User implements UserDetails {
 		this.getUserSkills().iterator().forEachRemaining(userSkill -> userSkillIds.add(userSkill.getSkill().getId()));
 		return userSkillIds;
 	}
-	
+
 	// Methods required by UserDetails interface
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -26,12 +26,10 @@
 	<header th:replace="fragments.html :: top">Here goes the
 		header</header>
 
-
 	<section>
 		<div class="flex-container">
 			<div class="container cards">
 				<div class="row no-gutters">
-
 
 					<div class="card w-75">
 						<div class="card-header">
@@ -124,10 +122,10 @@
 
 
 								<ul>
-									<li th:each="userSkillLevel, stat : *{userSkillLevels}">
+									<li th:each="userSkillLevel: *{userSkillLevels}">
 										<div class="custom-control custom-switch">
 											<input type="hidden"
-												th:field="*{userSkillLevels[__${stat.index}__].id}" /> <input
+												th:field="*{userSkillLevels[__${stat.index}__].id}" />Test<input
 												class="custom-control-input" type="checkbox"
 												th:id="${'toggle' + userSkillLevel.id}"
 												th:field="*{userSkillLevels[__${stat.index}__].checked}" />
