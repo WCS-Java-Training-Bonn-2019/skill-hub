@@ -3,17 +3,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Users List</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/style.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<title>Users List</title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
 </head>
 
 <header th:replace="fragments.html :: top">Here goes the header</header>
 
+
+<!-- 
 <style>
 table {
 	border-collapse: collapse;
@@ -34,50 +45,62 @@ th, td {
 	text-align: left;
 }
 </style>
+
+
+ -->
+
+
 <body>
-	<h3>Users list (page to test)</h3>
-	<a href="/user/edit">Add a new user !</a>
-	<br>
-	<br>
-	<table>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>User name</th>
-				<th>First name</th>
-				<th>Last name</th>
-				<th>Birthday</th>
-				<th>ZipCode</th>
-				<th>City</th>
-				<th>Email</th>
-				<th>Description</th>
-				<th>Image-URL</th>
-				<th></th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-
-			<tr th:each="user : ${users}">
-				<td th:text="${user.id}">id</td>
-				<td th:text="${user.userName}">User name</td>
-				<td th:text="${user.firstName}">First name</td>
-				<td th:text="${user.lastName}">Last name</td>
-				<td th:text="${user.dateOfBirth}">Birthday</td>
-				<td th:text="${user.zipCode}">Zip Code</td>
-				<td th:text="${user.city}">City</td>
-				<td th:text="${user.email}">Email</td>
-				<td th:text="${user.description}">Description</td>
-				<td th:text="${user.imageURL}">ImageURL</td>
-				<td><a th:href="@{/user/edit(id=${user.id})}">Edit</a></td>
-			 	<td><a th:href="@{/user/delete(id=${user.id})}">Delete user</a></td>
-			</tr>
-
-		</tbody>
-	</table>
-	<br>
-	<a href="/">Return to the index</a>
 	
-	<footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
+	<h3>Users list (Admin page only)</h3>
+
+	<a href="/user/edit" class="btn btn-outline-primary" role="button" aria-pressed="true">Add a new user</a>
+
+	<div class="mx-5">
+
+		<table
+			class="table table-bordered table-striped table-hover table-condensed">
+			<thead class="thead-dark">
+				<tr class="active">
+					<th>Id</th>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>Birthday</th>
+					<th>ZipCode</th>
+					<th>City</th>
+					<th>Email</th>
+					<th>Description</th>
+					<th>Image-URL</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+
+				<tr th:each="user : ${users}">
+					<td th:text="${user.id}">id</td>
+					<td th:text="${user.firstName}">First name</td>
+					<td th:text="${user.lastName}">Last name</td>
+					<td th:text="${user.dateOfBirth}">Birthday</td>
+					<td th:text="${user.zipCode}">Zip Code</td>
+					<td th:text="${user.city}">City</td>
+					<td th:text="${user.email}">Email</td>
+					<td th:text="${user.description}">Description</td>
+					<td th:text="${user.imageURL}">ImageURL</td>
+					<td><a th:href="@{/user/edit(id=${user.id})}">Edit</a></td>
+					<td><a th:href="@{/user/delete(id=${user.id})}">Delete
+							user</a></td>
+				</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+
+
+	<footer th:replace="fragments.html :: bottom">Here goes the
+		footer</footer>
 </body>
 </html>

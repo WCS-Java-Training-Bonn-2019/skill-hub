@@ -1,18 +1,40 @@
+html {
+	height: 100%;
+}
+
 body {
   height: 100%;
-  width: 100%;
-  position: relative;
+  display:grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .img {
   opacity: 0.5;
   position: relative;
-  width: 150rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.img-view{
+	margin-top: 2rem;
+	margin-left: 2rem;
+	margin-bottom: 2rem;
+	background-image: url(../images/avatar.png);
+	background-size: cover;
+	display: inline-block;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.avatar{
+  border-radius: 50%;
 }
 
 .jumbotron {
   position: relative;
-  height: 500px;
+  max-height: 350px;
   overflow: hidden;
   padding: 0;
 }
@@ -43,77 +65,169 @@ body {
   padding-left: 5vw;
 }
 
-footer {
-  /*display: flex;
-  align-items: center;
-  background-color:gold !important;
-  color: black;
-  list-style: none;
-  width: 100%;
-  height: 100px;
-  position: absolute;
-  bottom: 0;
-  left: 0;*/
-  padding: 1em;
-  width: 100%;
-  top: 100%;
-  position: absolute;
+.bg-light {
+  background-color: peachpuff  !important;
+  padding: 0;
+  padding-left: 2rem;
+  padding-right: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
 }
 
-.bg-light {
-  background-color: gold !important;
+.copyright {
+	margin-bottom: 1rem;
 }
 
 .card {
   margin: 2rem;
 }
 
-.form-group {
-  margin: 2rem;
-  width: 25%;
-}
-
 .container-edit {
   margin: 2rem;
-}
-
-.h3edit {
   margin-left: 2rem;
 }
 
-.edit {
-  margin-left: 2rem;
-  margin-bottom: 2rem;
+/* Settings für Buttons*/
+
+.btn-danger{
+	margin-top: 2rem;
 }
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.backbutton {
+	margin-top: 2rem;
+}
+
+.edit{
+	margin-top: 2rem;
+}
+
 
 ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
-
-/* Text in card: View */
-.card-body {
-  margin-left: 2rem;
-  font-size: 24px;
-}
-
-
 
 .card-title {
 	font-size: 36px;
 }
 
-
-/*
-.card {
-	min-width: 50%;
-}
-*/
-
-/*
 .flex-container{
-	allign-items: center;
+	display: block;
+	align-items: center;
 	justify-content: center;
 }
+
+
+
+/* Martin's Übungen' */
+
+/* ==> css_selectors !!!
+=====> cssref/css_selectors
+
+==> background-size 
+
+==> flexbox guide
+
+
+
+
+
+.bar {
+	--> class ansprechen (mehrere Objeke ansprechen)
+}
+
+****************************************************************
+#baz {
+	--> id ansprechen (ist eindeutig pro HTML-Datei)
+}
+
+main {
+	--> main wird angesprochen
+}
+
 */
 
+main.login_background {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
+.login-box {
+	width: 800px;
+	height: 300px;
+	background-color: rgb(255,255,255,0.5);
+	border-radius: 1em;
+	
+}
+
+
+
+main.changePw_background {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.changePw-box {
+	width: 1200px;
+	height: 400px;
+	background-color: rgb(255,255,255,0.5);
+	border-radius: 1em;
+	margin: ($spacer * 3) !important;
+	
+}
+
+
+/*
+.m-1 {
+  margin-left: ($spacer * .25) !important;
+}
+*/
+
+.changePwButtonRight {
+	padding-right: 16px;
+}
+
+
+main.index {
+	background-image: url(../images/milkyway.jpg);
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-warp:
+}
+
+.index-text{
+	background-color: rgb(255,255,255,0.6);
+}
+
+.p-index{
+	padding-bottom: 2rem;
+	font-size: 1rem;
+	font-weight: 490;
+}
+
+.h1-index{
+	padding-top: 2rem;
+}
+
+.avatar{
+	background-image: url(../images/avatar.png);
+	width: 60px;
+	height:60px;
+	background-size: cover;
+	display: inline-block;
+}

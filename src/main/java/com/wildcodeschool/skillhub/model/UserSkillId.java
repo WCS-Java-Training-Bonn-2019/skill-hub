@@ -6,7 +6,14 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Embeddable
+@Getter
+@Setter
+@ToString
 public class UserSkillId implements Serializable {
 	/**
 	 * 
@@ -19,29 +26,12 @@ public class UserSkillId implements Serializable {
 	@Column(name = "skill_id")
 	private Long skillId;
 
-	@SuppressWarnings("unused")
-	private UserSkillId() {
+	public UserSkillId() {
 	}
 
 	public UserSkillId(Long userId, Long skillId) {
 		super();
 		this.userId = userId;
-		this.skillId = skillId;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public Long getSkillId() {
-		return skillId;
-	}
-
-	public void setSkillId(Long skillId) {
 		this.skillId = skillId;
 	}
 

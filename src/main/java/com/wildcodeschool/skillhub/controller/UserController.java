@@ -2,12 +2,19 @@ package com.wildcodeschool.skillhub.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,192 +23,170 @@ import com.wildcodeschool.skillhub.form.UserSkillLevel;
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
-import com.wildcodeschool.skillhub.repository.UserRepository;
-import com.wildcodeschool.skillhub.repository.UserSkillRepository;
+import com.wildcodeschool.skillhub.service.SkillService;
+import com.wildcodeschool.skillhub.service.UserService;
+import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class UserController {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserService userService;
+	private final SkillService skillService;
+	private final UserSkillService userSkillService;
 
 	@Autowired
-	private SkillRepository skillRepository;
-
-	@Autowired
-	private UserSkillRepository userSkillRepository;
-
-	@GetMapping("/users/search")
-	public String getBySkill(Model model, @RequestParam Long id) {
-		model.addAttribute("users", userRepository.findByuserSkills_SkillId(id));
-
-		Optional<Skill> optionalSkill = skillRepository.findById(id);
-
-		if (optionalSkill.isPresent()) {
-			model.addAttribute("skill", optionalSkill.get());
+	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+		super();
+		this.userService = userService;
+		this.skillService = skillService;
+		this.userSkillService = userSkillService;
+	}
+	
+	
+	@GetMapping("/user/{userId}/image")
+	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId){
+		
+		Optional<User> optionalUser = userService.getSingleUser(userId);
+		if (optionalUser.isPresent() && optionalUser.get().getImage() != null) {
+			User user = optionalUser.get();
+			
+			return ResponseEntity.status(HttpStatus.OK)
+					.contentType(MediaType.IMAGE_PNG)
+					.body(user.getImage());
 		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.build();
+	}
+
+	// Show users with a certain skill
+	@GetMapping("/users/search")
+	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
+		model.addAttribute("users", userService.getUsersBySkillId(skillId));
+
+		Skill skill = skillService.getSingleSkill(skillId);
+		model.addAttribute("skill", skill);
 
 		return "users/get_by_skill";
 	}
 
-	// TODO Remove or protect for admin use only
-	// Show all users for debugging
-	@GetMapping("/users")
+	// Show administrator page
+	@GetMapping("/admin")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("users", userService.getUsers());
 
 		return "users/get_all";
 	}
 
-	// TODO For testing only
 	// Show edit user form
 	@GetMapping("/user/edit")
-	public String showEditUserForm(UserForm userForm, @RequestParam(required = false) Long id) {
+	public String showEditUserForm(UserForm userForm, @RequestParam(name = "id", required = false) Long userId,
+			HttpServletRequest request) {
+		User user = getUser(userId, request);
 
-		User user = new User();
-
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
-			if (optionalUser.isPresent()) {
-				user = optionalUser.get();
-			}
+		if (user == null) {
+			return "redirect:/";
 		}
 
 		userForm.setUser(user);
 
-		List<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> allSkills = skillRepository.findAll();
+		Set<UserSkill> userSkills = user.getUserSkills();
+		List<Skill> skills = skillService.getSkills();
 
 		UserSkillLevel userSkillLevel;
 
-		for (int i = 0; i < allSkills.size(); i++) {
-			userSkillLevel = new UserSkillLevel(allSkills.get(i).getId(), allSkills.get(i).getName(), false,
-					allSkills.get(i).getImageURL());
-			for (int j = 0; j < userSkills.size(); j++) {
-				if (allSkills.get(i).getId() == userSkills.get(j).getId().getSkillId()) {
+		for (Skill skill : skills) {
+			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+			for (UserSkill userSkill : userSkills) {
+				if (skill.getId() == userSkill.getId().getSkillId()) {
 					userSkillLevel.setChecked(true);
 				}
 			}
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
 
-		System.out.println("==============================================================================");
-		for (int i = 0; i < userSkills.size(); i++) {
-			System.out.println("(Create) User Form: " + userForm.getUserSkillLevels().get(i).getName());
-			System.out.println("==============================================================================");
+		return "user/edit";
+	}
+
+	// Update an user
+	@PostMapping("/user/upsert")
+	public String postUser(@ModelAttribute UserForm userForm, @RequestParam(name = "id", required = false) Long userId,
+			HttpServletRequest request) {
+		User user = getUser(userId, request);
+
+		if (user == null) {
+			return "redirect:/";
 		}
 
-		return "user/edit";
-	}
+		// Get E-Mail from Principal
+		String email = user.getEmail();
 
-	// Create a new user
-	@GetMapping("/user/new")
-	public String getUser2(Model model) {
-
-		User user = new User();
-		model.addAttribute("user", user);
-
-		return "user/edit";
-	}
-
-	// Edit a user
-//	@GetMapping("/user/edit")
-//	public String getUser(Model model, @RequestParam(required = false) Long id) {
-//
-//		User user = new User();
-//
-//		if (id != null) {
-//			Optional<User> optionalUser = userRepository.findById(id);
-//			if (optionalUser.isPresent()) {
-//				user = optionalUser.get();
-//			}
-//		}
-//		
-//		model.addAttribute("user", user);
-//		return "user/edit";
-//	}
-
-//	// Create a new user
-//	@GetMapping("/user/new")
-//	public String getUser2(Model model) {
-//		User user = new User();
-//		model.addAttribute("user", user);
-//
-//		return "user/edit";
-//
-//	}
-
-	// Update or insert a user
-	@PostMapping("/user/upsert")
-	public String postUser(@ModelAttribute UserForm userForm, @RequestParam(required = false) Long id) {
-		User user = new User();
-
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
-			if (optionalUser.isPresent()) {
-				user = optionalUser.get();
+		// Email Validation
+		if (userService.emailExists(userForm.getEmail())) {
+			if (!(email.equals(userForm.getEmail()))) {
+				return "emailExists";
 			}
 		}
 
-		List<Long> userSkillIds = user.getUserSkillIds();
+		Set<Long> userSkillIds = user.getUserSkillIds();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
 		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
 		for (UserSkillLevel userSkillLevel : userSkillLevels) {
 
 			if (userSkillLevel.isChecked()) {
-				Skill skill = null;
+				Skill skill;
 
-				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
-
-				if (optionalSkill.isPresent()) {
-					skill = optionalSkill.get();
-				}
+				skill = skillService.getSingleSkill(userSkillLevel.getId());
 
 				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					user.addSkill(skill);
+					userSkillService.addNewUserSkill(user, skill);
 				}
 			} else {
 				Skill skill = null;
 
-				Optional<Skill> optionalSkill = skillRepository.findById(userSkillLevel.getId());
-
-				if (optionalSkill.isPresent()) {
-					skill = optionalSkill.get();
-				}
+				skill = skillService.getSingleSkill(userSkillLevel.getId());
 
 				if (userSkillIds.contains(userSkillLevel.getId())) {
-					user.removeSkill(skill, userSkillRepository);
+					userSkillService.removeUserSkill(user, skill);
 				}
 			}
 		}
 
+		//--> PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 		user.setId(userForm.getId());
-		user.setUserName(userForm.getUserName());
 		user.setFirstName(userForm.getFirstName());
 		user.setLastName(userForm.getLastName());
 		user.setZipCode(userForm.getZipCode());
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
+		// user.setPassword(userForm.getPassword());
+		//--> user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+
 		user.setDescription(userForm.getDescription());
-		user.setImageURL(userForm.getImageURL());
+		//user.setImageURL(userForm.getImageURL());
+		user.setImage(userForm.getImage());
 
-		userRepository.save(user);
+		userService.updateUser(user);
 
-		return "redirect:/users";
+		if ("admin".equals(request.getUserPrincipal().getName())) {
+			return "redirect:/admin";
+		}
+
+		return "redirect:/user/profile";
+
 	}
 
 	// View a user
 	@GetMapping("/user/view")
-	public String viewUser(Model model, @RequestParam(required = false) Long id) {
+	public String viewUser(Model model, @RequestParam(name = "id", required = false) Long userId) {
 
 		User user = new User();
 
-		if (id != null) {
-			Optional<User> optionalUser = userRepository.findById(id);
+		if (userId != null) {
+			Optional<User> optionalUser = userService.getSingleUser(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -212,11 +197,31 @@ public class UserController {
 		return "user/view";
 	}
 
+	// View user profile
+	@GetMapping("/user/profile")
+	public String viewProfile(Model model, @RequestParam(name = "id", required = false) Long userId,
+			HttpServletRequest request) {
+		User user = getUser(userId, request);
+
+		if (user == null) {
+			return "redirect:/";
+		}
+
+		model.addAttribute("user", user);
+
+		return "user/profile";
+	}
+
 	// Delete a user
 	@GetMapping("/user/delete")
-	public String deleteUser(@RequestParam Long id) {
+	public String deleteUser(@RequestParam(name = "id", required = false) Long userId, HttpServletRequest request) {
+		User user = getUser(userId, request);
 
-		userRepository.deleteById(id);
+		if (user == null) {
+			return "redirect:/";
+		}
+
+		userService.deleteUser(user.getId());
 
 		return "redirect:/user/deleted";
 	}
@@ -226,6 +231,25 @@ public class UserController {
 	public String deletedUser() {
 
 		return "/user/deleted";
+	}
+
+	// Helper function to retrieve the user either from the principal or by userId,
+	// if the user has ADMIN role
+	private User getUser(Long userId, HttpServletRequest request) {
+		Optional<User> optionalUser = Optional.empty();
+
+		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
+			if (userId != null) {
+				optionalUser = userService.getSingleUser(userId);
+			}
+
+		} else {
+			if (request != null && request.getUserPrincipal() != null) {
+				optionalUser = userService.getSingleUserByEmail(request.getUserPrincipal().getName());
+			}
+		}
+
+		return optionalUser.orElse(null);
 	}
 
 }

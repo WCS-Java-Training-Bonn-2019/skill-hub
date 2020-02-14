@@ -1,0 +1,100 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+<title>SkillHub</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<header>
+		<nav class="navbar navbar-expand-md navbar-light bg-light">
+			<a class="navbar-brand" href="/">SkillHub</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+				</ul>
+			</div>
+		</nav>
+
+
+	</header>
+
+	<main>
+		<!--Jumbotron-->
+		<div class="jumbotron">
+			<img class="img" src="../images/milkyway.jpg" alt="alt">
+			<div class="box">
+				<h1 class="display-4" style="color: black">Logout</h1>
+				<p class="lead" style="color: black"></p>
+			</div>
+		</div>
+
+
+
+		<div class="flex-container container">
+			<form class="form-signin" th:action="@{/perform_logout}"
+				method="post">
+
+				<div class="row no-gutters">
+					<div class="col-8">
+						<h2 class="form-signin-heading text-center">Are you sure you
+							want to log out?</h2>
+					</div>
+				</div>
+
+
+				<div class="row no-gutters">
+					<div class="col-3"></div>
+					<div class="col-2">
+						<p></p>
+						<input name="_csrf" type="hidden"
+							value="60be4d8d-628f-4abb-9430-00dc9f05073e">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+					</div>
+
+					<p></p>
+				</div>
+
+
+
+
+
+				<div class="row no-gutters">
+					<p></p>
+				</div>
+
+
+
+			</form>
+		</div>
+	</main>
+
+
+	<footer th:replace="fragments.html :: bottom">Here goes the
+		footer</footer>
+
+
+</body>
+
+</html>
