@@ -55,6 +55,7 @@ public class RegisterController {
 
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
+// TODO		
 //		for (UserSkillLevel userSkillLevel : userSkillLevels) {
 //
 //			if (userSkillLevel.isChecked()) {

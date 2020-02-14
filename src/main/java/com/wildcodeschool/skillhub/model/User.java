@@ -75,7 +75,38 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.ALL })
 	@Builder.Default
+	@Setter(value = AccessLevel.NONE)
 	private Set<UserSkill> userSkills = new HashSet<>();
+
+//	TODO
+//	// Override lombok generated setter to make the collection read-only
+//	public Set<UserSkill> getUserSkills() {
+//		return Collections.unmodifiableSet(this.userSkills);
+//	}
+
+	// Convenience method to add a skill
+	// Use fluent API
+	public User addSkill(Skill skill) {
+		UserSkill userSkill = UserSkill.builder().user(this).skill(skill).build();
+
+		this.userSkills.add(userSkill);
+		skill.getUserSkills().add(userSkill);
+
+		return this;
+	}
+
+	// Convenience method to remove a skill
+	// Use fluent API
+	public User removeSkill(Skill skill) {
+		UserSkill userSkill = UserSkill.builder().user(this).skill(skill).build();
+
+		this.userSkills.remove(userSkill);
+		skill.getUserSkills().remove(userSkill);
+
+		userSkill.setUser(null);
+
+		return this;
+	}
 
 	public int getAge() {
 		return Period.between(this.dateOfBirth, LocalDate.now()).getYears();

@@ -1,6 +1,5 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -45,12 +44,14 @@ public class Skill implements Comparable<Skill> {
 
 	@OneToMany(mappedBy = "skill")
 	@Builder.Default
+	@Setter(value = AccessLevel.NONE)
 	private Set<UserSkill> userSkills = new HashSet<>();
 
-	// Make the Collection read-only
-	public Set<UserSkill> getUserSkills() {
-		return Collections.unmodifiableSet(this.userSkills);
-	}
+// TODO	
+//	// Override lombok generated setter to make the collection read-only
+//	public Set<UserSkill> getUserSkills() {
+//		return Collections.unmodifiableSet(this.userSkills);
+//	}
 
 	@Override
 	public int hashCode() {

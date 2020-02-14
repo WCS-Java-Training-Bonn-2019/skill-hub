@@ -2,6 +2,7 @@ package com.wildcodeschool.skillhub.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,24 +22,24 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public Skill getSingleSkill(Long skillId) {
-		// TODO Add checks
-		return skillRepository.getOne(skillId);
-	}
-
-	@Override
-	public List<Skill> getSkills() {
+	public List<Skill> getAllSkills() {
 		List<Skill> skills = skillRepository.findAll();
-		
-		skills.sort(Comparator.comparing(Skill::getName, Comparator.nullsLast(Comparator.naturalOrder())));;
-		
-		return skills; 
+
+		skills.sort(Comparator.comparing(Skill::getName, Comparator.nullsLast(Comparator.naturalOrder())));
+		;
+
+		return skills;
 	}
 
 	@Override
-	public void createNewSkill(Skill skill) {
-		// TODO Check if skill exists
-		skillRepository.save(skill);
+	public Optional<Skill> getSingleSkillById(Long skillId) {
+		// TODO Add checks
+		return skillRepository.findById(skillId);
+	}
+
+	@Override
+	public Skill createNewSkill(Skill skill) {
+		return skillRepository.save(skill);
 	}
 
 }

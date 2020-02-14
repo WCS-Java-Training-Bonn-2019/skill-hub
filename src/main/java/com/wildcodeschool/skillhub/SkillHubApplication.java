@@ -1,6 +1,7 @@
 package com.wildcodeschool.skillhub;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 
@@ -49,15 +49,15 @@ public class SkillHubApplication {
 			Skill motorbike = Skill.builder().name("Motorbike").imageURL("motorbike.jpg").build();
 
 			// Create skills in DB
-			skillService.createNewSkill(climbing);
-			skillService.createNewSkill(cooking);
-			skillService.createNewSkill(books);
-			skillService.createNewSkill(photography);
-			skillService.createNewSkill(fashion);
-			skillService.createNewSkill(golf);
-			skillService.createNewSkill(baking);
-			skillService.createNewSkill(dogs);
-			skillService.createNewSkill(motorbike);
+//			skillService.createNewSkill(climbing);
+//			skillService.createNewSkill(cooking);
+//			skillService.createNewSkill(books);
+//			skillService.createNewSkill(photography);
+//			skillService.createNewSkill(fashion);
+//			skillService.createNewSkill(golf);
+//			skillService.createNewSkill(baking);
+//			skillService.createNewSkill(dogs);
+//			skillService.createNewSkill(motorbike);
 
 			// Create user objects
 			User susanne = User.builder().email("susanne-heer@web.de").password(endcodedPassword).firstName("Susanne")
@@ -124,23 +124,11 @@ public class SkillHubApplication {
 					.lastName("Hausner").zipCode("38751").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
 					.imageURL("till.png").build();
 
+			susanne.addSkill(climbing);
+			
+			
 			// Create users in DB
 			userService.createNewUser(susanne);
-			userService.updateUser(susanne);
-			userService.updateUser(susanne);
-
-			// Add skills to user
-			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(cooking).build());
-			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(cooking).build());
-			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(climbing).build());
-			susanne.getUserSkills().remove(UserSkill.builder().user(susanne).skill(cooking).build());
-
-			userService.updateUser(susanne);
-
-			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(climbing).build());
-
-//			userService.updateUser(susanne);
-
 			userService.createNewUser(mia);
 			userService.createNewUser(lasse);
 			userService.createNewUser(alex);
@@ -157,14 +145,45 @@ public class SkillHubApplication {
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
 
-			// Test a wrong association
-			susanne.getUserSkills().add(UserSkill.builder().user(susanne).skill(cooking).build());
+			susanne.addSkill(cooking).addSkill(baking).addSkill(books);
+			mia.addSkill(fashion);
+			lasse.addSkill(books);
+			alex.addSkill(climbing);
+			antonia.addSkill(fashion);
+			cem.addSkill(photography);
+			claudia.addSkill(fashion);
+			daniel.addSkill(motorbike);
+			harald.addSkill(golf);
+			lennart.addSkill(climbing);
+			maike.addSkill(baking);
+			marina.addSkill(baking);
+			reinhardt.addSkill(motorbike);
+			robert.addSkill(photography);
+			rolf.addSkill(books);
+			till.addSkill(dogs);
+
+			// Update users in DB
 			userService.updateUser(susanne);
+			userService.updateUser(mia);
+			userService.updateUser(lasse);
+			userService.updateUser(alex);
+			userService.updateUser(antonia);
+			userService.updateUser(cem);
+			userService.updateUser(claudia);
+			userService.updateUser(daniel);
+			userService.updateUser(harald);
+			userService.updateUser(lennart);
+			userService.updateUser(maike);
+			userService.updateUser(marina);
+			userService.updateUser(reinhardt);
+			userService.updateUser(robert);
+			userService.updateUser(rolf);
+			userService.updateUser(till);
 			
-			
-			
+			// Test some SQLs that are executed when accessing the entities
 			System.out.println("---> Skill testClimbing = skillService.getSingleSkill(1L);");
-			Skill testClimbing = skillService.getSingleSkill(1L);
+			Optional<Skill> optionaTestClimbing = skillService.getSingleSkillById(1L);
+			Skill testClimbing = optionaTestClimbing.get();
 
 			System.out.println("---> System.out.println(testClimbing.getUserSkills());");
 			System.out.println(testClimbing.getUserSkills());

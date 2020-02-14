@@ -36,21 +36,21 @@ public class UserController {
 	}
 
 	// Show users with a certain skill
-//	@GetMapping("/users/search")
-//	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
-//		model.addAttribute("users", userService.getUsersBySkillId(skillId));
-//
-//		Skill skill = skillService.getSingleSkill(skillId);
-//		model.addAttribute("skill", skill);
-//
-//		return "users/get_by_skill";
-//	}
+	@GetMapping("/users/search")
+	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
+		Skill skill = skillService.getSingleSkillById(skillId).get();
+
+		model.addAttribute("users", userService.getUsersWithSkill(skill));
+		model.addAttribute("skill", skill);
+
+		return "users/get_by_skill";
+	}
 
 	// Show administrator page
 	@GetMapping("/admin")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userService.getUsers());
+		model.addAttribute("users", userService.getAllUsers());
 
 		return "users/get_all";
 	}
@@ -68,7 +68,7 @@ public class UserController {
 		userForm.setUser(user);
 
 		Set<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> skills = skillService.getSkills();
+		List<Skill> skills = skillService.getAllSkills();
 
 		UserSkillLevel userSkillLevel;
 
@@ -114,7 +114,7 @@ public class UserController {
 			if (userSkillLevel.isChecked()) {
 				Skill skill;
 
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
+// TODO				skill = skillService.getSingleSkillById(userSkillLevel.getId());
 
 //				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
 //					userSkillService.addNewUserSkill(user, skill);
@@ -122,7 +122,7 @@ public class UserController {
 			} else {
 				Skill skill = null;
 
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
+// TODO				skill = skillService.getSingleSkillById(userSkillLevel.getId());
 
 //				if (userSkillIds.contains(userSkillLevel.getId())) {
 //					userSkillService.removeUserSkill(user, skill);

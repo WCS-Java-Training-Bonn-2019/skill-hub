@@ -8,7 +8,7 @@ import com.wildcodeschool.skillhub.model.User;
 
 public interface UserService {
 
-	List<User> getUsers();
+	List<User> getAllUsers();
 
 	List<User> getUsersWithSkill(Skill skill);
 
