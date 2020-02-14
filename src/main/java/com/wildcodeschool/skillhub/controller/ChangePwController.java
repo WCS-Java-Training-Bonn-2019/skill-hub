@@ -20,17 +20,13 @@ import com.wildcodeschool.skillhub.service.UserService;
 @Controller
 public class ChangePwController {
 
-	// definiere Variable
 	private final UserService userService;
 
-	// ChangePwController
 	@Autowired
 	public ChangePwController(UserService userService) {
 		super();
 		this.userService = userService;
 	}
-	
-	
 	
 	@GetMapping("/changePw")
 	public String getLoginPage(PasswordForm passwordForm, HttpServletRequest request) {
@@ -41,10 +37,6 @@ public class ChangePwController {
 		return "changePw";
 	}
 	
-	
-
-
-	// Change Password
 	@PostMapping("/password/upsert")
 	public String postUser(@ModelAttribute PasswordForm passwordForm,
 			@RequestParam(name = "id", required = false) Long userId, HttpServletRequest request) {

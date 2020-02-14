@@ -19,9 +19,6 @@ public class PasswordForm {
 		this.password = passwordEncoder.encode(password);
 		this.repeatedPassword = passwordEncoder.encode(repeatedPassword);
 	}
-
-	
-	
 	
 	public Long getId() {
 		return id;

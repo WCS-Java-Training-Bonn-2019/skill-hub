@@ -12,7 +12,6 @@ import com.wildcodeschool.skillhub.model.User;
 public class UserForm {
 
 	private Long id;
-	//private String imageURL;
 	private byte[] image;
 	private String firstName;
 	private String lastName;
@@ -31,7 +30,6 @@ public class UserForm {
 	}
 
 	public void setUser(User user) {
-		//this.imageURL = user.getImageURL();
 		this.image = user.getImage();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
@@ -49,23 +47,14 @@ public class UserForm {
 	public void setId(Long id) {
 		this.id = id;
 	}
-//New Getter and Setter for image
-	
-	public byte[] getImage() {
-	return image;
-}
 
-public void setImage(byte[] image) {
-	this.image = image;
-}
-	
-//	public String getImageURL() {
-//		return imageURL;
-//	}
-//
-//	public void setImageURL(String imageURL) {
-//		this.imageURL = imageURL;
-//	}
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public String getFirstName() {
 		return firstName;

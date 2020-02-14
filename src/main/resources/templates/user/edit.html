@@ -23,11 +23,9 @@
 
 <body>
 
-	<header th:replace="fragments.html :: top">Here goes the header</header> 
+	<header th:replace="fragments.html :: top">Here goes the
+		header</header>
 
-
-
-	<!-- Card-Header  ============================================================ Start-->
 	<section>
 		<div class="flex-container">
 			<div class="container cards">
@@ -53,16 +51,16 @@
 
 							</div>
 
-		<!-- Card-Header  ============================================================ End-->
+							<!-- Card-Header  ============================================================ End-->
 
 
-					<!-- Card-Body  ============================================================== -->
+							<!-- Card-Body  ============================================================== -->
 						</div>
 						<div class="card-body">
 
 
-							<form  enctype="multipart/form-data" method="post" th:action="@{/user/upsert}"
-								th:object="${userForm}">
+							<form enctype="multipart/form-data" method="post"
+								th:action="@{/user/upsert}" th:object="${userForm}">
 								<input name="id" th:field="*{id}" type="hidden">
 								<!--<input name="age" th:field="*{age}" type="hidden">-->
 
