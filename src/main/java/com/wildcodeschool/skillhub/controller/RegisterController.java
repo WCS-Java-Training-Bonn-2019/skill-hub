@@ -39,7 +39,14 @@ public class RegisterController {
 	// Show registration page
 	@GetMapping("/register")
 	public String showRegisterForm(UserForm userForm) {
-
+		List<Skill> skills = skillService.getSkills();
+		
+		for (Skill skill : skills) {
+			UserSkillLevel userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+			
+			userForm.getUserSkillLevels().add(userSkillLevel);
+		}
+		
 		return "register";
 	}
 
@@ -54,16 +61,6 @@ public class RegisterController {
 			return "emailExists";
 		}
 		
-		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
-
-		for (UserSkillLevel userSkillLevel : userSkillLevels) {
-
-			if (userSkillLevel.isChecked()) {
-				Skill skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				userSkillService.addNewUserSkill(user, skill);
-			}
-		}
 
 		user.setId(userForm.getId());
 		user.setEmail(userForm.getEmail());
@@ -78,6 +75,17 @@ public class RegisterController {
 
 		user = userService.createNewUser(user);
 
+		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
+
+		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+
+			if (userSkillLevel.isChecked()) {
+				Skill skill = skillService.getSingleSkill(userSkillLevel.getId());
+
+				userSkillService.addNewUserSkill(user, skill);
+			}
+		}
+		
 		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
 		SecurityContextHolder.getContext().setAuthentication(auth);

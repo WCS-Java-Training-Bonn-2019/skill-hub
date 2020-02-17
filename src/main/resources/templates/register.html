@@ -122,10 +122,10 @@
 
 
 								<ul>
-									<li th:each="userSkillLevel: *{userSkillLevels}">
+									<li th:each="userSkillLevel, stat : *{userSkillLevels}">
 										<div class="custom-control custom-switch">
 											<input type="hidden"
-												th:field="*{userSkillLevels[__${stat.index}__].id}" />Test<input
+												th:field="*{userSkillLevels[__${stat.index}__].id}" /> <input
 												class="custom-control-input" type="checkbox"
 												th:id="${'toggle' + userSkillLevel.id}"
 												th:field="*{userSkillLevels[__${stat.index}__].checked}" />
