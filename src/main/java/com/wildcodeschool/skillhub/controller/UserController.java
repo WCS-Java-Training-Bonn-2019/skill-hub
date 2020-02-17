@@ -38,17 +38,20 @@ public class UserController {
 		this.userService = userService;
 		this.skillService = skillService;
 	}
-
+	
 	@GetMapping("/user/{userId}/image")
-	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId) {
-
+	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId){
+		
 		Optional<User> optionalUser = userService.getSingleUserById(userId);
 		if (optionalUser.isPresent() && optionalUser.get().getImage() != null) {
 			User user = optionalUser.get();
-
-			return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_PNG).body(user.getImage());
+			
+			return ResponseEntity.status(HttpStatus.OK)
+					.contentType(MediaType.IMAGE_PNG)
+					.body(user.getImage());
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.build();
 	}
 
 	// Show users with a certain skill
