@@ -21,7 +21,7 @@
       <div class="flex-container container">
         <form name="f" th:action="@{/perform_login}" method="post">
           <fieldset>
-            <h2><i class="fas fa-sign-in-alt"></i> Please sign in</h2>
+            <h2>Please sign in</h2>
             <div th:if="${param.error}" class="alert alert-error">Invalid username and password.</div>
             <div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
 
@@ -59,13 +59,13 @@
             <div class="row no-gutters">
               <div class="col-5">
                 <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
               </div>
 
               <div class="col-2"></div>
 
               <div class="col-5">
-                <a class="btn btn-lg btn-primary btn-block" th:href="register" role="button">Register</a>
+                <a class="btn btn-lg btn-primary btn-block" th:href="register" role="button"><i class="far fa-user"></i> Register</a>
 
               </div>
             </div>
