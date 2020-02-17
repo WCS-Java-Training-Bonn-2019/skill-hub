@@ -40,13 +40,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<User> getSingleUserById(Long userId) {
-		// TODO Add checks
 		return userRepository.findById(userId);
 	}
 
 	@Override
 	public Optional<User> getSingleUserByEmail(String email) {
-		// TODO Add checks
 		return userRepository.findByEmail(email);
 	}
 
@@ -55,36 +53,35 @@ public class UserServiceImpl implements UserService {
 	public User createNewUser(User user) {
 		// Check if a new user has been passed i.e. id of user is null
 		if (user.getId() != null) {
+
+			// TODO Find a better exception
 			throw new IllegalArgumentException();
 		}
 
-		Collection<UserSkill> userSkills = user.getUserSkills();
-
-		for (UserSkill userSkill : userSkills) {
-			Optional<Skill> optionalPersistedSkill = skillRepository.findById(userSkill.getSkill().getId());
-
-			// Retrieve all skills from repository to get them in managed state for this
-			// transaction
-			if (optionalPersistedSkill.isPresent()) {
-				userSkill.setSkill(optionalPersistedSkill.get());
-			} else {
-				userSkills.remove(userSkill);
-			}
-		}
+		replaceDetachedSkillsByPersistedSkills(user);
 
 		return userRepository.save(user);
 	}
 
 	@Override
-	public void updateUser(User user) {
-		// TODO Add checks etc.
-		userRepository.save(user);
+	@Transactional
+	public User updateUser(User user) {
+		// Check if an existing user has been passed
+		if (userRepository.findById(user.getId()).isEmpty()) {
+
+			// TODO Find a better exception
+			throw new IllegalArgumentException();
+		}
+
+		replaceDetachedSkillsByPersistedSkills(user);
+
+		return userRepository.save(user);
 	}
 
 	@Override
-	public void deleteUser(Long userId) {
-		// TODO Add checks
-		userRepository.deleteById(userId);
+	@Transactional
+	public void deleteUser(User user) {
+		userRepository.deleteById(user.getId());
 	}
 
 	@Override
@@ -93,6 +90,20 @@ public class UserServiceImpl implements UserService {
 		Optional<User> optionalUser = userRepository.findByEmail(email);
 
 		return optionalUser.isPresent();
+	}
+
+	private void replaceDetachedSkillsByPersistedSkills(User user) {
+		Collection<UserSkill> userSkills = user.getUserSkills();
+
+		for (UserSkill userSkill : userSkills) {
+			Optional<Skill> optionalPersistedSkill = skillRepository.findById(userSkill.getSkill().getId());
+
+			if (optionalPersistedSkill.isPresent()) {
+				userSkill.setSkill(optionalPersistedSkill.get());
+			} else {
+				userSkills.remove(userSkill);
+			}
+		}
 	}
 
 }

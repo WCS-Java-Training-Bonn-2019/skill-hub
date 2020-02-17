@@ -192,7 +192,7 @@ public class UserController {
 			return "redirect:/";
 		}
 
-		userService.deleteUser(user.getId());
+		userService.deleteUser(user);
 
 		return "redirect:/user/deleted";
 	}

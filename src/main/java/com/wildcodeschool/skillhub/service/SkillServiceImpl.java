@@ -26,19 +26,24 @@ public class SkillServiceImpl implements SkillService {
 		List<Skill> skills = skillRepository.findAll();
 
 		skills.sort(Comparator.comparing(Skill::getName, Comparator.nullsLast(Comparator.naturalOrder())));
-		;
 
 		return skills;
 	}
 
 	@Override
 	public Optional<Skill> getSingleSkillById(Long skillId) {
-		// TODO Add checks
 		return skillRepository.findById(skillId);
 	}
 
 	@Override
 	public Skill createNewSkill(Skill skill) {
+
+		// Check if a new skill has been passed i.e. id of skill is null
+		if (skill.getId() != null) {
+
+			// TODO Find a better exception
+			throw new IllegalArgumentException();
+		}
 		return skillRepository.save(skill);
 	}
 
