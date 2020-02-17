@@ -73,7 +73,7 @@ public class User implements UserDetails {
 	private String description;
 	private String imageURL;
 
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST })
 	@Builder.Default
 	@Setter(value = AccessLevel.NONE)
 	private Set<UserSkill> userSkills = new HashSet<>();

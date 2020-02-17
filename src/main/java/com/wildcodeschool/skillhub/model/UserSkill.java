@@ -2,7 +2,6 @@ package com.wildcodeschool.skillhub.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -30,12 +29,12 @@ import lombok.Setter;
 public class UserSkill {
 
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn(name = "skill_id", referencedColumnName = "id")
 	private Skill skill;
 

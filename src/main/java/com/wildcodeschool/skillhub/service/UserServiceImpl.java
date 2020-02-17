@@ -1,24 +1,31 @@
 package com.wildcodeschool.skillhub.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
+import com.wildcodeschool.skillhub.model.UserSkill;
+import com.wildcodeschool.skillhub.repository.SkillRepository;
 import com.wildcodeschool.skillhub.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
+	private final SkillRepository skillRepository;
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserServiceImpl(UserRepository userRepository, SkillRepository skillRepository) {
 		super();
 		this.userRepository = userRepository;
+		this.skillRepository = skillRepository;
 	}
 
 	@Override
@@ -44,8 +51,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public User createNewUser(User user) {
-		// TODO Check if user exists
+		// Check if a new user has been passed i.e. id of user is null
+		if (user.getId() != null) {
+			throw new IllegalArgumentException();
+		}
+
+		Collection<UserSkill> userSkills = user.getUserSkills();
+
+		for (UserSkill userSkill : userSkills) {
+			Optional<Skill> optionalPersistedSkill = skillRepository.findById(userSkill.getSkill().getId());
+
+			// Retrieve all skills from repository to get them in managed state for this
+			// transaction
+			if (optionalPersistedSkill.isPresent()) {
+				userSkill.setSkill(optionalPersistedSkill.get());
+			} else {
+				userSkills.remove(userSkill);
+			}
+		}
+
 		return userRepository.save(user);
 	}
 

@@ -49,15 +49,15 @@ public class SkillHubApplication {
 			Skill motorbike = Skill.builder().name("Motorbike").imageURL("motorbike.jpg").build();
 
 			// Create skills in DB
-//			skillService.createNewSkill(climbing);
-//			skillService.createNewSkill(cooking);
-//			skillService.createNewSkill(books);
-//			skillService.createNewSkill(photography);
-//			skillService.createNewSkill(fashion);
-//			skillService.createNewSkill(golf);
-//			skillService.createNewSkill(baking);
-//			skillService.createNewSkill(dogs);
-//			skillService.createNewSkill(motorbike);
+			skillService.createNewSkill(climbing);
+			skillService.createNewSkill(cooking);
+			skillService.createNewSkill(books);
+			skillService.createNewSkill(photography);
+			skillService.createNewSkill(fashion);
+			skillService.createNewSkill(golf);
+			skillService.createNewSkill(baking);
+			skillService.createNewSkill(dogs);
+			skillService.createNewSkill(motorbike);
 
 			// Create user objects
 			User susanne = User.builder().email("susanne-heer@web.de").password(endcodedPassword).firstName("Susanne")
@@ -124,27 +124,7 @@ public class SkillHubApplication {
 					.lastName("Hausner").zipCode("38751").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
 					.imageURL("till.png").build();
 
-			susanne.addSkill(climbing);
-			
-			
-			// Create users in DB
-			userService.createNewUser(susanne);
-			userService.createNewUser(mia);
-			userService.createNewUser(lasse);
-			userService.createNewUser(alex);
-			userService.createNewUser(antonia);
-			userService.createNewUser(cem);
-			userService.createNewUser(claudia);
-			userService.createNewUser(daniel);
-			userService.createNewUser(harald);
-			userService.createNewUser(lennart);
-			userService.createNewUser(maike);
-			userService.createNewUser(marina);
-			userService.createNewUser(reinhardt);
-			userService.createNewUser(robert);
-			userService.createNewUser(rolf);
-			userService.createNewUser(till);
-
+			// Add some skills to users
 			susanne.addSkill(cooking).addSkill(baking).addSkill(books);
 			mia.addSkill(fashion);
 			lasse.addSkill(books);
@@ -162,23 +142,41 @@ public class SkillHubApplication {
 			rolf.addSkill(books);
 			till.addSkill(dogs);
 
-			// Update users in DB
-			userService.updateUser(susanne);
-			userService.updateUser(mia);
-			userService.updateUser(lasse);
-			userService.updateUser(alex);
-			userService.updateUser(antonia);
-			userService.updateUser(cem);
-			userService.updateUser(claudia);
-			userService.updateUser(daniel);
-			userService.updateUser(harald);
-			userService.updateUser(lennart);
-			userService.updateUser(maike);
-			userService.updateUser(marina);
-			userService.updateUser(reinhardt);
-			userService.updateUser(robert);
-			userService.updateUser(rolf);
-			userService.updateUser(till);
+			// Create users in DB
+			userService.createNewUser(susanne);
+			userService.createNewUser(mia);
+			userService.createNewUser(lasse);
+			userService.createNewUser(alex);
+			userService.createNewUser(antonia);
+			userService.createNewUser(cem);
+			userService.createNewUser(claudia);
+			userService.createNewUser(daniel);
+			userService.createNewUser(harald);
+			userService.createNewUser(lennart);
+			userService.createNewUser(maike);
+			userService.createNewUser(marina);
+			userService.createNewUser(reinhardt);
+			userService.createNewUser(robert);
+			userService.createNewUser(rolf);
+			userService.createNewUser(till);			
+
+//			// Update users in DB
+//			userService.updateUser(susanne);
+//			userService.updateUser(mia);
+//			userService.updateUser(lasse);
+//			userService.updateUser(alex);
+//			userService.updateUser(antonia);
+//			userService.updateUser(cem);
+//			userService.updateUser(claudia);
+//			userService.updateUser(daniel);
+//			userService.updateUser(harald);
+//			userService.updateUser(lennart);
+//			userService.updateUser(maike);
+//			userService.updateUser(marina);
+//			userService.updateUser(reinhardt);
+//			userService.updateUser(robert);
+//			userService.updateUser(rolf);
+//			userService.updateUser(till);
 			
 			// Test some SQLs that are executed when accessing the entities
 			System.out.println("---> Skill testClimbing = skillService.getSingleSkill(1L);");
