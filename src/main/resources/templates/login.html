@@ -5,20 +5,7 @@
 <head th:replace="fragments.html :: head"></head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand" href="/">SkillHub</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-        </ul>
-      </div>
-    </nav>
-  </header>
-
+  <header th:replace="fragments.html :: top">Here goes the header</header>
 
   <main>
     <!--Jumbotron-->
@@ -34,7 +21,7 @@
       <div class="flex-container container">
         <form name="f" th:action="@{/perform_login}" method="post">
           <fieldset>
-            <h2>Please sign in</h2>
+            <h2><i class="fas fa-sign-in-alt"></i> Please sign in</h2>
             <div th:if="${param.error}" class="alert alert-error">Invalid username and password.</div>
             <div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
 
