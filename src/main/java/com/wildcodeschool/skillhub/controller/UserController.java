@@ -7,10 +7,14 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,6 +37,18 @@ public class UserController {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
+	}
+
+	@GetMapping("/user/{userId}/image")
+	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId) {
+
+		Optional<User> optionalUser = userService.getSingleUserById(userId);
+		if (optionalUser.isPresent() && optionalUser.get().getImage() != null) {
+			User user = optionalUser.get();
+
+			return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_PNG).body(user.getImage());
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 	// Show users with a certain skill
@@ -74,6 +90,7 @@ public class UserController {
 
 		for (Skill skill : skills) {
 			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+
 			for (UserSkill userSkill : userSkills) {
 				if (skill.getId() == userSkill.getSkill().getId()) {
 					userSkillLevel.setChecked(true);
@@ -105,28 +122,21 @@ public class UserController {
 			}
 		}
 
-//		Set<Long> userSkillIds = user.getUserSkillIds();
+		Set<UserSkill> userSkills = user.getUserSkills();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
-		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
 		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+			Skill skill = skillService.getSingleSkillById(userSkillLevel.getId()).get();
+			UserSkill userSkill = UserSkill.builder().user(user).skill(skill).build();
 
 			if (userSkillLevel.isChecked()) {
-				Skill skill;
-
-// TODO				skill = skillService.getSingleSkillById(userSkillLevel.getId());
-
-//				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-//					userSkillService.addNewUserSkill(user, skill);
-//				}
+				if (!(userSkills.contains(userSkill))) {
+					user.addSkill(skill);
+				}
 			} else {
-				Skill skill = null;
-
-// TODO				skill = skillService.getSingleSkillById(userSkillLevel.getId());
-
-//				if (userSkillIds.contains(userSkillLevel.getId())) {
-//					userSkillService.removeUserSkill(user, skill);
-//				}
+				if (userSkills.contains(userSkill)) {
+					user.removeSkill(skill);
+				}
 			}
 		}
 
@@ -138,7 +148,10 @@ public class UserController {
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setEmail(userForm.getEmail());
 		user.setDescription(userForm.getDescription());
-		user.setImageURL(userForm.getImageURL());
+
+		if (userForm.getImage().length != 0) {
+			user.setImage(userForm.getImage());
+		}
 
 		userService.updateUser(user);
 

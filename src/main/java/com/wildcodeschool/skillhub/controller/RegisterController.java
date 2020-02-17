@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.wildcodeschool.skillhub.form.UserForm;
 import com.wildcodeschool.skillhub.form.UserSkillLevel;
+import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.repository.UserRepository;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
 
@@ -25,20 +25,25 @@ public class RegisterController {
 
 	private final UserService userService;
 	private final SkillService skillService;
-	private final UserRepository userRepository;
 
 	@Autowired
-	public RegisterController(UserService userService, SkillService skillService, UserRepository userRepository) {
+	public RegisterController(UserService userService, SkillService skillService) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
-		this.userRepository = userRepository;
 	}
 
 	// Show registration page
 	@GetMapping("/register")
 	public String showRegisterForm(UserForm userForm) {
-
+		List<Skill> skills = skillService.getAllSkills();
+		
+		for (Skill skill : skills) {
+			UserSkillLevel userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+			
+			userForm.getUserSkillLevels().add(userSkillLevel);
+		}
+		
 		return "register";
 	}
 
@@ -53,18 +58,6 @@ public class RegisterController {
 			return "emailExists";
 		}
 
-		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
-
-// TODO		
-//		for (UserSkillLevel userSkillLevel : userSkillLevels) {
-//
-//			if (userSkillLevel.isChecked()) {
-//				Skill skill = skillService.getSingleSkill(userSkillLevel.getId());
-//
-//				userSkillService.addNewUserSkill(user, skill);
-//			}
-//		}
-
 		user.setId(userForm.getId());
 		user.setEmail(userForm.getEmail());
 		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
@@ -74,10 +67,19 @@ public class RegisterController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setDescription(userForm.getDescription());
-		user.setImageURL(userForm.getImageURL());
+		user.setImage(userForm.getImage());
 
 		user = userService.createNewUser(user);
 
+		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
+
+		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+
+			if (userSkillLevel.isChecked()) {
+				user.addSkill(skillService.getSingleSkillById(userSkillLevel.getId()).get());
+			}
+		}
+		
 		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
 		SecurityContextHolder.getContext().setAuthentication(auth);

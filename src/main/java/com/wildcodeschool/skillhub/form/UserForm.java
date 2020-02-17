@@ -12,7 +12,7 @@ import com.wildcodeschool.skillhub.model.User;
 public class UserForm {
 
 	private Long id;
-	private String imageURL;
+	private byte[] image;
 	private String firstName;
 	private String lastName;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -30,7 +30,7 @@ public class UserForm {
 	}
 
 	public void setUser(User user) {
-		this.imageURL = user.getImageURL();
+		this.image = user.getImage();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.dateOfBirth = user.getDateOfBirth();
@@ -48,12 +48,12 @@ public class UserForm {
 		this.id = id;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public byte[] getImage() {
+		return image;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public String getFirstName() {
