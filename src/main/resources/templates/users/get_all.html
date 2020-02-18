@@ -4,61 +4,74 @@
 
 <head th:replace="fragments.html :: head"></head>
 
-
 <body>
 
   <header th:replace="fragments.html :: top">Here goes the header</header>
 
-  <h3>Users list (Admin page only)</h3>
+  <section>
+    <div class="flex-container" style="margin-right: 1rem; margin-left: 1rem;">
+        <div class="row no-gutters" style="margin-top: 1rem;">
+          <h3>Users list (Admin page only)</h3>
+        </div>
 
-  <a href="/user/edit" class="btn btn-outline-primary" role="button" aria-pressed="true">Add a new user</a>
+        <div class="row no-gutters">
+          <div class="col-2">
+            <p></p>
+            <a href="/user/edit" class="btn btn-outline-primary" role="button" aria-pressed="true">Add a new user</a>
+            <p></p>
+          </div>
 
-  <div class="mx-5">
+          <p></p>
+        </div>
 
-    <table class="table table-bordered table-striped table-hover table-condensed">
-      <thead class="thead-dark">
-        <tr class="active">
-          <th>Id</th>
-          <th>First name</th>
-          <th>Last name</th>
-          <th>Birthday</th>
-          <th>ZipCode</th>
-          <th>City</th>
-          <th>Email</th>
-          <th>Description</th>
-          <th>Image-URL</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+        <div class="row no-gutters">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Birthday</th>
+                <th scope="col">ZipCode</th>
+                <th scope="col">City</th>
+                <th scope="col">Email</th>
+                <th scope="col">Description</th>
+                <th scope="col">ImageURL</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="user : ${users}">
+                <td th:text="${user.id}">id</td>
+                <td th:text="${user.firstName}">First name</td>
+                <td th:text="${user.lastName}">Last name</td>
+                <td th:text="${user.dateOfBirth}">Birthday</td>
+                <td th:text="${user.zipCode}">Zip Code</td>
+                <td th:text="${user.city}">City</td>
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.description}">Description</td>
+                <td th:text="${user.imageURL}">ImageURL</td>
+                <td>
+                  <a th:href="@{/user/edit(id=${user.id})}">Edit</a>
+                </td>
+                <td>
+                  <a th:href="@{/user/delete(id=${user.id})}">Delete user</a>
+                </td>
+              </tr>
 
 
+            </tbody>
+          </table>
+        </div>
 
-        <tr th:each="user : ${users}">
-          <td th:text="${user.id}">id</td>
-          <td th:text="${user.firstName}">First name</td>
-          <td th:text="${user.lastName}">Last name</td>
-          <td th:text="${user.dateOfBirth}">Birthday</td>
-          <td th:text="${user.zipCode}">Zip Code</td>
-          <td th:text="${user.city}">City</td>
-          <td th:text="${user.email}">Email</td>
-          <td th:text="${user.description}">Description</td>
-          <td th:text="${user.imageURL}">ImageURL</td>
-          <td>
-            <a th:href="@{/user/edit(id=${user.id})}">Edit</a>
-          </td>
-          <td>
-            <a th:href="@{/user/delete(id=${user.id})}">Delete user</a>
-          </td>
-        </tr>
 
-      </tbody>
-    </table>
-
-  </div>
-
+      </div>
+  </section>
 
   <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
+
 </body>
+
 </html>
