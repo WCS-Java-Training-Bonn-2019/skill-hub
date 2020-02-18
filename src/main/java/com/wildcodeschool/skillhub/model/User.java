@@ -87,6 +87,22 @@ public class User implements UserDetails {
 		return Collections.unmodifiableSet(this.userSkills);
 	}
 
+	// Customized lombok builder class
+	public static class UserBuilder {
+
+		// Convenience method to set an image from ClassPath
+		public UserBuilder imageURL(String imageURL) {
+
+			try {
+				this.image = this.getClass().getClassLoader().getResourceAsStream("static/images/" + imageURL)
+						.readAllBytes();
+			} catch (Exception e) {
+			}
+
+			return this;
+		}
+	}
+
 	// Convenience method to add a skill
 	// Use fluent API
 	public User addSkill(Skill skill) {
