@@ -1,7 +1,6 @@
 package com.wildcodeschool.skillhub;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -165,60 +164,6 @@ public class SkillHubApplication {
 			userService.createNewUser(robert);
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
-
-			// Modify existing user and update
-			susanne.addSkill(motorbike);
-			userService.updateUser(susanne);
-
-			// Delete existing user
-			userService.deleteUser(till);
-
-			// Modify non-existing user and update
-			try {
-				User nonExistingUser = User.builder().id(999L).email("").password("").firstName("")
-						.dateOfBirth(LocalDate.of(1970, 6, 2)).city("").build();
-				userService.updateUser(nonExistingUser);
-			} catch (Exception e) {
-				System.out.println("Update Failed as expected!");
-			}
-
-			// Delete non-existing user
-			try {
-				User nonExistingUser = User.builder().id(999L).build();
-				userService.deleteUser(nonExistingUser);
-			} catch (Exception e) {
-				System.out.println("Delete Failed as expected!");
-			}
-
-//			// Update users in DB
-//			userService.updateUser(susanne);
-//			userService.updateUser(mia);
-//			userService.updateUser(lasse);
-//			userService.updateUser(alex);
-//			userService.updateUser(antonia);
-//			userService.updateUser(cem);
-//			userService.updateUser(claudia);
-//			userService.updateUser(daniel);
-//			userService.updateUser(harald);
-//			userService.updateUser(lennart);
-//			userService.updateUser(maike);
-//			userService.updateUser(marina);
-//			userService.updateUser(reinhardt);
-//			userService.updateUser(robert);
-//			userService.updateUser(rolf);
-//			userService.updateUser(till);
-
-			// Test some SQLs that are executed when accessing the entities
-			System.out.println("---> Skill testClimbing = skillService.getSingleSkill(1L);");
-			Optional<Skill> optionaTestClimbing = skillService.getSingleSkillById(1L);
-			Skill testClimbing = optionaTestClimbing.get();
-
-			System.out.println("---> System.out.println(testClimbing.getUserSkills());");
-			System.out.println(testClimbing.getUserSkills());
-
-			System.out.println("---> System.out.println(userService.getUsersWithSkill(climbing));");
-			System.out.println(userService.getUsersWithSkill(climbing));
-
 		};
 	}
 
