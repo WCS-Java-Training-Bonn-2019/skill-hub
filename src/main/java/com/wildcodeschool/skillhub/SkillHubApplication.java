@@ -57,7 +57,7 @@ public class SkillHubApplication {
 			skillService.createNewSkill(baking);
 			skillService.createNewSkill(dogs);
 			skillService.createNewSkill(motorbike);
-
+			
 			// Create user objects
 			User susanne = User.builder().email("susanne-heer@web.de").password(endcodedPassword).firstName("Susanne")
 					.lastName("GehtEuchNixAn").zipCode("28215").city("Bremen").dateOfBirth(LocalDate.of(1952, 5, 17))
@@ -119,10 +119,60 @@ public class SkillHubApplication {
 					.lastName("Langner").zipCode("78652").city("Erfurt").dateOfBirth(LocalDate.of(1960, 9, 13))
 					.imageURL("rolf.png").build();
 
-			User till = User.builder().email("till_hausner1970@web.de").password(endcodedPassword).firstName("Till")
+			User till = User.builder().email("till_hausner1970@gmx.de").password(endcodedPassword).firstName("Till")
 					.lastName("Hausner").zipCode("38751").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
 					.imageURL("till.png").build();
 
+			// Create new users
+			User arne = User.builder().email("arne@magenta.de").password(endcodedPassword).firstName("Arne")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("arne.png").build();
+			User andre = User.builder().email("andre@magenta.de").password(endcodedPassword).firstName("Andre")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("andre.png").build();
+			User claus = User.builder().email("claus@magenta.de").password(endcodedPassword).firstName("Claus")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("claus.png").build();
+			User frank_f = User.builder().email("frank_f@magenta.de").password(endcodedPassword).firstName("Frank")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("frank_f.png").build();
+			User frank_g = User.builder().email("frank_g@magenta.de").password(endcodedPassword).firstName("Frank")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("frank_g.png").build();
+			User marcel = User.builder().email("marcel@magenta.de").password(endcodedPassword).firstName("Marcel")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("marcel.png").build();
+			User markus = User.builder().email("markus@magenta.de").password(endcodedPassword).firstName("Markus")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("markus.png").build();
+			User martin = User.builder().email("martin@magenta.de").password(endcodedPassword).firstName("Martin")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("martin.png").build();
+			User metje = User.builder().email("metje@magenta.de").password(endcodedPassword).firstName("Metje")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("metje.png").build();
+			User michael_be = User.builder().email("michael_be@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("michael_be.png").build();
+			User michael_bl = User.builder().email("michael_bl@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("michael_bl.png").build();
+			User michael_k = User.builder().email("michael_k@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("michael_k.png").build();
+			User michael_o = User.builder().email("michael_o@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("michael_o.png").build();
+			User ralf = User.builder().email("ralf@magenta.de").password(endcodedPassword).firstName("Ralf")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("ralf.png").build();
+			User steffen = User.builder().email("steffen@magenta.de").password(endcodedPassword).firstName("Steffen")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("steffen.png").build();
+			User stephanie = User.builder().email("stephanie@magenta.de").password(endcodedPassword).firstName("Stephanie")
+					.lastName("Hausner").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("stephanie.png").build();
+			
 			// Add some skills to users
 			susanne.addSkill(cooking).addSkill(baking).addSkill(books);
 			mia.addSkill(fashion);
@@ -141,12 +191,6 @@ public class SkillHubApplication {
 			rolf.addSkill(books);
 			till.addSkill(dogs);
 
-			// Remove a non-existing skill
-			susanne.removeSkill(motorbike);
-
-			// Remove an existing skill
-			susanne.removeSkill(cooking);
-
 			// Create users in DB
 			userService.createNewUser(susanne);
 			userService.createNewUser(mia);
@@ -164,6 +208,24 @@ public class SkillHubApplication {
 			userService.createNewUser(robert);
 			userService.createNewUser(rolf);
 			userService.createNewUser(till);
+			
+			// Create new users in DB
+			userService.createNewUser(arne);
+			userService.createNewUser(andre);
+			userService.createNewUser(claus);
+			userService.createNewUser(frank_f);
+			userService.createNewUser(frank_g);
+			userService.createNewUser(marcel);
+			userService.createNewUser(markus);
+			userService.createNewUser(martin);
+			userService.createNewUser(metje);
+			userService.createNewUser(michael_be);
+			userService.createNewUser(michael_bl);
+			userService.createNewUser(michael_k);
+			userService.createNewUser(michael_o);
+			userService.createNewUser(ralf);
+			userService.createNewUser(steffen);
+			userService.createNewUser(stephanie);
 		};
 	}
 
