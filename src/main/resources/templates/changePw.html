@@ -1,240 +1,127 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
 <title>SkillHub</title>
 <meta charset="utf-8">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="/style.css">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
+  integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+  integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 
 
 <body>
 
-	<header th:replace="fragments.html :: top">Here goes the
-		header</header>
+  <header th:replace="fragments.html :: top">Here goes the header</header>
 
-	<main class="changePw_background">
+  <main class="changePw_background">
 
-		<div class="changePw-box">
-			<section>
-				<div class="flex-container container">
-					<form method="post" th:action="@{/password/upsert}"
-						th:object="${passwordForm}">
+   
 
-						<!-- <input name="id" th:field="*{id}" type="hidden">  -->
 
 
-						<fieldset>
-							<h2>Change Password</h2>
 
-							<!-- 
-							<div th:if="${param.error}" class="alert alert-error">Invalid
-								username or password.</div>
-							<div th:if="${param.logout}" class="alert alert-success">You
-								have changed your password.</div>
- 							-->
 
 
 
-							<div class="row no-gutters">
-								<div class="col-7">
 
-									<input name="_csrf" type="hidden"
-										value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
-										href="javascript:javascript:history.go(-1)"
-										class="btn btn-dark btn-block"><span sec:authentication="name"></span></a>
+    <div class="changePw-box">
 
-								</div>
-							</div>
+      <section>
+        <div class="flex-container container">
+          <form method="post" th:action="@{/password/upsert}" th:object="${passwordForm}">
 
 
-							<div class="row no-gutters">
-								<p></p>
-							</div>
+            <fieldset>
+              <h2>Change Password</h2>
 
-							<div class="row no-gutters">
-								<div class="col-7">
+              <div class="row no-gutters">
+                <div class="col-7">
 
+                  <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
+                    href="javascript:javascript:history.go(-1)" class="btn btn-dark btn-block"><span
+                    sec:authentication="name"></span></a>
 
+                </div>
+              </div>
 
-									<p>
-									<!-- class="btn btn-lg btn-danger btn-block">Don't change Password</a> -->
 
-									<!-- Label weggelassen - passt auch so... altes Label ==>    <label for="password">Password</label>
-									... Änderung der Schriftgröße: <p class="pwChange-password">
-									
-									Und in CSS: ===========================================>
-									.pwChange-password{
-										font-size: 1.5rem;
-										font-weight: 600;
-									}
-									<<======================================================
-									
-									-->
-									<!-- btn-lg  -->
-									
-										 <input type="password"
-											class="form-control " id="password"
-											aria-describedby="passwordHelp" name="password"
-											onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
-											placeholder="New password" required th:field="*{password}">
-									<!-- required th:field="*{password}" -->
+              <div class="row no-gutters">
+                <p></p>
+              </div>
 
+              <div class="row no-gutters">
+                <div class="col-7">
 
 
-									</p>
+                  <p>
 
+                    <input type="password" class="form-control " id="password" aria-describedby="passwordHelp"
+                      name="password" onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
+                      placeholder="New password" required th:field="*{password}">
+                    <!-- required th:field="*{password}" -->
 
-								<!-- NEU =======================================================================>
-									<div class="form-group">
-									<label for="password">Password</label>
-									<input type="password" class="form-control" id="password" aria-describedby="passwordHelp" name="password" 
-									onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
-										placeholder="Password" required th:field="*{password}">
-									</div>
-									
-									-->
+                  </p>
 
 
-									<!-- ALT =======================================================================>
-										<label for="password" class="sr-only">Password2</label> <input
-											type="password" id="password" name="password"
-											onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
-											class="form-control" placeholder="New password" required="">
--->
+                </div>
+              </div>
 
 
+              <div class="row no-gutters">
+                <div class="col-7">
 
 
-								</div>
-							</div>
+                  <input type="password" class="form-control" id="passwordRepeated"
+                    aria-describedby="passwordRepeatedHelp" name="passwordRepeated"
+                    onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+                    placeholder="Repeat new password" required th:field="*{passwordRepeated}">
+                  <!--  th:field="*{passwordRepeated}"  -->
 
 
+                  <p></p>
+                </div>
+              </div>
+            </fieldset>
 
 
+            <div class="row no-gutters">
+              <div class="col-7">
+                <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
 
+                <button type="submit" value="Submit" class="btn btn-lg btn-success btn-block">Change Password</button>
 
+              </div>
+            </div>
 
 
 
+          </form>
 
-							<div class="row no-gutters">
-								<div class="col-7">
 
-									
-									 <input type="password" class="form-control" id="passwordRepeated"
-										aria-describedby="passwordRepeatedHelp"
-										name="passwordRepeated"
-										onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
-										placeholder="Repeat new password" required 
-										th:field="*{passwordRepeated}">
-										<!--  th:field="*{passwordRepeated}"  -->
-										
+          <div class="row no-gutters">
+            <div class="col-7">
+              <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
+                href="javascript:javascript:history.go(-1)" class="btn btn-lg btn-danger btn-block">Don't change
+                Password</a>
 
-									<p>
+            </div>
+          </div>
+        </div>
 
-										<!-- NEU =======================================================================>
-									
-									<div class="form-group">
-									<label for="passwordRepeated">Password (repeated)</label> <input
-										type="password" class="form-control" id="passwordRepeated"
-										aria-describedby="passwordRepeatedHelp"
-										name="passwordRepeated"
-										onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
-										placeholder="Verify Password" required
-										th:field="*{passwordRepeated}">
-									</div>
-									
-									
-									 -->
+      </section>
+    </div>
 
-<!-- ALT =======================================================================>
-										<label for="username" class="sr-only">Email2</label> <input
-											type="text" id="username" name="username"
-											onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
-											class="form-control" placeholder="Repeat new password"
-											required="" autofocus="">
-											-->
+  </main>
 
-									</p>
-								</div>
-							</div>
-						</fieldset>
 
-
-						
-
-
-
-
-
-
-
-
-
-
-
-						<div class="row no-gutters">
-							<div class="col-7">
-								<input name="_csrf" type="hidden"
-									value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
-
-								<button type="submit" value="Submit"
-									class="btn btn-lg btn-success btn-block">Change
-									Password</button>
-
-							</div>
-						</div>
-
-
-
-
-
-
-
-
-
-
-
-
-					</form>
-
-
-					<div class="row no-gutters">
-						<div class="col-7">
-							<input name="_csrf" type="hidden"
-								value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
-								href="javascript:javascript:history.go(-1)"
-								class="btn btn-lg btn-danger btn-block">Don't change
-								Password</a>
-
-						</div>
-					</div>
-				</div>
-
-			</section>
-		</div>
-
-	</main>
-
-
-	<footer th:replace="fragments.html :: bottom">Here goes the
-		footer</footer>
+  <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 
 
 </body>
