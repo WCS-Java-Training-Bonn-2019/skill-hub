@@ -25,28 +25,24 @@ import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
-import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class UserController {
 
 	private final UserService userService;
 	private final SkillService skillService;
-	private final UserSkillService userSkillService;
 
 	@Autowired
-	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public UserController(UserService userService, SkillService skillService) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
-		this.userSkillService = userSkillService;
 	}
-	
 	
 	@GetMapping("/user/{userId}/image")
 	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId){
 		
-		Optional<User> optionalUser = userService.getSingleUser(userId);
+		Optional<User> optionalUser = userService.getSingleUserById(userId);
 		if (optionalUser.isPresent() && optionalUser.get().getImage() != null) {
 			User user = optionalUser.get();
 			
@@ -61,9 +57,9 @@ public class UserController {
 	// Show users with a certain skill
 	@GetMapping("/users/search")
 	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
-		model.addAttribute("users", userService.getUsersBySkillId(skillId));
+		Skill skill = skillService.getSingleSkillById(skillId).get();
 
-		Skill skill = skillService.getSingleSkill(skillId);
+		model.addAttribute("users", userService.getUsersWithSkill(skill));
 		model.addAttribute("skill", skill);
 
 		return "users/get_by_skill";
@@ -73,7 +69,7 @@ public class UserController {
 	@GetMapping("/admin")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userService.getUsers());
+		model.addAttribute("users", userService.getAllUsers());
 
 		return "users/get_all";
 	}
@@ -91,14 +87,15 @@ public class UserController {
 		userForm.setUser(user);
 
 		Set<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> skills = skillService.getSkills();
+		List<Skill> skills = skillService.getAllSkills();
 
 		UserSkillLevel userSkillLevel;
 
 		for (Skill skill : skills) {
 			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+
 			for (UserSkill userSkill : userSkills) {
-				if (skill.getId() == userSkill.getId().getSkillId()) {
+				if (skill.getId() == userSkill.getSkill().getId()) {
 					userSkillLevel.setChecked(true);
 				}
 			}
@@ -128,27 +125,20 @@ public class UserController {
 			}
 		}
 
-		Set<Long> userSkillIds = user.getUserSkillIds();
+		Set<UserSkill> userSkills = user.getUserSkills();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
-		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
 		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+			Skill skill = skillService.getSingleSkillById(userSkillLevel.getId()).get();
+			UserSkill userSkill = UserSkill.builder().user(user).skill(skill).build();
 
 			if (userSkillLevel.isChecked()) {
-				Skill skill;
-
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					userSkillService.addNewUserSkill(user, skill);
+				if (!(userSkills.contains(userSkill))) {
+					user.addSkill(skill);
 				}
 			} else {
-				Skill skill = null;
-
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				if (userSkillIds.contains(userSkillLevel.getId())) {
-					userSkillService.removeUserSkill(user, skill);
+				if (userSkills.contains(userSkill)) {
+					user.removeSkill(skill);
 				}
 			}
 		}
@@ -183,7 +173,7 @@ public class UserController {
 		User user = new User();
 
 		if (userId != null) {
-			Optional<User> optionalUser = userService.getSingleUser(userId);
+			Optional<User> optionalUser = userService.getSingleUserById(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -218,7 +208,7 @@ public class UserController {
 			return "redirect:/";
 		}
 
-		userService.deleteUser(user.getId());
+		userService.deleteUser(user);
 
 		return "redirect:/user/deleted";
 	}
@@ -237,7 +227,7 @@ public class UserController {
 
 		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
 			if (userId != null) {
-				optionalUser = userService.getSingleUser(userId);
+				optionalUser = userService.getSingleUserById(userId);
 			}
 
 		} else {

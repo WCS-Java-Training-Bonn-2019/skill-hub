@@ -2,32 +2,14 @@
 
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
-<head>
-<title>SkillHub</title>
-<meta charset="utf-8">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="/style.css">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
-</head>
+<head th:replace="fragments.html :: head"></head>
 
 <body>
 
-	<header th:replace="fragments.html :: top">Here goes the
-		header</header>
+  <header th:replace="fragments.html :: top">Here goes the header</header>
 
-	<main class="index">
-		<!--Jumbotron
+  <main class="index">
+    <!--Jumbotron
 		<div class="jumbotron">
 			<img class="img" src="../images/milkyway.jpg" alt="alt">
 			<div class="box">
@@ -36,45 +18,39 @@
 			</div>
 		</div>-->
 
-		<section>
-			<div class="flex-container container index-text">
-				<div class="row no-gutters">
-					<h1 class="h1-index">Welcome to SkillHub</h1>
-					<p class="p-index">SkillHub is a social platform for skill
-						exchange. It serves as a service platform for individuals to trade
-						their services and strengths, and in return, learn skills or get
-						personal assistance from subject matter esperts thereby removing
-						all barriers of peer to peer learning. Choose from a Range of
-						Services to help you excel in life, and most importantly,
-						experience the true joy of sharing! So let's koin and see what
-						skills could enrich your life. And once you learnt something,
-						don't forget: Life is for sharing!</p>
-				</div>
+    <section>
+      <div class="flex-container container index-text">
+        <div class="row no-gutters">
+          <h1 class="h1-index">Welcome to SkillHub</h1>
+          <p class="p-index"></i>SkillHub is a social platform for skill exchange. It serves as a service platform for
+            individuals to trade their services and strengths, and in return, learn skills or get personal assistance
+            from subject matter esperts thereby removing all barriers of peer to peer learning. Choose from a Range of
+            Services to help you excel in life, and most importantly, experience the true joy of sharing! So let's koin
+            and see what skills could enrich your life. And once you learnt something, don't forget: Life is for
+            sharing!</p>
+        </div>
 
-				<div class="row no-gutters">
-					<p>
-						<iframe src="https://giphy.com/embed/BJmTtZL4hova8" width="480"
-							height="235" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-					</p>
+        <div class="row no-gutters">
+          <p>
+            <iframe src="https://giphy.com/embed/BJmTtZL4hova8" width="480" height="235" frameBorder="0"
+              class="giphy-embed" allowFullScreen></iframe>
+          </p>
 
-				</div>
+        </div>
 
-				<div class="row no-gutters">
+        <div class="row no-gutters">
 
-					<p>
-						<a
-							href="https://giphy.com/gifs/harry-potter-hermione-granger-ron-BJmTtZL4hova8">via
-							GIPHY</a>
-					</p>
-				</div>
-			</div>
-		</section>
+          <p>
+            <a href="https://giphy.com/gifs/harry-potter-hermione-granger-ron-BJmTtZL4hova8">via GIPHY</a>
+          </p>
+        </div>
+      </div>
+    </section>
 
-	</main>
+  </main>
 
 
-	<footer th:replace="fragments.html :: bottom">Here goes the
-		footer</footer>
+  <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 
 
 </body>

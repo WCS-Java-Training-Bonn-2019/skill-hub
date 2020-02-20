@@ -3,24 +3,25 @@ package com.wildcodeschool.skillhub.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 
 public interface UserService {
 
-	Optional<User> getSingleUser(Long userId);
+	List<User> getAllUsers();
+
+	List<User> getUsersWithSkill(Skill skill);
+
+	Optional<User> getSingleUserById(Long userId);
 
 	Optional<User> getSingleUserByEmail(String email);
-	
-	List<User> getUsersBySkillId(Long skillid);
-
-	List<User> getUsers();
-
-	void deleteUser(Long userId);
 
 	User createNewUser(User user);
-	
-	void updateUser(User user);
-	
-	boolean emailExists(String email); 
+
+	User updateUser(User user);
+
+	void deleteUser(User user);
+
+	boolean emailExists(String email);
 
 }

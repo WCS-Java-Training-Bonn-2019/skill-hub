@@ -42,7 +42,7 @@ public class ImageController {
 
 		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
 			if (userId != null) {
-				optionalUser = userService.getSingleUser(userId);
+				optionalUser = userService.getSingleUserById(userId);
 			}
 
 		} else {

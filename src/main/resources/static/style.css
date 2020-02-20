@@ -3,19 +3,19 @@ html {
 }
 
 body {
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+	height: 100%;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
 }
 
 .img {
-  opacity: 0.5;
-  position: relative;
-  width: 100%;
-  object-fit: cover;
+	opacity: 0.5;
+	position: relative;
+	width: 100%;
+	object-fit: cover;
 }
 
-.img-view{
+.img-view {
 	margin-top: 2rem;
 	margin-left: 2rem;
 	margin-bottom: 2rem;
@@ -28,55 +28,51 @@ body {
 	font-weight: bold;
 }
 
-.avatar{
-  border-radius: 50%;
+.avatar {
+	border-radius: 50%;
 }
 
 .jumbotron {
-  position: relative;
-  max-height: 350px;
-  overflow: hidden;
-  padding: 0;
+	position: relative;
+	max-height: 350px;
+	overflow: hidden;
+	padding: 0;
 }
 
 .box {
-  position: absolute;
-  top: 50%;
-  transform: translate(0%, -50%);
+	position: absolute;
+	top: 50%;
+	transform: translate(0%, -50%);
 }
 
     <div class="changePw-box">
        
 @media only screen and (max-width: 400px) {
-  .display-4 {
-    font-size: 10vw;
-  }
-  .lead {
-    font-size: 5vw;
-  }
+	.display-4 {
+		font-size: 10vw;
+	}
+	.lead {
+		font-size: 5vw;
+	}
 }
 
 .display-4, .lead {
-  padding-left: 20px;
+	padding-left: 20px;
 }
 
 /* Settings für Navbar und Footer*/
-
 .navbar li {
-  list-style-type: none;
-  padding-left: 5vw;
+	list-style-type: none;
+	padding-left: 5vw;
 }
 
 .bg-light {
-  background-color: orange !important;
-  padding: 0;
-  padding-left: 2rem;
-    <div class="changePw-box">
-       
-  padding-right: 0.5rem;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
-
+	background-color: orange !important;
+	padding: 0;
+	padding-left: 2rem;
+	padding-right: 0.5rem;
+	padding-top: 0.2rem;
+	padding-bottom: 0.2rem;
 }
 
 .copyright {
@@ -84,54 +80,75 @@ body {
 }
 
 .card {
-  margin: 2rem;
+	margin: 2rem;
 }
 
 .container-edit {
-  margin: 2rem;
-  margin-left: 2rem;
+	margin: 2rem;
+	margin-left: 2rem;
 }
 
 /* Settings für Buttons*/
-
-.btn-danger{
+.btn-danger {
 	margin-top: 2rem;
 }
 
 .btn-block {
-    display: block;
-    width: 100%;
+	display: block;
+	width: 100%;
 }
 
 .backbutton {
 	margin-top: 2rem;
 }
 
-.edit{
+.edit {
 	margin-top: 2rem;
 }
 
-
 ul {
-  list-style-type: none;
-  margin: 0;>
-  padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 .card-title {
 	font-size: 36px;
 }
 
-.flex-container{
+.flex-container {
 	display: block;
 	align-items: center;
 	justify-content: center;
 }
 
+/* Martin's Übungen' */
+
+/* ==> css_selectors !!!
+=====> cssref/css_selectors
+
+==> background-size 
+
+==> flexbox guide
 
 
-/* Martin */
 
+
+
+.bar {
+	--> class ansprechen (mehrere Objeke ansprechen)
+}
+
+****************************************************************
+#baz {
+	--> id ansprechen (ist eindeutig pro HTML-Datei)
+}
+
+main {
+	--> main wird angesprochen
+}
+
+*/
 main.login_background {
 	background-image: url(../images/milkyway.jpg);
 	background-size: cover;
@@ -143,12 +160,9 @@ main.login_background {
 .login-box {
 	width: 800px;
 	height: 300px;
-	background-color: rgb(255,255,255,0.5);
+	background-color: rgb(255, 255, 255, 0.5);
 	border-radius: 1em;
-	
 }
-
-
 
 main.changePw_background {
 	background-image: url(../images/milkyway.jpg);
@@ -168,45 +182,19 @@ main.changePw_background {
 	margin-top: 2rem;
 	width: 400px;
 	height: 400px;
-	background-color: rgb(255,255,255,0.5);
+	background-color: rgb(255, 255, 255, 0.5);
 	border-radius: 1em;
-	margin: ($spacer * 3) !important;
-	
+	margin: ($spacer* 3) !important;
 }
 
-
-
-
-
-
-
-.headlineAdminPage{
-	margin-left: 1rem;
-	margin-top: 1rem;
-	/*
-	position: absolute;
-	top: 5%;
-	transform: translateY(-30%); */
-	
+/*
+.m-1 {
+  margin-left: ($spacer * .25) !important;
 }
-
-
-
-.adminButton{
-	margin-left: 1rem;
-	margin-bottom: 1rem;	
-}
-
-
-
-
-
-
-
+*/
 .changePwButtonRight {
 	padding-right: 16px;
-}
-
+}src/main/resources/static/style.css
 
 main.index {
 	background-image: url(../images/milkyway.jpg);
@@ -217,24 +205,43 @@ main.index {
 	flex-warp:
 }
 
-.index-text{
-	background-color: rgb(255,255,255,0.6);
+.index-text {
+	background-color: rgb(255, 255, 255, 0.6);
 }
 
-.p-index{
+.p-index {
 	padding-bottom: 2rem;
 	font-size: 1rem;
 	font-weight: 490;
 }
 
-.h1-index{
+.h1-index {
 	padding-top: 2rem;
 }
 
-.avatar{
+.avatar {
 	background-image: url(../images/avatar.png);
 	width: 60px;
-	height:60px;
+	height: 60px;
 	background-size: cover;
 	display: inline-block;
+}
+
+.btn-outline-secondary:hover {
+	color: #fff;
+	background-color: rgba(0, 0, 0, .5);
+	border-color: rgba(0, 0, 0, .5);
+	font-size: 1rem;
+}
+
+.btn-group-sm>.btn, .btn-sm {
+	padding: .25rem .5rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .2rem;
+}
+
+.btn-outline-secondary {
+	color: rgba(0, 0, 0, .7);
+	border-color: rgba(0, 0, 0, .7);
 }
