@@ -22,17 +22,9 @@
 
   <main class="changePw_background">
 
-   
-
-
-
-
-
-
-
 
     <div class="changePw-box">
-
+      <!-- <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10"> -->
       <section>
         <div class="flex-container container">
           <form method="post" th:action="@{/password/upsert}" th:object="${passwordForm}">
@@ -42,7 +34,7 @@
               <h2>Change Password</h2>
 
               <div class="row no-gutters">
-                <div class="col-7">
+                <div class="col-12">
 
                   <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
                     href="javascript:javascript:history.go(-1)" class="btn btn-dark btn-block"><span
@@ -57,7 +49,7 @@
               </div>
 
               <div class="row no-gutters">
-                <div class="col-7">
+                <div class="col-12">
 
 
                   <p>
@@ -75,7 +67,7 @@
 
 
               <div class="row no-gutters">
-                <div class="col-7">
+                <div class="col-12">
 
 
                   <input type="password" class="form-control" id="passwordRepeated"
@@ -92,7 +84,7 @@
 
 
             <div class="row no-gutters">
-              <div class="col-7">
+              <div class="col-12">
                 <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
 
                 <button type="submit" value="Submit" class="btn btn-lg btn-success btn-block">Change Password</button>
@@ -106,7 +98,7 @@
 
 
           <div class="row no-gutters">
-            <div class="col-7">
+            <div class="col-12">
               <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
                 href="javascript:javascript:history.go(-1)" class="btn btn-lg btn-danger btn-block">Don't change
                 Password</a>
