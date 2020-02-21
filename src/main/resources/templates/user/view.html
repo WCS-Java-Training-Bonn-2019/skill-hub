@@ -10,119 +10,80 @@
 
   <main>
 
-    <div class="flex-container">
-      <div class="container cards">
-        <div class="row no-gutters">
+    <div class="container">
 
-          <div class="card w-75">
-            <div class="card-header">
-              <i class="fas fa-user"></i> User Profile
-            </div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
+      <div class="row">
+      
+        <div class="col col-6 col-lg-2">
+          <img class="img-view" th:unless="${user.image}" src="../images/avatar.png" height="150" width="150"> <img
+            class="img-view" th:if="${user.image}" th:src="@{'/user/' + ${user.id} + '/image'}" height="150" width="150">
+        </div>
 
-                <div class="card mb-3">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
+        <div class="w-100 d-block d-lg-none"></div>
+        
+        <div class="col col-12 col-lg-8">
+          <div>
+            <form th:object="${user}">
 
-                      <img class="img-view" th:unless="${user.image}" src="../images/avatar.png" height="150"
-                        width="150"> <img class="img-view" th:if="${user.image}"
-                        th:src="@{'/user/' + ${user.id} + '/image'}" height="150" width="150">
+              <h2 class="headline">Your profile</h2>
 
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <p class="card-text">
-                        <div class="flex-container">
-
-                          <div class="row no-gutters">
-                            <div class="col-4">
-                              <p class="bold">Firstname:</p>
-                            </div>
-                            <div class="col-1">
-                              <p></p>
-                            </div>
-                            <div class="col-6">
-                              <p th:text="|${user.firstName}|"></p>
-                            </div>
-                          </div>
-
-                          <div class="row no-gutters">
-                            <div class="col-4">
-                              <p class="bold">Lastname:</p>
-                            </div>
-                            <div class="col-1">
-                              <p></p>
-                            </div>
-                            <div class="col-6">
-                              <p th:text="|${user.lastName}|"></p>
-                            </div>
-                          </div>
-
-                          <div class="row no-gutters">
-                            <div class="col-4">
-                              <p class="bold">Age:</p>
-                            </div>
-                            <div class="col-1">
-                              <p></p>
-                            </div>
-                            <div class="col-6">
-                              <p th:text="|${user.age}|"></p>
-                            </div>
-                          </div>
-
-                          <div class="row no-gutters">
-                            <div class="col-4">
-                              <p class="bold">City:</p>
-                            </div>
-                            <div class="col-1">
-                              <p></p>
-                            </div>
-                            <div class="col-6">
-                              <p th:text="|${user.city}|"></p>
-                            </div>
-                          </div>
-
-                          <div class="row no-gutters">
-                            <div class="col-4">
-                              <p class="bold">E-Mail:</p>
-                            </div>
-                            <div class="col-1">
-                              <p></p>
-                            </div>
-                            <div class="col-6">
-                              <p th:text="|${user.email}|"></p>
-                            </div>
-                          </div>
-
-
-                          <div class="row no-gutters">
-                            <div class="col-4">
-                              <p class="bold">Description</p>
-                            </div>
-                            <div class="col-1">
-                              <p></p>
-                            </div>
-                            <div class="col-6">
-                              <p th:text="|${user.description}|"></p>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">First name</label>
+                <div class="col-sm-9">
+                  <div class="form-control-plaintext" th:text="*{firstName}"></div>
                 </div>
-              </blockquote>
+              </div>
 
-              <a href="javascript:javascript:history.go(-1)" class="btn btn-primary"> <i class="fas fa-arrow-left"></i>
-                Go Back
-              </a>
-            </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Last name</label>
+                <div class="col-sm-9">
+                  <div class="form-control-plaintext" th:text="*{lastName}"></div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Zip code</label>
+                <div class="col-sm-9">
+                  <div class="form-control-plaintext" th:text="*{zipCode}"></div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">City</label>
+                <div class="col-sm-9">
+                  <div class="form-control-plaintext" th:text="*{city}"></div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Date of birth</label>
+                <div class="col-sm-9">
+                  <div class="form-control-plaintext" th:text="*{#temporals.format(dateOfBirth, 'dd.MM.yyyy')}"></div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                  <a class="form-control-plaintext" th:href="'mailto:' + *{email}" target="_blank" th:text="*{email}"></a>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Description</label>
+                <div class="form-control-plaintext" th:text="*{description}"></div>
+              </div>
+
+              <h2 class="form-submit"></h2>
+
+              <a href="javascript:javascript:history.go(-1)" class="btn btn-primary"><i
+                class="fas fa-arrow-left fa-fw"></i> Back</a>
+
+            </form>
           </div>
         </div>
       </div>
+
     </div>
 
   </main>

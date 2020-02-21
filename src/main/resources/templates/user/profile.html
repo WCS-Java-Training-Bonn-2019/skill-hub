@@ -13,7 +13,15 @@
     <div class="container">
 
       <div class="row">
-        <div class="col col-12 col-lg-8 offset-lg-2">
+      
+        <div class="col col-6 col-lg-2">
+          <img class="img-view" th:unless="${user.image}" src="../images/avatar.png" width="100%"> <img
+            class="img-view" th:if="${user.image}" th:src="@{'/user/' + ${user.id} + '/image'}" width="100%">
+        </div>
+
+        <div class="w-100 d-block d-lg-none"></div>
+
+        <div class="col col-12 col-lg-8">
           <div>
             <form th:object="${user}">
 
@@ -63,8 +71,7 @@
 
               <div class="form-group">
                 <label class="col-form-label">Description</label>
-                <textarea readonly class="form-control-plaintext" id="user-description" name="description"
-                  th:field="*{description}" rows="3"></textarea>
+                <div class="form-control-plaintext" th:text="*{description}"></div>
               </div>
 
               <h2 class="form-submit"></h2>
@@ -80,132 +87,6 @@
     </div>
 
   </main>
-
-
-
-  <!--   <section> -->
-
-
-  <!--     <div class="flex-container"> -->
-  <!--       <div class="container cards"> -->
-  <!--         <div class="row no-gutters"> -->
-
-  <!--           <div class="card" style="width: 50rem;"> -->
-  <!--             <div class="card-header"><i class="fas fa-user"></i> User Profile</div> -->
-  <!--             <div class="card-body"> -->
-  <!--               <blockquote class="blockquote mb-0"> -->
-
-  <!--                 <div class="card mb-3"> -->
-  <!--                   <div class="row no-gutters"> -->
-  <!--                     <div class="col-md-4"> -->
-
-
-  <!--                       <img class="img-view" th:unless="${user.image}" src="../images/avatar.png" height="150" -->
-  <!--                         width="150"> -->
-  <!--                       <img class="img-view" th:if="${user.image}" th:src="@{'/user/' + ${user.id} + '/image'}" -->
-  <!--                         height="150" width="150"> -->
-
-  <!--                     </div> -->
-  <!--                     <div class="col-md-8"> -->
-  <!--                       <div class="card-body"> -->
-  <!--                         <p class="card-text"> -->
-  <!--                         <div class="flex-container"> -->
-
-  <!--                           <div class="row no-gutters"> -->
-  <!--                             <div class="col-4"> -->
-  <!--                               <p class="bold">Firstname:</p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-1"> -->
-  <!--                               <p></p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-6"> -->
-  <!--                               <p th:text="|${user.firstName}|"></p> -->
-  <!--                             </div> -->
-  <!--                           </div> -->
-
-  <!--                           <div class="row no-gutters"> -->
-  <!--                             <div class="col-4"> -->
-  <!--                               <p class="bold">Lastname:</p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-1"> -->
-  <!--                               <p></p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-6"> -->
-  <!--                               <p th:text="|${user.lastName}|"></p> -->
-  <!--                             </div> -->
-  <!--                           </div> -->
-
-  <!--                           <div class="row no-gutters"> -->
-  <!--                             <div class="col-4"> -->
-  <!--                               <p class="bold">Age:</p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-1"> -->
-  <!--                               <p></p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-6"> -->
-  <!--                               <p th:text="|${user.age}|"></p> -->
-  <!--                             </div> -->
-  <!--                           </div> -->
-
-  <!--                           <div class="row no-gutters"> -->
-  <!--                             <div class="col-4"> -->
-  <!--                               <p class="bold">City:</p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-1"> -->
-  <!--                               <p></p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-6"> -->
-  <!--                               <p th:text="|${user.city}|"></p> -->
-  <!--                             </div> -->
-  <!--                           </div> -->
-
-  <!--                           <div class="row no-gutters"> -->
-  <!--                             <div class="col-4"> -->
-  <!--                               <p class="bold">E-Mail:</p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-1"> -->
-  <!--                               <p></p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-6"> -->
-  <!--                               <p th:text="|${user.email}|"></p> -->
-  <!--                             </div> -->
-  <!--                           </div> -->
-
-
-  <!--                           <div class="row no-gutters"> -->
-  <!--                             <div class="col-4"> -->
-  <!--                               <p class="bold">Description</p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-1"> -->
-  <!--                               <p></p> -->
-  <!--                             </div> -->
-  <!--                             <div class="col-6"> -->
-  <!--                               <p th:text="|${user.description}|"></p> -->
-  <!--                             </div> -->
-  <!--                           </div> -->
-
-  <!--                         </div> -->
-  <!--                       </div> -->
-  <!--                     </div> -->
-  <!--                   </div> -->
-
-  <!--                 </div> -->
-  <!--               </blockquote> -->
-
-  <!--               <a th:href="@{/user/edit(id=${user.id})}" class="btn btn-primary"> -->
-  <!--                 <i class="fas fa-edit"></i> -->
-  <!--                 Edit -->
-  <!--               </a> -->
-  <!--             </div> -->
-
-  <!--           </div> -->
-  <!--         </div> -->
-
-  <!--       </div> -->
-  <!--     </div> -->
-
-  <!--   </section> -->
-
 
   <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 
