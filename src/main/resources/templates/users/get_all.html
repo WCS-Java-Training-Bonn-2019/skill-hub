@@ -17,10 +17,10 @@
         <div class="row no-gutters">
           <div class="col-2">
             <p></p>
-            <a href="/user/edit" class="btn btn-outline-primary" role="button" aria-pressed="true">Add a new user</a>
+            <a href="/register" class="btn btn-outline-primary" role="button" aria-pressed="true">Add a new user</a>
+           <!--  <a href="/user/edit" class="btn btn-outline-danger" role="button" aria-pressed="true">Change to Id order</a>  -->
             <p></p>
           </div>
-
           <p></p>
         </div>
 
@@ -28,7 +28,7 @@
           <table class="table">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">Id</th>
+                <th>Id</th>
                 <th scope="col">First name</th>
                 <th scope="col">Last name</th>
                 <th scope="col">Birthday</th>
@@ -36,11 +36,11 @@
                 <th scope="col">City</th>
                 <th scope="col">Email</th>
                 <th scope="col">Description</th>
-                <th scope="col">ImageURL</th>
+                <!-- <th scope="col">ImageURL</th>  -->
                 <th scope="col"></th>
                 <th scope="col"></th>
-
               </tr>
+              
             </thead>
             <tbody>
               <tr th:each="user : ${users}">
@@ -52,7 +52,7 @@
                 <td th:text="${user.city}">City</td>
                 <td th:text="${user.email}">Email</td>
                 <td th:text="${user.description}">Description</td>
-                <td th:text="${user.imageURL}">ImageURL</td>
+                <!-- <td th:text="${user.imageURL}">ImageURL</td>    -->
                 <td>
                   <a th:href="@{/user/edit(id=${user.id})}">Edit</a>
                 </td>
