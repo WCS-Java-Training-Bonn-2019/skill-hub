@@ -12,115 +12,114 @@
 
     <div class="container">
 
-      <form enctype="multipart/form-data" method="post" th:action="@{/user/upsert}" th:object="${userForm}">
-        <div class="row">
-          <div class="col col-12 col-lg-8 offset-lg-2">
-            <div class="card">
-              <div class="card-header">
-                <div class="row">
-                  <div class="col">
-                    <h3>Your Profile</h3>
-                  </div>
-                  <a class="btn btn-outline-primary" href="/changePw">Change Password</a>
-                </div>
+      <div class="row">
+        <div class="col col-12 col-lg-8 offset-lg-2">
+          <div>
+            <form enctype="multipart/form-data" method="post" th:action="@{/user/upsert}" th:object="${userForm}">
+
+              <h2 class="headline">Your profile</h2>
+
+              <div class="form-group">
+                <label for="user-first-name">First name</label><input type="text" class="form-control" id="firstName"
+                  name="firstName" placeholder="Stephanie" required th:field="*{firstName}">
               </div>
-              <div class="card-body">
 
-                <input name="id" th:field="*{id}" type="hidden">
-
-                <div class="form-group">
-                  <label for="user-first-name">First name</label><input type="text" class="form-control" id="firstName"
-                    name="firstName" placeholder="Stephanie" required th:field="*{firstName}">
-                </div>
-
-                <div class="form-group">
-                  <label for="user-last-name">Last name</label> <input type="text" class="form-control" id="lastName"
-                    name="lastName" placeholder="Bauer" th:field="*{lastName}">
-                </div>
-
-                <div class="form-group">
-                  <label for="zip-code">Zip code</label> <input type="text" class="form-control" id="zip-code"
-                    name="zipName" placeholder="90427" th:field="*{zipCode}">
-                </div>
-
-                <div class="form-group">
-                  <label for="City">City</label> <input type="text" class="form-control" id="city" name="city"
-                    placeholder="Nürnberg" required th:field="*{city}">
-                </div>
-
-                <div class="form-group">
-                  <label for="dateOfBirth">Birthday</label> <input type="date" class="form-control" id="dateOfBirth"
-                    name="dateOfBirth" placeholder="1995-06-21" required th:field="*{dateOfBirth}">
-                </div>
-
-                <div class="form-group">
-                  <label for="email">Email address</label> <input type="email" class="form-control" id="email"
-                    aria-describedby="emailHelp" name="email" placeholder="stephanie.bauer@telekom.de" required
-                    th:field="*{email}"> <small class="form-text text-muted">We'll never share your
-                    email with anyone else.</small>
-                </div>
-
-                <div class="form-group">
-                  <label for="user-description">Description</label>
-                  <textarea class="form-control" id="user-description" name="description"
-                    placeholder="Please enter your description here." th:field="*{description}" rows="3"></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label for="image">Upload your photo</label>
-                  <div class="col-sm-10">
-                    <input type="file" class="form-control-file" id="image" name="image" th:field="*{image}">
-                  </div>
-                  <span th:if="${#fields.hasErrors('*{image}')}" th:errors="*{image}">Image error</span>
-                </div>
+              <div class="form-group">
+                <label for="user-last-name">Last name</label> <input type="text" class="form-control" id="lastName"
+                  name="lastName" placeholder="Bauer" th:field="*{lastName}">
               </div>
-            </div>
+
+              <div class="form-group">
+                <label for="zip-code">Zip code</label> <input type="text" class="form-control" id="zip-code"
+                  name="zipName" placeholder="90427" th:field="*{zipCode}">
+              </div>
+
+              <div class="form-group">
+                <label for="City">City</label> <input type="text" class="form-control" id="city" name="city"
+                  placeholder="Nürnberg" required th:field="*{city}">
+              </div>
+
+              <div class="form-group">
+                <label for="dateOfBirth">Birthday</label> <input type="date" class="form-control" id="dateOfBirth"
+                  name="dateOfBirth" placeholder="1995-06-21" required th:field="*{dateOfBirth}">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email address</label> <input type="email" class="form-control" id="email"
+                  aria-describedby="emailHelp" name="email" placeholder="stephanie.bauer@telekom.de" required
+                  th:field="*{email}"> <small class="form-text text-muted">We'll never share your email
+                  with anyone else.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="user-description">Description</label>
+                <textarea class="form-control" id="user-description" name="description"
+                  placeholder="Please enter your description here." th:field="*{description}" rows="3"></textarea>
+              </div>
+
+              <h2 class="headline">Your photo</h2>
+
+              <div class="form-group">
+                <label for="image">Upload your photo</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control-file" id="image" name="image" th:field="*{image}">
+                </div>
+                <span th:if="${#fields.hasErrors('*{image}')}" th:errors="*{image}">Image error</span>
+              </div>
+
+              <h2 class="headline">Your skills</h2>
+
+              <ul>
+                <li th:each="userSkillLevel, stat : *{userSkillLevels}">
+                  <div class="custom-control custom-switch">
+                    <input type="hidden" th:field="*{userSkillLevels[__${stat.index}__].id}" /> <input
+                      class="custom-control-input" type="checkbox" th:id="${'toggle' + userSkillLevel.id}"
+                      th:field="*{userSkillLevels[__${stat.index}__].checked}" /> <label class="custom-control-label"
+                      th:for="${'toggle' + userSkillLevel.id}" th:text="${userSkillLevel.name}">Climbing </label>
+                  </div>
+                </li>
+              </ul>
+
+              <h2 class="headline">Your password</h2>
+
+              <a class="btn btn-outline-primary" href="/changePw">Change Password</a> <input name="id" th:field="*{id}"
+                type="hidden">
+
+              <h2 class="form-submit"></h2>
+
+              <button type="submit" value="Submit" class="btn btn-primary">Update profile</button>
+
+            </form>
           </div>
         </div>
+      </div>
 
-        <div class="row">
-          <div class="col col-12 col-lg-8 offset-lg-2">
-            <div class="card">
-              <div class="card-header">
-                <div class="row">
-                  <div class="col">
-                    <h3>Your Skills</h3>
-                  </div>
-                  <a class="btn btn-outline-primary" href="/changePw">Change Password</a>
-                </div>
-              </div>
-              <div class="card-body">
+      <div class="row">
+        <div class="col col-12 col-lg-10 offset-lg-2">
+          <hr class="solid">
+        </div>
+      </div>
 
-                <ul>
-                  <li th:each="userSkillLevel, stat : *{userSkillLevels}">
-                    <div class="custom-control custom-switch">
-                      <input type="hidden" th:field="*{userSkillLevels[__${stat.index}__].id}" /> <input
-                        class="custom-control-input" type="checkbox" th:id="${'toggle' + userSkillLevel.id}"
-                        th:field="*{userSkillLevels[__${stat.index}__].checked}" /> <label class="custom-control-label"
-                        th:for="${'toggle' + userSkillLevel.id}" th:text="${userSkillLevel.name}">Climbing </label>
-                    </div>
-                  </li>
-                </ul>
+      <div class="row">
+        <div class="col col-12 col-lg-8 offset-lg-2">
+          <div>
+            <form th:if="${userForm.id != null}" method="get" th:action="@{/user/delete}" th:object="${userForm}">
 
-                <button type="submit" value="Submit" class="btn btn-primary edit">Save Profile</button>
+              <h2 class="headline">Danger zone</h2>
 
+              <input name="id" th:field="*{id}" type="hidden">
 
-                <!--               <form th:if="${userForm.id != null}" method="get" th:action="@{/user/delete}" th:object="${userForm}"> -->
-                <!--                 <input name="id" th:field="*{id}" type="hidden"> -->
+              <button type="submit" value="Submit" class="btn btn-danger">
+                <i class="fas fa-trash-alt fa-fw"></i> Permanently delete my Account
+              </button>
 
-                <!--                 <button type="submit" value="Submit" class="btn btn-danger"> -->
-                <!--                   <i class="fas fa-trash-alt"></i> Permanently delete my Account -->
-                <!--                 </button> -->
-                <!--               </form> -->
-              </div>
-            </div>
+            </form>
           </div>
         </div>
-        
-      </form>
+      </div>
 
     </div>
-    
+
   </main>
 
   <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
