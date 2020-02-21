@@ -8,16 +8,15 @@
 
   <header th:replace="fragments.html :: top">Here goes the header</header>
 
+  <main>
 
-  <section>
     <div class="flex-container">
       <div class="container cards">
         <div class="row no-gutters">
 
           <div class="card w-75">
             <div class="card-header">
-              <i class="fas fa-user"></i>
-              User Profile
+              <i class="fas fa-user"></i> User Profile
             </div>
             <div class="card-body">
               <blockquote class="blockquote mb-0">
@@ -27,9 +26,8 @@
                     <div class="col-md-4">
 
                       <img class="img-view" th:unless="${user.image}" src="../images/avatar.png" height="150"
-                        width="150">
-                      <img class="img-view" th:if="${user.image}" th:src="@{'/user/' + ${user.id} + '/image'}"
-                        height="150" width="150">
+                        width="150"> <img class="img-view" th:if="${user.image}"
+                        th:src="@{'/user/' + ${user.id} + '/image'}" height="150" width="150">
 
                     </div>
                     <div class="col-md-8">
@@ -118,23 +116,16 @@
                 </div>
               </blockquote>
 
-              <a href="javascript:javascript:history.go(-1)" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i>
+              <a href="javascript:javascript:history.go(-1)" class="btn btn-primary"> <i class="fas fa-arrow-left"></i>
                 Go Back
               </a>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
-  </section>
 
-
-  <hr />
-
-
+  </main>
 
   <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 
