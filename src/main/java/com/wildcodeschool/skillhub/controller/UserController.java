@@ -69,7 +69,8 @@ public class UserController {
 	@GetMapping("/admin")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userService.getAllUsers());
+		//model.addAttribute("users", userService.getAllUsers());
+		model.addAttribute("users", userService.findAllUsersOrderByFirstName());
 
 		return "users/get_all";
 	}

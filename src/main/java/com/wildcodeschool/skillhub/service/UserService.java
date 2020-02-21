@@ -9,6 +9,8 @@ import com.wildcodeschool.skillhub.model.User;
 public interface UserService {
 
 	List<User> getAllUsers();
+	
+	List<User> findAllUsersOrderByFirstName();
 
 	List<User> getUsersWithSkill(Skill skill);
 

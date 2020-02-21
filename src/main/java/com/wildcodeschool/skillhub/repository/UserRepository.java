@@ -13,6 +13,8 @@ import com.wildcodeschool.skillhub.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	List<User> findAll();
+	
+	List<User> findAllByOrderByFirstName();
 
 	List<User> findByUserSkills_Skill(Skill skill);
 

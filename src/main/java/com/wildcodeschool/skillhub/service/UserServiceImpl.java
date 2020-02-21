@@ -32,6 +32,14 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
+	
+	
+	@Override
+	public List<User> findAllUsersOrderByFirstName() {
+		//return userRepository.findAll();
+		return userRepository.findAllByOrderByFirstName();
+	}
+	
 
 	@Override
 	public List<User> getUsersWithSkill(Skill skill) {
