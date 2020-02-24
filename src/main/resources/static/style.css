@@ -1,9 +1,5 @@
-/* Spacing between ">>" icon and footer items in the footer */
-#footer ul.quick-links li a i {
-	margin-right: 5px;
-}
-
 /* Sticky Footer */
+
 body {
 	display: flex;
 	min-height: 100vh;
@@ -14,7 +10,14 @@ main {
 	flex: 1;
 }
 
+/* Spacing between ">>" icon and footer items in the footer */
+
+#footer ul.quick-links li a i {
+	margin-right: 5px;
+}
+
 /* Styles for login form */
+
 .form-signin {
 	padding: 15px;
 	margin: 0 auto;
@@ -62,11 +65,15 @@ main {
 	flex: 1;
 }
 
-/* body { */
-/* 	height: 100%; */
-/* 	display: grid; */
-/* 	grid-template-rows: auto 1fr auto; */
-/* } */
+/* Style for avatar picture in header */
+
+.avatar {
+	border-radius: 50%;
+	background-image: url(../images/avatar.png);
+	width: 4rem;
+	height: 4rem;
+}
+
 
 /* .img { */
 /* 	opacity: 0.5; */
@@ -88,9 +95,6 @@ main {
 /* 	font-weight: bold; */
 /* } */
 
-/* .avatar { */
-/* 	border-radius: 50%; */
-/* } */
 
 /* .jumbotron { */
 /* 	position: relative; */
@@ -189,43 +193,6 @@ main {
 /* 	font-size: 36px; */
 /* } */
 
-/* .flex-container { */
-/* 	display: block; */
-/* 	align-items: center; */
-/* 	justify-content: center; */
-/* } */
-
-/* main.login_background { */
-/* 	background-image: url(../images/milkyway.jpg); */
-/* 	background-size: cover; */
-/* 	display: flex; */
-/* 	justify-content: center; */
-/* 	align-items: center; */
-/* } */
-
-/* .login-box { */
-/* 	width: 800px; */
-/* 	height: 300px; */
-/* 	background-color: rgb(255, 255, 255, 0.5); */
-/* 	border-radius: 1em; */
-/* } */
-
-/* main.changePw_background { */
-/* 	background-image: url(../images/milkyway.jpg); */
-/* 	background-size: cover; */
-/* 	display: flex; */
-/* 	justify-content: center; */
-/* 	align-items: center; */
-/* } */
-
-/* .changePw-box { */
-/* 	width: 1200px; */
-/* 	height: 400px; */
-/* 	background-color: rgb(255, 255, 255, 0.5); */
-/* 	border-radius: 1em; */
-/* 	margin: ($spacer* 3) !important; */
-/* } */
-
 /* /* */
 /* .m-1 { */
 /*   margin-left: ($spacer * .25) !important; */
@@ -239,14 +206,6 @@ main {
  
 
 
-
-
-
-*
-/
-/* .changePwButtonRight { */
-/* 	padding-right: 16px; */
-/* } */
 
 /* main.index { */
 /* 	background-image: url(../images/milkyway.jpg); */
@@ -267,33 +226,3 @@ main {
 /* 	font-weight: 490; */
 /* } */
 
-/* .h1-index { */
-/* 	padding-top: 2rem; */
-/* } */
-
-/* .avatar { */
-/* 	background-image: url(../images/avatar.png); */
-/* 	width: 60px; */
-/* 	height: 60px; */
-/* 	background-size: cover; */
-/* 	display: inline-block; */
-/* } */
-
-/* .btn-outline-secondary:hover { */
-/* 	color: #fff; */
-/* 	background-color: rgba(0, 0, 0, .5); */
-/* 	border-color: rgba(0, 0, 0, .5); */
-/* 	font-size: 1rem; */
-/* } */
-
-/* .btn-group-sm>.btn, .btn-sm { */
-/* 	padding: .25rem .5rem; */
-/* 	font-size: 1rem; */
-/* 	line-height: 1.5; */
-/* 	border-radius: .2rem; */
-/* } */
-
-/* .btn-outline-secondary { */
-/* 	color: rgba(0, 0, 0, .7); */
-/* 	border-color: rgba(0, 0, 0, .7); */
-/* } */

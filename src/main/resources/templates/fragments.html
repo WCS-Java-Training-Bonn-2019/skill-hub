@@ -44,7 +44,7 @@
 
         </ul>
 
-        <a th:href="@{'/user/profile'}"> <img class="avatar" sec:authorize="hasRole('ROLE_USER')"
+        <a th:href="@{'/user/profile'}"> <img class="mr-3 my-2 avatar" sec:authorize="hasRole('ROLE_USER')"
           th:src="@{'/avatar/image'} != null ? @{'/avatar/image'} : '/images/avatar.png'" alt=" ">
         </a> <a class="btn btn-outline-primary btn-sm" sec:authorize="!isAuthenticated()" href="/login">Login / Register</a>
         <a class="btn btn-outline-primary btn-sm" sec:authorize="isAuthenticated()" href="/logout">Logout</a>

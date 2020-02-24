@@ -18,6 +18,7 @@
     <!--         <p class="lead" style="color: black">What are you looking for?</p> -->
     <!--       </div> -->
     <!--     </div> -->
+    
     <div class="container">
       <div class="row">
         <div class="col col-12 col-sm-6 col-lg-4 mb-4" th:each="skill : ${skills}">
@@ -25,7 +26,7 @@
             <img class="card-img-top" th:src="@{${'../images/' + skill.imageURL}}">
             <div class="card-body">
               <h5 th:text="${skill.name}" class="card-title">Name</h5>
-              <a th:href="@{${'users/search?id=' + skill.id}}" class="btn btn-primary">Find skilled people</a>
+              <a th:href="@{${'users/search?id=' + skill.id}}" class="btn btn-primary">Find on SkillHub</a>
             </div>
           </div>
         </div>
