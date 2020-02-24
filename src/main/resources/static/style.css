@@ -14,9 +14,52 @@ main {
 	flex: 1;
 }
 
-/* Border for forms */
-hr.solid {
-	border-top: 1px solid #ced4da;
+/* Styles for login form */
+.form-signin {
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-one-column {
+	max-width: 330px;
+}
+
+.form-two-columns {
+	max-width: 660px;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+	padding-top: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: 400;
+}
+
+.form-signin .form-control {
+	position: relative;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column
+}
+
+.flex-fill-vertical {
+	flex: 1;
 }
 
 /* body { */
@@ -107,7 +150,15 @@ hr.solid {
 
 /* /* Settings für Buttons*/
 
+
+
+
+
  
+
+
+
+
 
 *
 /
@@ -181,7 +232,15 @@ hr.solid {
 /* } */
 /* */
 
+
+
+
+
  
+
+
+
+
 
 *
 /
