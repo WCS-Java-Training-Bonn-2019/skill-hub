@@ -47,11 +47,11 @@ public class SkillHubApplication {
 			Skill dogs = Skill.builder().name("Dogs").imageURL("dogs.jpg").build();
 			Skill motorbike = Skill.builder().name("Motorbike").imageURL("motorbike.jpg").build();
 			Skill coding = Skill.builder().name("Coding").imageURL("coding.jpg").build();
-			Skill tanzen = Skill.builder().name("Tanzen").imageURL("tanzen.jpg").build();
+			Skill dancing = Skill.builder().name("Dancing").imageURL("dancing.jpg").build();
 			Skill carneval = Skill.builder().name("Fasching ;-)").imageURL("carneval.jpg").build();
-			Skill segeln = Skill.builder().name("Segeln").imageURL("segeln.jpg").build();
-			Skill kistenSchleppen = Skill.builder().name("Kisten-Schleppen").imageURL("kistenSchleppen.jpg").build();
-			Skill schachSpielen = Skill.builder().name("Schach").imageURL("schach.jpg").build();
+			Skill sailing = Skill.builder().name("Sailing").imageURL("sailing.jpg").build();
+			Skill moving = Skill.builder().name("Moving").imageURL("moving.jpg").build();
+			Skill chess = Skill.builder().name("Chess").imageURL("chess.jpg").build();
 			
 			
 			
@@ -67,11 +67,11 @@ public class SkillHubApplication {
 			skillService.createNewSkill(dogs);
 			skillService.createNewSkill(motorbike);
 			skillService.createNewSkill(coding);
-			skillService.createNewSkill(tanzen);
+			skillService.createNewSkill(dancing);
 			skillService.createNewSkill(carneval);
-			skillService.createNewSkill(segeln);
-			skillService.createNewSkill(kistenSchleppen);
-			skillService.createNewSkill(schachSpielen);
+			skillService.createNewSkill(sailing);
+			skillService.createNewSkill(moving);
+			skillService.createNewSkill(chess);
 			
 			// Create user objects
 			User susanne = User.builder().email("susanne-heer@web.de").password(endcodedPassword).firstName("Susanne")
@@ -168,7 +168,7 @@ public class SkillHubApplication {
 					.imageURL("metje.png").description("5. Jahreszeit: Fasching! Oder wie heißt das ;)").build();
 			User michael_be = User.builder().email("michael_be@magenta.de").password(endcodedPassword).firstName("Michael")
 					.lastName("Alleskönner").zipCode("53038").city("Bonn").dateOfBirth(LocalDate.of(1974, 6, 2))
-					.imageURL("michael_be.png").description("Never heart 'FindBy'? I did it!").build();
+					.imageURL("michael_be.png").description("Never heard 'FindBy'? I did it!").build();
 			User michael_bl = User.builder().email("michael_bl@magenta.de").password(endcodedPassword).firstName("Michael")
 					.lastName("Durchstarter").zipCode("53039").city("Bonn").dateOfBirth(LocalDate.of(1955, 6, 2))
 					.imageURL("michael_bl.png").description("I am already Opa - would you have guessed?").build();
@@ -180,7 +180,7 @@ public class SkillHubApplication {
 					.imageURL("michael_o.png").description("One box more? No problem: Ask me!").build();
 			User ralf = User.builder().email("ralf@magenta.de").password(endcodedPassword).firstName("Ralf")
 					.lastName("Superquelle (SQL)").zipCode("53042").city("Bonn").dateOfBirth(LocalDate.of(1965, 6, 2))
-					.imageURL("ralf.png").description("SuperQueLle, JavaScript, ... ask me - it is fun!").build();
+					.imageURL("ralf.png").description("SuperQuelle, JavaScript, ... ask me - it is fun!").build();
 			User steffen = User.builder().email("steffen@magenta.de").password(endcodedPassword).firstName("Steffen")
 					.lastName("Halbvoll").zipCode("53043").city("Bonn").dateOfBirth(LocalDate.of(1980, 6, 2))
 					.imageURL("steffen.png").description("Mein Glas ist 2x halbvoll ;-) --> Fragen?").build();
@@ -215,19 +215,19 @@ public class SkillHubApplication {
 			
 			
 			// Add some skills to NEW users
-			arne.addSkill(coding).addSkill(books).addSkill(segeln);
+			arne.addSkill(coding).addSkill(books).addSkill(sailing);
 			andre.addSkill(coding).addSkill(books);
-			claus.addSkill(coding).addSkill(books).addSkill(schachSpielen);
+			claus.addSkill(coding).addSkill(books).addSkill(chess);
 			frank_f.addSkill(coding).addSkill(books);
 			frank_g.addSkill(coding).addSkill(books);
 			marcel.addSkill(coding).addSkill(books);
 			markus.addSkill(coding).addSkill(books);
-			martin.addSkill(coding).addSkill(books).addSkill(segeln).addSkill(tanzen);
-			metje.addSkill(coding).addSkill(books).addSkill(tanzen).addSkill(carneval);
+			martin.addSkill(coding).addSkill(books).addSkill(sailing).addSkill(dancing);
+			metje.addSkill(coding).addSkill(books).addSkill(dancing).addSkill(carneval);
 			michael_be.addSkill(coding).addSkill(books);
 			michael_bl.addSkill(coding).addSkill(books);
-			michael_k.addSkill(coding).addSkill(books).addSkill(segeln).addSkill(tanzen).addSkill(carneval);
-			michael_o.addSkill(coding).addSkill(books).addSkill(kistenSchleppen);
+			michael_k.addSkill(coding).addSkill(books).addSkill(sailing).addSkill(dancing).addSkill(carneval);
+			michael_o.addSkill(coding).addSkill(books).addSkill(moving);
 			steffen.addSkill(coding).addSkill(books);
 			stephanie.addSkill(coding).addSkill(books).addSkill(carneval);
 			ralf.addSkill(coding).addSkill(books);

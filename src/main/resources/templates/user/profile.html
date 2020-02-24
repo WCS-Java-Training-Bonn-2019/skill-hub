@@ -25,51 +25,51 @@
           <div class="container-fluid">
             <form th:object="${user}">
 
-              <h2 class="headline">Your profile</h2>
+              <h2 class="headline" th:text="*{firstName}">Michael</h2>
 
-              <div class="form-group row">
+              <div class="row">
                 <label class="col-sm-3 col-form-label">First name</label>
                 <div class="col-sm-9">
                   <div class="form-control-plaintext" th:text="*{firstName}"></div>
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="row">
                 <label class="col-sm-3 col-form-label">Last name</label>
                 <div class="col-sm-9">
                   <div class="form-control-plaintext" th:text="*{lastName}"></div>
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="row">
                 <label class="col-sm-3 col-form-label">Zip code</label>
                 <div class="col-sm-9">
                   <div class="form-control-plaintext" th:text="*{zipCode}"></div>
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="row">
                 <label class="col-sm-3 col-form-label">City</label>
                 <div class="col-sm-9">
                   <div class="form-control-plaintext" th:text="*{city}"></div>
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="row">
                 <label class="col-sm-3 col-form-label">Age</label>
                 <div class="col-sm-4">
                   <div class="form-control-plaintext" th:text="*{age}"></div>
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="row">
                 <label class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
                   <a class="form-control-plaintext" th:href="'mailto:' + *{email}" target="_blank" th:text="*{email}"></a>
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="row">
                 <label class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-9">
                   <div class="form-control-plaintext" th:text="*{description}"></div>
