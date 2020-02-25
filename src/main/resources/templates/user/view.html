@@ -16,7 +16,7 @@
 
         <div class="col col-6 col-lg-2">
           <img class="img-view" th:unless="${user.image}" src="../images/avatar.png" height="150" width="150"> <img
-            class="img-view" th:if="${user.image}" th:src="@{'/user/' + ${user.id} + '/image'}" height="150" width="150">
+            class="img-view" th:if="${user.image}" th:src="@{'/images/user/' + ${user.id}}" height="150" width="150">
         </div>
 
         <div class="w-100 d-block d-lg-none"></div>

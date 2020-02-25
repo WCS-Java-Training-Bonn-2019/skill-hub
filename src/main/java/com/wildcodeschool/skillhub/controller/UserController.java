@@ -43,7 +43,7 @@ public class UserController {
 		this.skillService = skillService;
 	}
 
-	@GetMapping("/user/{userId}/image")
+	@GetMapping("/images/user/{userId}")
 	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId) {
 
 		Optional<User> optionalUser = userService.getSingleUserById(userId);
