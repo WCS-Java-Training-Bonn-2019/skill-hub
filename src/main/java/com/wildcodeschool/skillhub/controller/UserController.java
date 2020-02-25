@@ -5,11 +5,15 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,20 +42,17 @@ public class UserController {
 		this.userService = userService;
 		this.skillService = skillService;
 	}
-	
+
 	@GetMapping("/user/{userId}/image")
-	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId){
-		
+	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId) {
+
 		Optional<User> optionalUser = userService.getSingleUserById(userId);
 		if (optionalUser.isPresent() && optionalUser.get().getImage() != null) {
 			User user = optionalUser.get();
-			
-			return ResponseEntity.status(HttpStatus.OK)
-					.contentType(MediaType.IMAGE_PNG)
-					.body(user.getImage());
+
+			return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_PNG).body(user.getImage());
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.build();
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 	// Show users with a certain skill
@@ -69,7 +70,7 @@ public class UserController {
 	@GetMapping("/admin")
 	public String getAll(Model model) {
 
-		//model.addAttribute("users", userService.getAllUsers());
+		// model.addAttribute("users", userService.getAllUsers());
 		model.addAttribute("users", userService.findAllUsersOrderByFirstName());
 
 		return "users/get_all";
@@ -202,7 +203,8 @@ public class UserController {
 
 	// Delete a user
 	@GetMapping("/user/delete")
-	public String deleteUser(@RequestParam(name = "id", required = false) Long userId, HttpServletRequest request) {
+	public String deleteUser(@RequestParam(name = "id", required = false) Long userId, HttpServletRequest request,
+			HttpServletResponse response) {
 		User user = getUser(userId, request);
 
 		if (user == null) {
@@ -211,7 +213,18 @@ public class UserController {
 
 		userService.deleteUser(user);
 
-		return "redirect:/user/deleted";
+		// Logout the user if it was not the admin
+		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
+			return "redirect:/admin";
+		} else {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			if (auth != null) {
+				new SecurityContextLogoutHandler().logout(request, response, auth);
+			}
+
+			return "redirect:/user/deleted";
+		}
 	}
 
 	// Delete a user
