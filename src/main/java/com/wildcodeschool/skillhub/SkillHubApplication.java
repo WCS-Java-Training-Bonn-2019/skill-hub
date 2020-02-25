@@ -188,7 +188,7 @@ public class SkillHubApplication {
 					.lastName("Doppelstudent").zipCode("53044").city("Bonn").dateOfBirth(LocalDate.of(1990, 6, 2))
 					.imageURL("stephanie.png").description("I can do two things at the same time: Do you have two problems I can help with?").build();
 			User birgit = User.builder().email("birgit@magenta.de").password(endcodedPassword).firstName("Birgit")
-					.lastName("TimConnoisseur").zipCode("5310").city("Bonn").dateOfBirth(LocalDate.of(1973, 11, 14))
+					.lastName("TimConnoisseur").zipCode("53112").city("Bonn").dateOfBirth(LocalDate.of(1973, 11, 14))
 					.imageURL("birgit.png").description("I am a networker and supporter: What can I do for you?").build();
 			
 			

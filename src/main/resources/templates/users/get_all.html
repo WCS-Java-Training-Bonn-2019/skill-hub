@@ -11,32 +11,31 @@
   <section>
     <div class="flex-container" style="margin-right: 1rem; margin-left: 1rem;">
         <div class="row no-gutters" style="margin-top: 1rem;">
-          <h3>Users list (Admin page only)</h3>
+          <h3>All users</h3>
         </div>
 
         <div class="row no-gutters">
           <div class="col-2">
             <p></p>
             <a href="/register" class="btn btn-outline-primary" role="button" aria-pressed="true">Add a new user</a>
-           <!--  <a href="/user/edit" class="btn btn-outline-danger" role="button" aria-pressed="true">Change to Id order</a>  -->
             <p></p>
           </div>
           <p></p>
         </div>
 
         <div class="row no-gutters">
-          <table class="table">
-            <thead class="thead-dark">
+          <table class="table table-sm">
+            <thead class="thead-light">
               <tr>
                 <th>Id</th>
                 <th scope="col">First name</th>
                 <th scope="col">Last name</th>
                 <th scope="col">Birthday</th>
-                <th scope="col">ZipCode</th>
+                <th scope="col">Zip Code</th>
                 <th scope="col">City</th>
                 <th scope="col">Email</th>
                 <th scope="col">Description</th>
-                <!-- <th scope="col">ImageURL</th>  -->
+
                 <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
@@ -51,13 +50,13 @@
                 <td th:text="${user.zipCode}">Zip Code</td>
                 <td th:text="${user.city}">City</td>
                 <td th:text="${user.email}">Email</td>
-                <td th:text="${user.description}">Description</td>
-                <!-- <td th:text="${user.imageURL}">ImageURL</td>    -->
+                <td th:text="${user.description}" style="width: 20%">Description</td>
+
                 <td>
-                  <a th:href="@{/user/edit(id=${user.id})}">Edit</a>
+                  <a th:href="@{/user/edit(id=${user.id})}"><i class="fas fa-edit fa-fw"></i></a>
                 </td>
                 <td>
-                  <a th:href="@{/user/delete(id=${user.id})}">Delete user</a>
+                  <a th:href="@{/user/delete(id=${user.id})}"><i class="fas fa-trash-alt fa-fw"></i></a>
                 </td>
               </tr>
 

@@ -8,23 +8,24 @@
 
   <header th:replace="fragments.html :: top">Here goes the header</header>
 
-  <main role="main" class="inner cover">
-    <br>
-    <br>
-    <h1 class="cover-heading">Account has beed deleted.</h1>
-    <br>
-    <br>
-    <a href="/" class="btn btn-secondary">Back to Homepage</a>
-    <br>
-    <br>
-    <br>
-    <a href="/admin" class="btn btn-secondary">Return to the list (For Martin: delete later)</a>
-    <br>
-    <br>
+  <main>
+
+    <div class="container">
+      <form name="f" class="form-signin form-one-column" method="get" th:action="@{/}" action="/">
+        <div class="row">
+          <div class="col col-12">
+            <h2 class="form-signin-heading">Account has been deleted.</h2>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+              <i class="fas fa-home fa-fw"></i> Homepage
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
   </main>
 
-
-    <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
+  <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 
 </body>
 
