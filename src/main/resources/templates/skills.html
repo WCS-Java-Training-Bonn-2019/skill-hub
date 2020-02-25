@@ -9,21 +9,14 @@
   <header th:replace="fragments.html :: top">Here goes the header</header>
 
   <main>
-  
-    <!--Jumbotron-->
-    <!--     <div class="jumbotron"> -->
-    <!--       <img class="img" src="../images/milkyway.jpg" alt="alt"> -->
-    <!--       <div class="box"> -->
-    <!--         <h1 class="display-4" style="color: black">Find the skills your are searching for!</h1> -->
-    <!--         <p class="lead" style="color: black">What are you looking for?</p> -->
-    <!--       </div> -->
-    <!--     </div> -->
-    
+
     <div class="container">
       <div class="row">
         <div class="col col-12 col-sm-6 col-lg-4 mb-4" th:each="skill : ${skills}">
+
           <div class="card">
-            <img class="card-img-top" th:src="@{${'../images/' + skill.imageURL}}">
+            <a th:href="@{${'users/search?id=' + skill.id}}"> <img class="card-img-top"
+              th:src="@{${'../images/' + skill.imageURL}}"></a>
             <div class="card-body">
               <h5 th:text="${skill.name}" class="card-title">Name</h5>
               <a th:href="@{${'users/search?id=' + skill.id}}" class="btn btn-primary">Find on SkillHub</a>
