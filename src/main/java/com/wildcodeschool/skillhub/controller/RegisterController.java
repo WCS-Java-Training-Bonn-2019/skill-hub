@@ -2,6 +2,9 @@ package com.wildcodeschool.skillhub.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,19 +40,21 @@ public class RegisterController {
 	@GetMapping("/register")
 	public String showRegisterForm(UserForm userForm) {
 		List<Skill> skills = skillService.getAllSkills();
-		
+
 		for (Skill skill : skills) {
-			UserSkillLevel userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
-			
+			UserSkillLevel userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false,
+					skill.getImageURL());
+
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		
+
 		return "register";
 	}
 
 	// Register an login a new user
 	@PostMapping("/register")
-	public String postUser(@ModelAttribute UserForm userForm) {
+	public String postUser(@ModelAttribute UserForm userForm, HttpServletRequest request,
+			HttpServletResponse response) {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		User user = new User();
 
@@ -67,9 +72,10 @@ public class RegisterController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setDescription(userForm.getDescription());
-		user.setImage(userForm.getImage());
 
-		user = userService.createNewUser(user);
+		if (userForm.getImage().length != 0) {
+			user.setImage(userForm.getImage());
+		}
 
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
@@ -79,12 +85,19 @@ public class RegisterController {
 				user.addSkill(skillService.getSingleSkillById(userSkillLevel.getId()).get());
 			}
 		}
-		
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
-		SecurityContextHolder.getContext().setAuthentication(auth);
+		user = userService.createNewUser(user);
 
-		return "redirect:/";
+		// Login the user if it was not the admin
+		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
+			return "redirect:/admin";
+		} else {
+			Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+
+			SecurityContextHolder.getContext().setAuthentication(auth);
+
+			return "redirect:/";
+		}
 
 	}
 
