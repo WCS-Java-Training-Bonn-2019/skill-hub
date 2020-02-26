@@ -9,30 +9,28 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.wildcodeschool.skillhub.model.User;
 
-
-
 public class UserForm {
 
 	private Long id;
-	private String userName;
-	private String imageURL;
+	private byte[] image;
 	private String firstName;
 	private String lastName;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	private String zipCode;
 	private String city;
 	private String email;
+	private String password;
+	private String repeatedPassword;
 	private String description;
-	
+
 	private List<UserSkillLevel> userSkillLevels = new ArrayList<>();
-	
+
 	public UserForm() {
 	}
-	
+
 	public void setUser(User user) {
-		this.userName = user.getUserName();
-		this.imageURL = user.getImageURL();
+		this.image = user.getImage();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.dateOfBirth = user.getDateOfBirth();
@@ -45,25 +43,17 @@ public class UserForm {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public byte[] getImage() {
+		return image;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public String getFirstName() {
@@ -114,6 +104,22 @@ public class UserForm {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordRepeated() {
+		return repeatedPassword;
+	}
+
+	public void setPasswordRepeated(String repeatedPassword) {
+		this.repeatedPassword = repeatedPassword;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -133,5 +139,5 @@ public class UserForm {
 	public void setUserSkillLevels(List<UserSkillLevel> userSkillLevel) {
 		this.userSkillLevels = userSkillLevel;
 	}
-	
+
 }

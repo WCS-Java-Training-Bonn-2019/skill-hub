@@ -1,69 +1,56 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.NaturalId;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+// IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
-public class Skill {
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
+@Setter
+@Getter
+public class Skill implements Comparable<Skill> {
 
 	@Id
-	@Column(name = ("id"), updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skill_generator")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	@NaturalId
+	@Column(unique = true)
+	@NotNull
 	private String name;
+
 	private String imageURL;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "skill", cascade = CascadeType.ALL)
-	private List<UserSkill> users = new ArrayList<>();
+	@OneToMany(mappedBy = "skill")
+	@Builder.Default
+	@Setter(value = AccessLevel.NONE)
+	private Set<UserSkill> userSkills = new HashSet<>();
 
-	@SuppressWarnings("unused")
-	private Skill() {
-	}
-
-	public Skill(String name, String imageURL) {
-		super();
-		this.name = name;
-		this.imageURL = imageURL;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-
-	public List<UserSkill> getUsers() {
-		return users;
-	}
-
-	@Override
-	public String toString() {
-		return "Skill [getId=" + getId() + ", getName()=" + getName() + ", getImageURL()=" + getImageURL() + "]";
-
+	// Override lombok generated setter to make the collection read-only
+	public Set<UserSkill> getUserSkills() {
+		return Collections.unmodifiableSet(this.userSkills);
 	}
 
 	@Override
@@ -75,12 +62,22 @@ public class Skill {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Skill))
 			return false;
 		Skill other = (Skill) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Skill [id=" + id + ", name=" + name + ", imageURL=" + imageURL + "]";
+	}
+
+	@Override
+	public int compareTo(Skill other) {
+
+		// Use null-safe compare method from Apache StringUtils
+		return StringUtils.compare(this.getName(), other.getName());
 	}
 
 }

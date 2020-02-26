@@ -1,101 +1,61 @@
 package com.wildcodeschool.skillhub.model;
 
-import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+//IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
 @Table(name = "user_skill")
+@IdClass(UserSkillId.class)
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
+@Setter
+@Getter
 public class UserSkill {
 
-	@EmbeddedId
-	private UserSkillId id;
-
-	@ManyToOne
-	@JoinColumn
-	@MapsId("userId")
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
-	@ManyToOne
-	@JoinColumn
-	@MapsId("skillId")
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name = "skill_id", referencedColumnName = "id")
 	private Skill skill;
-
-	private Date createdOn;
-	private Boolean isOfferingSkill;
-
-	@SuppressWarnings("unused")
-	private UserSkill() {
-	}
-
-	public UserSkill(User user, Skill skill, Date createdOn, Boolean isOfferingSkill) {
-		super();
-		this.id = new UserSkillId(user.getId(), skill.getId());
-		this.user = user;
-		this.skill = skill;
-		this.createdOn = createdOn;
-		this.isOfferingSkill = isOfferingSkill;
-	}
-
-	public UserSkillId getId() {
-		return id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-		this.id.setUserId(user.getId());
-	}
-
-	public Skill getSkill() {
-		return skill;
-	}
-
-	public void setSkill(Skill skill) {
-		this.skill = skill;
-		this.id.setSkillId(skill.getId());
-	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public Boolean getIsOfferingSkill() {
-		return isOfferingSkill;
-	}
-
-	public void setIsOfferingSkill(Boolean isOfferingSkill) {
-		this.isOfferingSkill = isOfferingSkill;
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(skill, user);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof UserSkill))
 			return false;
 		UserSkill other = (UserSkill) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(skill, other.skill) && Objects.equals(user, other.user);
+	}
+
+	@Override
+	public String toString() {
+		return "UserSkill [user=" + user + ", skill=" + skill + "]";
 	}
 
 }

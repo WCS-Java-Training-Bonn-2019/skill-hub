@@ -1,0 +1,109 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+
+<head th:replace="fragments.html :: head"></head>
+
+<body>
+
+  <header th:replace="fragments.html :: top">Here goes the header</header>
+
+  <main class="changePw_background">
+
+
+    <div class="changePw-box">
+      <!-- <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10"> -->
+      <section>
+        <div class="flex-container container">
+          <form method="post" th:action="@{/password/upsert}" th:object="${passwordForm}">
+
+
+            <fieldset>
+              <h2>Change Password</h2>
+
+              <div class="row no-gutters">
+                <div class="col-12">
+
+                  <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
+                    href="javascript:javascript:history.go(-1)" class="btn btn-dark btn-block"><span
+                    sec:authentication="name"></span></a>
+
+                </div>
+              </div>
+
+
+              <div class="row no-gutters">
+                <p></p>
+              </div>
+
+              <div class="row no-gutters">
+                <div class="col-12">
+
+
+                  <p>
+
+                    <input type="password" class="form-control " id="password" aria-describedby="passwordHelp"
+                      name="password" onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;"
+                      placeholder="New password" required th:field="*{password}">
+                    <!-- required th:field="*{password}" -->
+
+                  </p>
+
+
+                </div>
+              </div>
+
+
+              <div class="row no-gutters">
+                <div class="col-12">
+
+
+                  <input type="password" class="form-control" id="passwordRepeated"
+                    aria-describedby="passwordRepeatedHelp" name="passwordRepeated"
+                    onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+                    placeholder="Repeat new password" required th:field="*{passwordRepeated}">
+                  <!--  th:field="*{passwordRepeated}"  -->
+
+
+                  <p></p>
+                </div>
+              </div>
+            </fieldset>
+
+
+            <div class="row no-gutters">
+              <div class="col-12">
+                <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3">
+
+                <button type="submit" value="Submit" class="btn btn-lg btn-success btn-block">Change Password</button>
+
+              </div>
+            </div>
+
+
+
+          </form>
+
+
+          <div class="row no-gutters">
+            <div class="col-12">
+              <input name="_csrf" type="hidden" value="f8bf43d7-b1d4-40e1-8098-c30160fdefe3"> <a
+                href="javascript:javascript:history.go(-1)" class="btn btn-lg btn-danger btn-block">Don't change
+                Password</a>
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+  </main>
+
+
+  <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
+
+
+</body>
+
+</html>

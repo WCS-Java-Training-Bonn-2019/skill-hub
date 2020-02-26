@@ -8,12 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
-import com.wildcodeschool.skillhub.repository.SkillRepository;
-import com.wildcodeschool.skillhub.repository.UserRepository;
-import com.wildcodeschool.skillhub.repository.UserSkillRepository;
+import com.wildcodeschool.skillhub.service.SkillService;
+import com.wildcodeschool.skillhub.service.UserService;
 
 @SpringBootApplication
 public class SkillHubApplication {
@@ -25,105 +26,176 @@ public class SkillHubApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserRepository userRepository, SkillRepository skillRepository, UserSkillRepository userSkillRepository) {
+	public PasswordEncoder getPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public CommandLineRunner demo(UserService userService, SkillService skillService) {
 		return (args) -> {
-			
-			// Create users manually
-			User susanne = new User("Susi723", "susanne.png", "Susanne", "GehtEuchNixAn", LocalDate.of(1952, 5, 17),
-					"28215", "Bremen", "susanne-heer@web.de", "");
-			User mia = new User("MiLove", "mia.png", "Mia", "Sommer", LocalDate.of(2002, 8, 1), "30453", "Hannover",
-					"mia-sommer07@gmx.de", "");
-			User lasse = new User("LasseRuckart", "lasse.png", "Lasse", "Ruckart", LocalDate.of(1982, 3, 14), "99092",
-					"Erfurt", "lasse82@outlook.de", "");
-			User alex = new User("alexBoy", "alex.png", "Alex", "Schmidt", LocalDate.of(1978, 2, 18),
-					"10319", "Berlin", "alexander-Boy@gmx.de", "Hi, I'm Alex and I'm cool!");
-			User antonia = new User("tonimoni", "antonia.png", "Antonia", "Müller", LocalDate.of(1992, 4, 17),
-					"1992", "Köln", "antonia-mueller@gmx.de", "");
-			User cem = new User("CemYOLO", "cem.png", "Cem", "Alan", LocalDate.of(2000, 5, 20),
-					"53290", "Frankfurt", "cem-champ@gmail.de", "");
-			User claudia = new User("cLaUdIa", "claudia.png", "Claudia", "Siebert", LocalDate.of(1979, 11, 18),
-					"90427", "Erlangen", "claudi-minigolf@arcor.de", "");
-			User daniel = new User("dannyDanger", "daniel.png", "Daniel", "Jäger", LocalDate.of(1970, 9, 4),
-					"43268", "Fulda", "daniel-jaeger1970@web.de", "");
-			User harald = new User("harryH", "harald.png", "Harald", "Krüger", LocalDate.of(1964, 3, 10),
-					"23456", "Braunschweig", "harald_Krueger@web.de", "");
-			User lennart = new User("lennarT", "lennart.png", "Lennart", "Peter", LocalDate.of(1995, 6, 21),
-					"78561", "Leipzig", "lennipeter95@web.de", "");
-			User maike = new User("maikeMi", "maike.png", "Maike", "Berger", LocalDate.of(1996, 4, 16),
-					"96325", "Hannover", "itsmemaike96@web.de", "");
-			User marina = new User("marryM", "marina.png", "Marina", "Bauer", LocalDate.of(1980, 7, 8),
-					"65123", "Offenbach", "marryM@web.de", "");
-			User reinhardt = new User("reini50", "reinhardt.png", "Reinhardt", "Lalalalal", LocalDate.of(1950, 5, 1),
-					"25456", "Bremen", "reini50-lalalal@t-online.de", "");
-			User robert = new User("Robot-Ro", "robert.png", "Robert", "Schmitz", LocalDate.of(1989, 10, 12),
-					"12594", "Kassel", "robert-schmitzzz@gmail.de", "");
-			User rolf = new User("Rolfi", "rolf.png", "Rolf", "Langner", LocalDate.of(1960, 9, 13),
-					"78652", "Erfurt", "rolf-langner@gmail.de", "");
-			User till = new User("tiLL", "till.png", "Tipp", "Hausner", LocalDate.of(1970, 6, 2),
-					"38751", "Düsseldorf", "till_hausner1970@web.de", "");
-			
-			
-			//Create skills manually
-			Skill climbing = new Skill("Climbing", "climbing.jpg");
-			Skill cooking = new Skill("Cooking", "cooking.jpg");
-			Skill books = new Skill("Books", "books.jpg");
-			Skill photography = new Skill("Photography", "photography.jpg");
-			Skill fashion = new Skill("Fashion", "fashion.jpg");
-			Skill golf = new Skill("Golf", "golf.jpg");
-			Skill baking = new Skill("Baking", "baking.jpg");
-			Skill dogs = new Skill("Dogs", "dogs.jpg");
-			Skill motorbike = new Skill ("Motorbike", "motorbike.jpg");
-			
-			
-			//Save users
-			userRepository.save(susanne);
-			userRepository.save(mia);
-			userRepository.save(lasse);
-			userRepository.save(alex);
-			userRepository.save(antonia);
-			userRepository.save(cem);
-			userRepository.save(claudia);
-			userRepository.save(daniel);
-			userRepository.save(harald);
-			userRepository.save(lennart);
-			userRepository.save(maike);
-			userRepository.save(marina);
-			userRepository.save(reinhardt);
-			userRepository.save(robert);
-			userRepository.save(rolf);
-			userRepository.save(till);
-			
-			//Save skills
-			skillRepository.save(climbing);
-			skillRepository.save(cooking);
-			skillRepository.save(books);
-			skillRepository.save(photography);
-			skillRepository.save(fashion);
-			skillRepository.save(golf);
-			skillRepository.save(baking);
-			skillRepository.save(dogs);
-			skillRepository.save(motorbike);
-			
-			System.out.println(userRepository.findAll());
-			System.out.println(skillRepository.findAll());
+			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String endcodedPassword = passwordEncoder.encode("1234");
 
-			log.info("Users found with findAll():");
-			log.info("---------------------------");
-			for (User user : userRepository.findAll()) {
-				log.info(user.toString());
-			}
-			log.info("");
+			// Create skill objects
+			Skill climbing = Skill.builder().name("Climbing").imageURL("climbing.jpg").build();
+			Skill cooking = Skill.builder().name("Cooking").imageURL("cooking.jpg").build();
+			Skill books = Skill.builder().name("Books").imageURL("books.jpg").build();
+			Skill photography = Skill.builder().name("Photography").imageURL("photography.jpg").build();
+			Skill fashion = Skill.builder().name("Fashion").imageURL("fashion.jpg").build();
+			Skill golf = Skill.builder().name("Golf").imageURL("golf.jpg").build();
+			Skill baking = Skill.builder().name("Baking").imageURL("baking.jpg").build();
+			Skill dogs = Skill.builder().name("Dogs").imageURL("dogs.jpg").build();
+			Skill motorbike = Skill.builder().name("Motorbike").imageURL("motorbike.jpg").build();
+			Skill coding = Skill.builder().name("Coding").imageURL("coding.jpg").build();
+			Skill tanzen = Skill.builder().name("Tanzen").imageURL("tanzen.jpg").build();
+			Skill carneval = Skill.builder().name("Fasching ;-)").imageURL("carneval.jpg").build();
+			Skill segeln = Skill.builder().name("Segeln").imageURL("segeln.jpg").build();
+			Skill kistenSchleppen = Skill.builder().name("Kisten-Schleppen").imageURL("kistenSchleppen.jpg").build();
+			Skill schachSpielen = Skill.builder().name("Schach").imageURL("schach.jpg").build();
+			
+			
+			
 
-			log.info("Skills found with findAll():");
-			log.info("----------------------------");
-			for (Skill skill : skillRepository.findAll()) {
-				log.info(skill.toString());
-			}
-			log.info("");
+			// Create skills in DB
+			skillService.createNewSkill(climbing);
+			skillService.createNewSkill(cooking);
+			skillService.createNewSkill(books);
+			skillService.createNewSkill(photography);
+			skillService.createNewSkill(fashion);
+			skillService.createNewSkill(golf);
+			skillService.createNewSkill(baking);
+			skillService.createNewSkill(dogs);
+			skillService.createNewSkill(motorbike);
+			skillService.createNewSkill(coding);
+			skillService.createNewSkill(tanzen);
+			skillService.createNewSkill(carneval);
+			skillService.createNewSkill(segeln);
+			skillService.createNewSkill(kistenSchleppen);
+			skillService.createNewSkill(schachSpielen);
+			
+			// Create user objects
+			User susanne = User.builder().email("susanne-heer@web.de").password(endcodedPassword).firstName("Susanne")
+					.lastName("GehtEuchNixAn").zipCode("28215").city("Bremen").dateOfBirth(LocalDate.of(1952, 5, 17))
+					.imageURL("susanne.png").build();
 
-			susanne.addSkill(cooking);
-			susanne.addSkill(baking);
-			susanne.addSkill(books);
+			User mia = User.builder().email("mia-sommer07@gmx.de").password(endcodedPassword).firstName("Mia")
+					.lastName("Sommer").zipCode("30453").city("Hannover").dateOfBirth(LocalDate.of(2002, 8, 1))
+					.imageURL("mia.png").build();
+
+			User lasse = User.builder().email("lasse82@outlook.de").password(endcodedPassword).firstName("Lasse")
+					.lastName("Ruckart").zipCode("99092").city("Erfurt").dateOfBirth(LocalDate.of(1982, 3, 14))
+					.imageURL("lasse.png").build();
+
+			User alex = User.builder().email("alexander-Boy@gmx.de").password(endcodedPassword).firstName("Alex")
+					.lastName("Schmidt").zipCode("10319").city("Berlin").dateOfBirth(LocalDate.of(1978, 2, 18))
+					.imageURL("alex.png").description("Hi, I'm Alex and I'm cool!").build();
+
+			User antonia = User.builder().email("antonia-mueller@gmx.de").password(endcodedPassword)
+					.firstName("Antonia").lastName("Müller").zipCode("50676").city("Köln")
+					.dateOfBirth(LocalDate.of(1992, 4, 17)).imageURL("antonia.png").build();
+
+			User cem = User.builder().email("cem-champ@gmail.de").password(endcodedPassword).firstName("Cem")
+					.lastName("Alan").zipCode("61290").city("Frankfurt").dateOfBirth(LocalDate.of(2000, 5, 20))
+					.imageURL("cem.png").build();
+
+			User claudia = User.builder().email("claudi-minigolf@arcor.de").password(endcodedPassword)
+					.firstName("Claudia").lastName("Siebert").zipCode("90427").city("Erlangen")
+					.dateOfBirth(LocalDate.of(1979, 11, 18)).imageURL("claudia.png").build();
+
+			User daniel = User.builder().email("daniel-jaeger1970@web.de").password(endcodedPassword)
+					.firstName("Daniel").lastName("Jäger").zipCode("43268").city("Fulda")
+					.dateOfBirth(LocalDate.of(1970, 9, 4)).imageURL("daniel.png").build();
+
+			User harald = User.builder().email("harald_Krueger@web.de").password(endcodedPassword).firstName("Harald")
+					.lastName("Krüger").zipCode("23456").city("Braunschweig").dateOfBirth(LocalDate.of(1964, 3, 10))
+					.imageURL("harald.png").build();
+
+			User lennart = User.builder().email("lennipeter95@web.de").password(endcodedPassword).firstName("Lennart")
+					.lastName("Peter").zipCode("78561").city("Leipzig").dateOfBirth(LocalDate.of(1995, 6, 21))
+					.imageURL("lennart.png").build();
+
+			User maike = User.builder().email("itsmemaike96@web.de").password(endcodedPassword).firstName("Maike")
+					.lastName("Berger").zipCode("96325").city("Hannover").dateOfBirth(LocalDate.of(1996, 4, 16))
+					.imageURL("maike.png").build();
+
+			User marina = User.builder().email("marryM@web.de").password(endcodedPassword).firstName("Marina")
+					.lastName("Bauer").zipCode("65123").city("Offenbach").dateOfBirth(LocalDate.of(1980, 7, 8))
+					.imageURL("marina.png").build();
+
+			User reinhardt = User.builder().email("reini50-lalalal@t-online.de").password(endcodedPassword)
+					.firstName("Reinhardt").lastName("Lalalalal").zipCode("25456").city("Bremen")
+					.dateOfBirth(LocalDate.of(1950, 5, 1)).imageURL("reinhardt.png").build();
+
+			User robert = User.builder().email("robert-schmitzzz@gmail.de").password(endcodedPassword)
+					.firstName("Robert").lastName("Schmitz").zipCode("12594").city("Kassel")
+					.dateOfBirth(LocalDate.of(1989, 10, 12)).imageURL("robert.png").build();
+
+			User rolf = User.builder().email("rolf-langner@gmail.de").password(endcodedPassword).firstName("Rolf")
+					.lastName("Langner").zipCode("78652").city("Erfurt").dateOfBirth(LocalDate.of(1960, 9, 13))
+					.imageURL("rolf.png").build();
+
+			User till = User.builder().email("till_hausner1970@gmx.de").password(endcodedPassword).firstName("Till")
+					.lastName("Hausner").zipCode("38751").city("Düsseldorf").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("till.png").build();
+
+			// Create new users
+			User arne = User.builder().email("arne@magenta.de").password(endcodedPassword).firstName("Arne")
+					.lastName("Risktaker").zipCode("53032").city("Bonn").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("arne.png").description("I am open for new horizons! And sail ;-)").build();
+			User andre = User.builder().email("andre@magenta.de").password(endcodedPassword).firstName("Andre")
+					.lastName("Supercoder").zipCode("53033").city("Bonn").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("andre.png").description("My code is for free: Take it!").build();
+			User claus = User.builder().email("claus@magenta.de").password(endcodedPassword).firstName("Claus")
+					.lastName("Weiterkämpfer").zipCode("53034").city("Bonn").dateOfBirth(LocalDate.of(1968, 6, 2))
+					.imageURL("claus.png").description("In chess I fight: You want to try?").build();
+			User frank_f = User.builder().email("frank_f@magenta.de").password(endcodedPassword).firstName("Frank")
+					.lastName("Autokäufer").zipCode("53035").city("Bonn").dateOfBirth(LocalDate.of(1976, 6, 2))
+					.imageURL("frank_f.png").description("My car is my hobby... or not?").build();
+			User frank_g = User.builder().email("frank_g@magenta.de").password(endcodedPassword).firstName("Frank")
+					.lastName("Ruhepool").city("Bonn").dateOfBirth(LocalDate.of(1969, 6, 2))
+					.imageURL("frank_g.png").description("You want to meditate with me?").build();
+			User marcel = User.builder().email("marcel@magenta.de").password(endcodedPassword).firstName("Marcel")
+					.lastName("Immerhelfer").zipCode("53036").city("Bonn").dateOfBirth(LocalDate.of(1979, 6, 2))
+					.imageURL("marcel.png").description("You need support? Here am I!").build();
+			User markus = User.builder().email("markus@magenta.de").password(endcodedPassword).firstName("Markus")
+					.lastName("Großmeister").city("Bonn").dateOfBirth(LocalDate.of(1976, 6, 2))
+					.imageURL("markus.png").description("I can answer all questions in Java, Sprint, and the rest too...!").build();
+			User martin = User.builder().email("martin@magenta.de").password(endcodedPassword).firstName("Martin")
+					.lastName("Mühlespieler").zipCode("53037").city("Bonn").dateOfBirth(LocalDate.of(1970, 6, 2))
+					.imageURL("martin.png").description("I have ideas and execute them! Searching members!").build();
+			User metje = User.builder().email("metje@magenta.de").password(endcodedPassword).firstName("Metje")
+					.lastName("Durchtänzer").city("Bonn").dateOfBirth(LocalDate.of(1973, 6, 2))
+					.imageURL("metje.png").description("5. Jahreszeit: Fasching! Oder wie heißt das ;)").build();
+			User michael_be = User.builder().email("michael_be@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Alleskönner").zipCode("53038").city("Bonn").dateOfBirth(LocalDate.of(1974, 6, 2))
+					.imageURL("michael_be.png").description("Never heart 'FindBy'? I did it!").build();
+			User michael_bl = User.builder().email("michael_bl@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Durchstarter").zipCode("53039").city("Bonn").dateOfBirth(LocalDate.of(1955, 6, 2))
+					.imageURL("michael_bl.png").description("I am already Opa - would you have guessed?").build();
+			User michael_k = User.builder().email("michael_k@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Mentorowitsch").zipCode("53040").city("Bonn").dateOfBirth(LocalDate.of(1971, 6, 2))
+					.imageURL("michael_k.png").description("Support? === me ;-)").build();
+			User michael_o = User.builder().email("michael_o@magenta.de").password(endcodedPassword).firstName("Michael")
+					.lastName("Umzugsguru").zipCode("53041").city("Bonn").dateOfBirth(LocalDate.of(1974, 6, 2))
+					.imageURL("michael_o.png").description("One box more? No problem: Ask me!").build();
+			User ralf = User.builder().email("ralf@magenta.de").password(endcodedPassword).firstName("Ralf")
+					.lastName("Superquelle (SQL)").zipCode("53042").city("Bonn").dateOfBirth(LocalDate.of(1965, 6, 2))
+					.imageURL("ralf.png").description("SuperQueLle, JavaScript, ... ask me - it is fun!").build();
+			User steffen = User.builder().email("steffen@magenta.de").password(endcodedPassword).firstName("Steffen")
+					.lastName("Halbvoll").zipCode("53043").city("Bonn").dateOfBirth(LocalDate.of(1980, 6, 2))
+					.imageURL("steffen.png").description("Mein Glas ist 2x halbvoll ;-) --> Fragen?").build();
+			User stephanie = User.builder().email("stephanie@magenta.de").password(endcodedPassword).firstName("Stephanie")
+					.lastName("Doppelstudent").zipCode("53044").city("Bonn").dateOfBirth(LocalDate.of(1990, 6, 2))
+					.imageURL("stephanie.png").description("I can do two things at the same time: Do you have two problems I can help with?").build();
+			User birgit = User.builder().email("birgit@magenta.de").password(endcodedPassword).firstName("Birgit")
+					.lastName("TimConnoisseur").zipCode("5310").city("Bonn").dateOfBirth(LocalDate.of(1973, 11, 14))
+					.imageURL("birgit.png").description("I am a networker and supporter: What can I do for you?").build();
+			
+			
+			
+			
+			// Add some skills to users
+			susanne.addSkill(cooking).addSkill(baking).addSkill(books);
 			mia.addSkill(fashion);
 			lasse.addSkill(books);
 			alex.addSkill(climbing);
@@ -140,41 +212,65 @@ public class SkillHubApplication {
 			rolf.addSkill(books);
 			till.addSkill(dogs);
 			
-			userRepository.save(susanne);
-			userRepository.save(mia);
-			userRepository.save(lasse);
-			userRepository.save(alex);
-			userRepository.save(antonia);
-			userRepository.save(cem);
-			userRepository.save(claudia);
-			userRepository.save(daniel);
-			userRepository.save(harald);
-			userRepository.save(lennart);
-			userRepository.save(maike);
-			userRepository.save(marina);
-			userRepository.save(reinhardt);
-			userRepository.save(robert);
-			userRepository.save(rolf);
-			userRepository.save(till);
-
-			log.info("Users found with findBySkills_SkillId():");
-			log.info("----------------------------------------");
-			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
-				log.info(user.toString());
-			}
-			log.info("");
-
-			susanne.removeSkill(climbing, userSkillRepository);
-			userRepository.save(susanne);
-
-			log.info("Users found with findBySkills_SkillId():");
-			log.info("----------------------------------------");
-			for (User user : userRepository.findByuserSkills_SkillId(climbing.getId())) {
-				log.info(user.toString());
-			}
-			log.info("");
 			
+			
+			// Add some skills to NEW users
+			arne.addSkill(coding).addSkill(books).addSkill(segeln);
+			andre.addSkill(coding).addSkill(books);
+			claus.addSkill(coding).addSkill(books).addSkill(schachSpielen);
+			frank_f.addSkill(coding).addSkill(books);
+			frank_g.addSkill(coding).addSkill(books);
+			marcel.addSkill(coding).addSkill(books);
+			markus.addSkill(coding).addSkill(books);
+			martin.addSkill(coding).addSkill(books).addSkill(segeln).addSkill(tanzen);
+			metje.addSkill(coding).addSkill(books).addSkill(tanzen).addSkill(carneval);
+			michael_be.addSkill(coding).addSkill(books);
+			michael_bl.addSkill(coding).addSkill(books);
+			michael_k.addSkill(coding).addSkill(books).addSkill(segeln).addSkill(tanzen).addSkill(carneval);
+			michael_o.addSkill(coding).addSkill(books).addSkill(kistenSchleppen);
+			steffen.addSkill(coding).addSkill(books);
+			stephanie.addSkill(coding).addSkill(books).addSkill(carneval);
+			ralf.addSkill(coding).addSkill(books);
+			birgit.addSkill(books).addSkill(golf).addSkill(fashion).addSkill(carneval);
+				
+	
 
+			// Create users in DB
+			userService.createNewUser(susanne);
+			userService.createNewUser(mia);
+			userService.createNewUser(lasse);
+			userService.createNewUser(alex);
+			userService.createNewUser(antonia);
+			userService.createNewUser(cem);
+			userService.createNewUser(claudia);
+			userService.createNewUser(daniel);
+			userService.createNewUser(harald);
+			userService.createNewUser(lennart);
+			userService.createNewUser(maike);
+			userService.createNewUser(marina);
+			userService.createNewUser(reinhardt);
+			userService.createNewUser(robert);
+			userService.createNewUser(rolf);
+			userService.createNewUser(till);
+			
+			// Create new users in DB
+			userService.createNewUser(arne);
+			userService.createNewUser(andre);
+			userService.createNewUser(claus);
+			userService.createNewUser(frank_f);
+			userService.createNewUser(frank_g);
+			userService.createNewUser(marcel);
+			userService.createNewUser(markus);
+			userService.createNewUser(martin);
+			userService.createNewUser(metje);
+			userService.createNewUser(michael_be);
+			userService.createNewUser(michael_bl);
+			userService.createNewUser(michael_k);
+			userService.createNewUser(michael_o);
+			userService.createNewUser(ralf);
+			userService.createNewUser(steffen);
+			userService.createNewUser(stephanie);
+			userService.createNewUser(birgit);
 		};
 	}
 

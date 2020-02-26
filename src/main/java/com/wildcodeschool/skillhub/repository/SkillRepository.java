@@ -12,8 +12,9 @@ import com.wildcodeschool.skillhub.model.Skill;
 public interface SkillRepository extends JpaRepository<Skill, Long> {
 
 	List<Skill> findAll();
-	List<Skill> findByName(String name);
+
 	Optional<Skill> findById(Long id);
-	
+
+	Optional<Skill> findByName(String name);
 
 }
