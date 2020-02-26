@@ -143,10 +143,10 @@ public class SkillHubApplication {
 					.lastName("Risktaker").zipCode("53032").city("Bonn").dateOfBirth(LocalDate.of(1972, 6, 2))
 					.imageURL("arne.png").description("I am open for new horizons! And sail ;-)").build();
 			User andre = User.builder().email("andre@magenta.de").password(endcodedPassword).firstName("Andre")
-					.lastName("Supercoder").zipCode("53033").city("Bonn").dateOfBirth(LocalDate.of(1980, 6, 2))
+					.lastName("Supercoder").zipCode("53033").city("Bonn").dateOfBirth(LocalDate.of(1985, 6, 2))
 					.imageURL("andre.png").description("My code is for free: Take it!").build();
 			User claus = User.builder().email("claus@magenta.de").password(endcodedPassword).firstName("Claus")
-					.lastName("Weiterkämpfer").zipCode("53034").city("Bonn").dateOfBirth(LocalDate.of(1976,6, 2))
+					.lastName("Weiterkämpfer").zipCode("53034").city("Bonn").dateOfBirth(LocalDate.of(1968,6, 2))
 					.imageURL("claus.png").description("In chess I fight: You want to try?").build();
 			User frank_f = User.builder().email("frank_f@magenta.de").password(endcodedPassword).firstName("Frank")
 					.lastName("Autokäufer").zipCode("53035").city("Bonn").dateOfBirth(LocalDate.of(1968, 6, 2))
@@ -158,7 +158,7 @@ public class SkillHubApplication {
 					.lastName("Immerhelfer").zipCode("53036").city("Bonn").dateOfBirth(LocalDate.of(1992, 6, 2))
 					.imageURL("marcel.png").description("You need support? Here am I!").build();
 			User markus = User.builder().email("markus@magenta.de").password(endcodedPassword).firstName("Markus")
-					.lastName("Großmeister").city("Bonn").dateOfBirth(LocalDate.of(1976, 6, 2))
+					.lastName("Großmeister").city("Bonn").dateOfBirth(LocalDate.of(1979, 6, 2))
 					.imageURL("markus.png").description("I can answer all questions in Java, Sprint, and the rest too...!").build();
 			User martin = User.builder().email("martin@magenta.de").password(endcodedPassword).firstName("Martin")
 					.lastName("Mühlespieler").zipCode("53037").city("Bonn").dateOfBirth(LocalDate.of(1970, 6, 2))
@@ -192,17 +192,17 @@ public class SkillHubApplication {
 					.imageURL("birgit.png").description("I am a networker and supporter: What can I do for you?").build();
 			User philipp = User.builder().email("philipp@magenta.de").password(endcodedPassword).firstName("Philipp")
 					.lastName("TheBigBoss").zipCode("64293").city("Darmstadt").dateOfBirth(LocalDate.of(1985, 06,06))
-					.imageURL("philipp.jpg").description(" ...").build();
+					.imageURL("philipp.jpg").description("Are you interested in Software Development? Contact me!").build();
 			
 			
 			
 			
 			// Add some skills to users
-			susanne.addSkill(cooking).addSkill(baking).addSkill(books);
-			mia.addSkill(fashion);
-			lasse.addSkill(books);
+			susanne.addSkill(cooking).addSkill(baking);
+			mia.addSkill(fashion).addSkill(climbing);
+			lasse.addSkill(cooking);
 			alex.addSkill(climbing);
-			antonia.addSkill(fashion);
+			antonia.addSkill(fashion).addSkill(climbing);
 			cem.addSkill(photography);
 			claudia.addSkill(fashion);
 			daniel.addSkill(motorbike);
@@ -211,31 +211,31 @@ public class SkillHubApplication {
 			maike.addSkill(baking);
 			marina.addSkill(baking);
 			reinhardt.addSkill(motorbike);
-			robert.addSkill(photography);
-			rolf.addSkill(books);
+			robert.addSkill(photography).addSkill(cooking);
+			rolf.addSkill(dogs);
 			till.addSkill(dogs);
 			
 			
 			
 			// Add some skills to NEW users
-			arne.addSkill(coding).addSkill(books).addSkill(sailing);
-			andre.addSkill(coding).addSkill(books);
-			claus.addSkill(coding).addSkill(books).addSkill(chess);
-			frank_f.addSkill(coding).addSkill(books);
+			arne.addSkill(coding).addSkill(books).addSkill(sailing).addSkill(photography);
+			andre.addSkill(coding).addSkill(books).addSkill(dogs);
+			claus.addSkill(coding).addSkill(books).addSkill(chess).addSkill(dogs);
+			frank_f.addSkill(coding).addSkill(books).addSkill(photography);
 			frank_g.addSkill(coding).addSkill(books);
-			marcel.addSkill(coding).addSkill(books);
-			markus.addSkill(coding).addSkill(books);
+			marcel.addSkill(coding).addSkill(books).addSkill(photography);
+			markus.addSkill(coding).addSkill(books).addSkill(golf);
 			martin.addSkill(coding).addSkill(books).addSkill(sailing).addSkill(dancing);
-			metje.addSkill(coding).addSkill(books).addSkill(dancing).addSkill(carneval);
+			metje.addSkill(coding).addSkill(books).addSkill(dancing).addSkill(carneval).addSkill(cooking);
 			michael_be.addSkill(coding).addSkill(books);
 			michael_bl.addSkill(coding).addSkill(books);
-			michael_k.addSkill(coding).addSkill(books).addSkill(sailing).addSkill(dancing).addSkill(carneval);
+			michael_k.addSkill(coding).addSkill(books).addSkill(sailing).addSkill(dancing).addSkill(carneval).addSkill(golf);
 			michael_o.addSkill(coding).addSkill(books).addSkill(moving);
-			steffen.addSkill(coding).addSkill(books);
-			stephanie.addSkill(coding).addSkill(books).addSkill(carneval);
+			steffen.addSkill(coding).addSkill(books).addSkill(motorbike);
+			stephanie.addSkill(coding).addSkill(books).addSkill(carneval).addSkill(fashion);
 			ralf.addSkill(coding).addSkill(books);
 			birgit.addSkill(books).addSkill(golf).addSkill(fashion).addSkill(carneval);
-			philipp.addSkill(coding).addSkill(books);	
+			philipp.addSkill(coding).addSkill(books).addSkill(motorbike);	
 	
 
 			// Create users in DB
