@@ -75,6 +75,8 @@ public class RegisterController {
 
 		if (userForm.getImage().length != 0) {
 			user.setImage(userForm.getImage());
+		} else {
+			user.setImageURL("avatar.png");
 		}
 
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();

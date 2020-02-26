@@ -248,11 +248,9 @@ main {
 /* Style for avatar picture in header */
 .avatar {
 	border-radius: 50%;
-	background-image: url(../images/avatar.png);
 	background-size: cover;
 	width: 4rem;
 	height: 4rem;
-	display: inline-block;
 }
 
 /* Style for the main section of pages */

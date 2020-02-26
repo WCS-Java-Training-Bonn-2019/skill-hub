@@ -82,11 +82,21 @@ public class User implements UserDetails {
 	@Setter(value = AccessLevel.NONE)
 	private Set<UserSkill> userSkills = new HashSet<>();
 
-	// Override lombok generated setter to make the collection read-only
+	// Override lombok generated getter to make the collection read-only
 	public Set<UserSkill> getUserSkills() {
 		return Collections.unmodifiableSet(this.userSkills);
 	}
 
+	// Override lombok generated setter to add functionality to setter
+	public void setImageURL(String imageURL) {
+
+		try {
+			this.image = this.getClass().getClassLoader().getResourceAsStream("static/images/" + imageURL)
+					.readAllBytes();
+		} catch (Exception e) {
+		}
+	}
+	
 	// Customized lombok builder class
 	public static class UserBuilder {
 
