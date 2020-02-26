@@ -2,12 +2,16 @@ package com.wildcodeschool.skillhub.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -49,7 +53,8 @@ public class RegisterController {
 
 	// Register an login a new user
 	@PostMapping("/register")
-	public String postUser(@ModelAttribute UserForm userForm) {
+	public String postUser(@ModelAttribute UserForm userForm, HttpServletRequest request,
+			HttpServletResponse response) {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		User user = new User();
 
@@ -69,8 +74,6 @@ public class RegisterController {
 		user.setDescription(userForm.getDescription());
 		user.setImage(userForm.getImage());
 
-		user = userService.createNewUser(user);
-
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
 		for (UserSkillLevel userSkillLevel : userSkillLevels) {
@@ -79,12 +82,19 @@ public class RegisterController {
 				user.addSkill(skillService.getSingleSkillById(userSkillLevel.getId()).get());
 			}
 		}
-		
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
-		SecurityContextHolder.getContext().setAuthentication(auth);
+		user = userService.createNewUser(user);
 
-		return "redirect:/";
+		// Login the user if it was not the admin
+		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
+			return "redirect:/admin";
+		} else {
+			Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+
+			SecurityContextHolder.getContext().setAuthentication(auth);
+
+			return "redirect:/";
+		}
 
 	}
 
