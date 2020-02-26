@@ -40,13 +40,14 @@ public class RegisterController {
 	@GetMapping("/register")
 	public String showRegisterForm(UserForm userForm) {
 		List<Skill> skills = skillService.getAllSkills();
-		
+
 		for (Skill skill : skills) {
-			UserSkillLevel userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
-			
+			UserSkillLevel userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false,
+					skill.getImageURL());
+
 			userForm.getUserSkillLevels().add(userSkillLevel);
 		}
-		
+
 		return "register";
 	}
 
@@ -71,7 +72,10 @@ public class RegisterController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setDescription(userForm.getDescription());
-		user.setImage(userForm.getImage());
+
+		if (userForm.getImage().length != 0) {
+			user.setImage(userForm.getImage());
+		}
 
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 

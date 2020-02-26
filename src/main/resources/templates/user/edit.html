@@ -15,7 +15,7 @@
       <div class="row">
 
         <div class="col col-6 col-lg-2">
-          <img class="img-view" th:unless="${userForm.image}" src="../images/avatar.png" height="150" width="150"> <img
+          <img class="img-view" th:unless="${userForm.image}" src="/images/avatar.png" height="150" width="150"> <img
             class="img-view" th:if="${userForm.image}" th:src="@{'/images/user/' + ${userForm.id}}" height="150" width="150">
         </div>
 
