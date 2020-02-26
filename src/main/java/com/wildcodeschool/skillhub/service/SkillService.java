@@ -1,15 +1,16 @@
 package com.wildcodeschool.skillhub.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.wildcodeschool.skillhub.model.Skill;
 
 public interface SkillService {
 
-	Skill getSingleSkill(Long skillId);
+	List<Skill> getAllSkills();
 
-	List<Skill> getSkills();
+	Optional<Skill> getSingleSkillById(Long skillId);
 
-	void createNewSkill(Skill skill);
+	Skill createNewSkill(Skill skill);
 
 }

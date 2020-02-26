@@ -3,51 +3,37 @@ package com.wildcodeschool.skillhub.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Embeddable
-@Getter
+//IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
+@NoArgsConstructor
 @Setter
-@ToString
+@Getter
 public class UserSkillId implements Serializable {
 
-	private static final long serialVersionUID = 1848599333691281404L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -715344968158529197L;
 
-	@Column(name = "user_id")
-	private Long userId;
-
-	@Column(name = "skill_id")
-	private Long skillId;
-
-	public UserSkillId() {
-	}
-
-	public UserSkillId(Long userId, Long skillId) {
-		super();
-		this.userId = userId;
-		this.skillId = skillId;
-	}
+	private User user;
+	private Skill skill;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(skillId, userId);
+		return Objects.hash(skill, user);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof UserSkillId))
 			return false;
 		UserSkillId other = (UserSkillId) obj;
-		return Objects.equals(skillId, other.skillId) && Objects.equals(userId, other.userId);
+		return Objects.equals(skill, other.skill) && Objects.equals(user, other.user);
 	}
 
 }
