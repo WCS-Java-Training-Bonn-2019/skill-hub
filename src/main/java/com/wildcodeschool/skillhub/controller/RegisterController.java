@@ -2,6 +2,9 @@ package com.wildcodeschool.skillhub.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,50 +22,45 @@ import com.wildcodeschool.skillhub.model.Skill;
 import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
-import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class RegisterController {
 
 	private final UserService userService;
 	private final SkillService skillService;
-	private final UserSkillService userSkillService;
 
 	@Autowired
-	public RegisterController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public RegisterController(UserService userService, SkillService skillService) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
-		this.userSkillService = userSkillService;
 	}
 
 	// Show registration page
 	@GetMapping("/register")
 	public String showRegisterForm(UserForm userForm) {
+		List<Skill> skills = skillService.getAllSkills();
+
+		for (Skill skill : skills) {
+			UserSkillLevel userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false,
+					skill.getImageURL());
+
+			userForm.getUserSkillLevels().add(userSkillLevel);
+		}
 
 		return "register";
 	}
 
 	// Register an login a new user
 	@PostMapping("/register")
-	public String postUser(@ModelAttribute UserForm userForm) {
+	public String postUser(@ModelAttribute UserForm userForm, HttpServletRequest request,
+			HttpServletResponse response) {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		User user = new User();
-		
-		//Email Validation
+
+		// Email Validation
 		if (userService.emailExists(userForm.getEmail())) {
 			return "emailExists";
-		}
-		
-		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
-
-		for (UserSkillLevel userSkillLevel : userSkillLevels) {
-
-			if (userSkillLevel.isChecked()) {
-				Skill skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				userSkillService.addNewUserSkill(user, skill);
-			}
 		}
 
 		user.setId(userForm.getId());
@@ -74,15 +72,34 @@ public class RegisterController {
 		user.setCity(userForm.getCity());
 		user.setDateOfBirth(userForm.getDateOfBirth());
 		user.setDescription(userForm.getDescription());
-		user.setImage(userForm.getImage());
+
+		if (userForm.getImage().length != 0) {
+			user.setImage(userForm.getImage());
+		} else {
+			user.setImageURL("avatar.png");
+		}
+
+		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
+
+		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+
+			if (userSkillLevel.isChecked()) {
+				user.addSkill(skillService.getSingleSkillById(userSkillLevel.getId()).get());
+			}
+		}
 
 		user = userService.createNewUser(user);
 
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+		// Login the user if it was not the admin
+		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
+			return "redirect:/admin";
+		} else {
+			Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
-		SecurityContextHolder.getContext().setAuthentication(auth);
+			SecurityContextHolder.getContext().setAuthentication(auth);
 
-		return "redirect:/";
+			return "redirect:/";
+		}
 
 	}
 

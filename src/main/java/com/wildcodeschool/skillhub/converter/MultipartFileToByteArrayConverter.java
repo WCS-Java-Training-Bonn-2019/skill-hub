@@ -1,4 +1,4 @@
-package com.wildcodeschool.skillhub.Converter;
+package com.wildcodeschool.skillhub.converter;
 
 import java.io.IOException;
 

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.NaturalId;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ import lombok.Setter;
 
 // IMPORTANT: Do NOT use lombok @Data, @EqualsAndHashCode or @ToString
 @Entity
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
 @Setter
@@ -35,6 +36,7 @@ public class Skill implements Comparable<Skill> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NaturalId
 	@Column(unique = true)
 	@NotNull
 	private String name;
@@ -43,9 +45,10 @@ public class Skill implements Comparable<Skill> {
 
 	@OneToMany(mappedBy = "skill")
 	@Builder.Default
+	@Setter(value = AccessLevel.NONE)
 	private Set<UserSkill> userSkills = new HashSet<>();
 
-	// Make the Collection read-only
+	// Override lombok generated setter to make the collection read-only
 	public Set<UserSkill> getUserSkills() {
 		return Collections.unmodifiableSet(this.userSkills);
 	}
@@ -63,6 +66,11 @@ public class Skill implements Comparable<Skill> {
 			return false;
 		Skill other = (Skill) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Skill [id=" + id + ", name=" + name + ", imageURL=" + imageURL + "]";
 	}
 
 	@Override

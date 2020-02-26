@@ -1,233 +1,320 @@
-html {
-	height: 100%;
+/* Colors */
+/* Base: f80046 Dark: ce003a Light: eeeeee */
+#bootstrap-overrides .navbar {
+    background-color: #f80046!important;
 }
 
+#bootstrap-overrides .navbar .navbar-brand {
+    color: #eeeeee;
+    font-weight: bold;
+    border: 1px solid #eeeeee;
+    border-radius: .25rem;
+    margin: 0 0.25em;
+    padding: 0.25em; 
+}
+
+#bootstrap-overrides .navbar .navbar-brand:hover,
+#bootstrap-overrides .navbar .navbar-brand:focus {
+    color: #ffffff;
+}
+
+#bootstrap-overrides .navbar .navbar-text {
+    color: #eeeeee;
+}
+
+#bootstrap-overrides .navbar .navbar-text a {
+    color: #ffffff;
+}
+
+#bootstrap-overrides .navbar .navbar-text a:hover,
+#bootstrap-overrides .navbar .navbar-text a:focus {
+    color: #ffffff; 
+}
+
+#bootstrap-overrides .navbar .navbar-nav .nav-link {
+    color: #eeeeee;
+    border-radius: .25rem;
+    margin: 0 0.25em;
+}
+
+#bootstrap-overrides .navbar .navbar-nav .nav-link:not(.disabled):hover,
+#bootstrap-overrides .navbar .navbar-nav .nav-link:not(.disabled):focus {
+    color: #ffffff;
+}
+
+#bootstrap-overrides .navbar .navbar-nav .nav-item.active .nav-link,
+#bootstrap-overrides .navbar .navbar-nav .nav-item.active .nav-link:hover,
+#bootstrap-overrides .navbar .navbar-nav .nav-item.active .nav-link:focus,
+#bootstrap-overrides .navbar .navbar-nav .nav-item.show .nav-link,
+#bootstrap-overrides .navbar .navbar-nav .nav-item.show .nav-link:hover,
+#bootstrap-overrides .navbar .navbar-nav .nav-item.show .nav-link:focus {
+    color: #ffffff;
+    background-color: #ce003a;
+}
+
+#bootstrap-overrides .navbar .navbar-toggle {
+    border-color: #ce003a;
+}
+
+#bootstrap-overrides .navbar .navbar-toggle:hover,
+#bootstrap-overrides .navbar .navbar-toggle:focus {
+    background-color: #ce003a;
+}
+
+#bootstrap-overrides .navbar .navbar-toggle .navbar-toggler-icon {
+    color: #eeeeee;
+}
+
+#bootstrap-overrides .navbar .navbar-collapse,
+#bootstrap-overrides .navbar .navbar-form {
+    border-color: #eeeeee;
+}
+
+#bootstrap-overrides .navbar .navbar-link {
+    color: #eeeeee;
+}
+
+#bootstrap-overrides .navbar .navbar-link:hover {
+    color: #ffffff;
+}
+
+@media (max-width: 575px) {
+    #bootstrap-overrides .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
+        color: #eeeeee;
+    }
+    
+    #bootstrap-overrides .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+        color: #ffffff;
+    }
+    
+    #bootstrap-overrides .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
+        color: #ffffff;
+        background-color: #ce003a;
+    }
+}
+
+@media (max-width: 767px) {
+    #bootstrap-overrides .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
+        color: #eeeeee;
+    }
+    
+    #bootstrap-overrides .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    #bootstrap-overrides .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+        color: #ffffff;
+    }
+    
+    #bootstrap-overrides .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
+        color: #ffffff;
+        background-color: #ce003a;
+    }
+}
+
+@media (max-width: 991px) {
+    #bootstrap-overrides .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+        color: #eeeeee;
+    }
+    
+    #bootstrap-overrides .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    #bootstrap-overrides .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+        color: #ffffff;
+    }
+    
+    #bootstrap-overrides .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
+        color: #ffffff;
+        background-color: #ce003a;
+    }
+}
+
+@media (max-width: 1199px) {
+    #bootstrap-overrides .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
+        color: #eeeeee;
+    }
+    
+    #bootstrap-overrides .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    #bootstrap-overrides .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+        color: #ffffff;
+    }
+    
+    #bootstrap-overrides .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
+        color: #ffffff;
+        background-color: #ce003a;
+    }
+}
+
+#bootstrap-overrides .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #eeeeee;
+}
+
+#bootstrap-overrides .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+#bootstrap-overrides .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #ffffff;
+}
+
+#bootstrap-overrides .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #ffffff;
+    background-color: #ce003a;
+}
+
+footer a {
+	color: #eeeeee;
+	font-style: normal;
+}
+
+footer a:hover {
+	color: #ffffff;
+	font-style: normal;
+	text-decoration: none;
+}
+
+main .row {
+	background-color: #ffffff;
+}
+
+/* Footer */
+footer {
+	padding-top: 2rem;
+	padding-bottom: 1rem;
+    background-color: #f80046;
+	color: #eeeeee;
+	font-style: italic;
+}
+
+
+/* Sticky Footer */
 body {
-  height: 100%;
-  display:grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-.img {
-  opacity: 0.5;
-  position: relative;
-  width: 100%;
-  object-fit: cover;
-}
-
-.img-view{
-	margin-top: 2rem;
-	margin-left: 2rem;
-	margin-bottom: 2rem;
-	background-image: url(../images/avatar.png);
-	background-size: cover;
-	display: inline-block;
-}
-
-.bold {
-	font-weight: bold;
-}
-
-.avatar{
-  border-radius: 50%;
-}
-
-.jumbotron {
-  position: relative;
-  max-height: 350px;
-  overflow: hidden;
-  padding: 0;
-}
-
-.box {
-  position: absolute;
-  top: 50%;
-  transform: translate(0%, -50%);
-}
-
-@media only screen and (max-width: 400px) {
-  .display-4 {
-    font-size: 10vw;
-  }
-  .lead {
-    font-size: 5vw;
-  }
-}
-
-.display-4, .lead {
-  padding-left: 20px;
-}
-
-/* Settings für Navbar und Footer*/
-
-.navbar li {
-  list-style-type: none;
-  padding-left: 5vw;
-}
-
-.bg-light {
-  background-color: orange !important;
-  padding: 0;
-  padding-left: 2rem;
-  padding-right: 0.5rem;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
-
-}
-
-.copyright {
-	margin-bottom: 1rem;
-}
-
-.card {
-  margin: 2rem;
-}
-
-.container-edit {
-  margin: 2rem;
-  margin-left: 2rem;
-}
-
-/* Settings für Buttons*/
-
-.btn-danger{
-	margin-top: 2rem;
-}
-
-.btn-block {
-    display: block;
-    width: 100%;
-}
-
-.backbutton {
-	margin-top: 2rem;
-}
-
-.edit{
-	margin-top: 2rem;
-}
-
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.card-title {
-	font-size: 36px;
-}
-
-.flex-container{
-	display: block;
-	align-items: center;
-	justify-content: center;
-}
-
-
-
-/* Martin's Übungen' */
-
-/* ==> css_selectors !!!
-=====> cssref/css_selectors
-
-==> background-size 
-
-==> flexbox guide
-
-
-
-
-
-.bar {
-	--> class ansprechen (mehrere Objeke ansprechen)
-}
-
-****************************************************************
-#baz {
-	--> id ansprechen (ist eindeutig pro HTML-Datei)
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
 }
 
 main {
-	--> main wird angesprochen
+	flex: 1;
 }
 
-*/
+/* Spacing between ">>" icon and footer items in the footer */
+#footer ul.quick-links li a i {
+	margin-right: 1rem;
+}
 
-main.login_background {
-	background-image: url(../images/milkyway.jpg);
-	background-size: cover;
+/* Styles for login form */
+.form-signin {
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-one-column {
+	max-width: 330px;
+}
+
+.form-two-columns {
+	max-width: 660px;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+	padding-top: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: 400;
+}
+
+.form-signin .form-control {
+	position: relative;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+}
+
+.flex-column {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column
 }
 
-.login-box {
-	width: 800px;
-	height: 300px;
-	background-color: rgb(255,255,255,0.5);
-	border-radius: 1em;
-	
+.flex-fill-vertical {
+	flex: 1;
 }
 
-
-
-main.changePw_background {
-	background-image: url(../images/milkyway.jpg);
+/* Style for avatar picture in header */
+.avatar {
+	border-radius: 50%;
 	background-size: cover;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	width: 4rem;
+	height: 4rem;
 }
 
-.changePw-box {
-	width: 1200px;
-	height: 400px;
-	background-color: rgb(255,255,255,0.5);
-	border-radius: 1em;
-	margin: ($spacer * 3) !important;
-	
-}
-
-
-/*
-.m-1 {
-  margin-left: ($spacer * .25) !important;
-}
-*/
-
-.changePwButtonRight {
-	padding-right: 16px;
-}
-
-
-main.index {
-	background-image: url(../images/milkyway.jpg);
-	background-size: cover;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-warp:
-}
-
-.index-text{
-	background-color: rgb(255,255,255,0.6);
-}
-
-.p-index{
-	padding-bottom: 2rem;
-	font-size: 1rem;
-	font-weight: 490;
-}
-
-.h1-index{
+/* Style for the main section of pages */
+main {
 	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
 
-.avatar{
-	background-image: url(../images/avatar.png);
-	width: 60px;
-	height:60px;
-	background-size: cover;
-	display: inline-block;
+/* Remove list bullets */
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
+
+/* Skill card titles */
+.card-title {
+	font-size: 2.5rem;
+}
+
+/* User with skill list */
+.user-list-item {
+	border-top: 1px solid #ced4da;
+	padding-top: 1rem;
+
+}
+
+.user-list-avatar {
+	width: 6rem;
+	height: 6rem;
+	border: 1px solid #ced4da;
+	border-radius: 50%;
+}
+
+main > .container > .row > .col {
+	margin-bottom: 1rem;
+}
+
+
+/* Forms with headlines */
+form h2:not(:first-of-type) {
+	margin-top: 2rem;
+}
+
+/* Form labels */
+.col-form-label {
+	font-weight: bold;
+	color: #a0a0a0;
+}
+
+/* Headline for sections */
+.headline {
+	margin-bottom: 1rem;
+}
+
+/* User image in profile views */
+.img-view {
+	border: 1px solid #ced4da;
+	border-radius: 50%;
+	margin-bottom: 1rem;
+}
+
+/* Jumbotron */
+.jumbotron {
+	margin-top: -2rem
+}
+	

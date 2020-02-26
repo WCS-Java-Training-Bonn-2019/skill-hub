@@ -5,11 +5,15 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,45 +29,38 @@ import com.wildcodeschool.skillhub.model.User;
 import com.wildcodeschool.skillhub.model.UserSkill;
 import com.wildcodeschool.skillhub.service.SkillService;
 import com.wildcodeschool.skillhub.service.UserService;
-import com.wildcodeschool.skillhub.service.UserSkillService;
 
 @Controller
 public class UserController {
 
 	private final UserService userService;
 	private final SkillService skillService;
-	private final UserSkillService userSkillService;
 
 	@Autowired
-	public UserController(UserService userService, SkillService skillService, UserSkillService userSkillService) {
+	public UserController(UserService userService, SkillService skillService) {
 		super();
 		this.userService = userService;
 		this.skillService = skillService;
-		this.userSkillService = userSkillService;
 	}
-	
-	
-	@GetMapping("/user/{userId}/image")
-	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId){
-		
-		Optional<User> optionalUser = userService.getSingleUser(userId);
+
+	@GetMapping("/images/user/{userId}")
+	public ResponseEntity<byte[]> loadImage(@PathVariable Long userId) {
+
+		Optional<User> optionalUser = userService.getSingleUserById(userId);
 		if (optionalUser.isPresent() && optionalUser.get().getImage() != null) {
 			User user = optionalUser.get();
-			
-			return ResponseEntity.status(HttpStatus.OK)
-					.contentType(MediaType.IMAGE_PNG)
-					.body(user.getImage());
+
+			return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_PNG).body(user.getImage());
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.build();
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 	// Show users with a certain skill
 	@GetMapping("/users/search")
 	public String getUsersBySkillId(Model model, @RequestParam(name = "id", required = true) Long skillId) {
-		model.addAttribute("users", userService.getUsersBySkillId(skillId));
+		Skill skill = skillService.getSingleSkillById(skillId).get();
 
-		Skill skill = skillService.getSingleSkill(skillId);
+		model.addAttribute("users", userService.getUsersWithSkill(skill));
 		model.addAttribute("skill", skill);
 
 		return "users/get_by_skill";
@@ -73,7 +70,8 @@ public class UserController {
 	@GetMapping("/admin")
 	public String getAll(Model model) {
 
-		model.addAttribute("users", userService.getUsers());
+		// model.addAttribute("users", userService.getAllUsers());
+		model.addAttribute("users", userService.findAllUsersOrderByFirstName());
 
 		return "users/get_all";
 	}
@@ -91,14 +89,15 @@ public class UserController {
 		userForm.setUser(user);
 
 		Set<UserSkill> userSkills = user.getUserSkills();
-		List<Skill> skills = skillService.getSkills();
+		List<Skill> skills = skillService.getAllSkills();
 
 		UserSkillLevel userSkillLevel;
 
 		for (Skill skill : skills) {
 			userSkillLevel = new UserSkillLevel(skill.getId(), skill.getName(), false, skill.getImageURL());
+
 			for (UserSkill userSkill : userSkills) {
-				if (skill.getId() == userSkill.getId().getSkillId()) {
+				if (skill.getId() == userSkill.getSkill().getId()) {
 					userSkillLevel.setChecked(true);
 				}
 			}
@@ -128,27 +127,20 @@ public class UserController {
 			}
 		}
 
-		Set<Long> userSkillIds = user.getUserSkillIds();
+		Set<UserSkill> userSkills = user.getUserSkills();
 		List<UserSkillLevel> userSkillLevels = userForm.getUserSkillLevels();
 
-		// Durchlaufen der UserSkillLevel-Liste - geht über alle skills
 		for (UserSkillLevel userSkillLevel : userSkillLevels) {
+			Skill skill = skillService.getSingleSkillById(userSkillLevel.getId()).get();
+			UserSkill userSkill = UserSkill.builder().user(user).skill(skill).build();
 
 			if (userSkillLevel.isChecked()) {
-				Skill skill;
-
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				if (!(userSkillIds.contains(userSkillLevel.getId()))) {
-					userSkillService.addNewUserSkill(user, skill);
+				if (!(userSkills.contains(userSkill))) {
+					user.addSkill(skill);
 				}
 			} else {
-				Skill skill = null;
-
-				skill = skillService.getSingleSkill(userSkillLevel.getId());
-
-				if (userSkillIds.contains(userSkillLevel.getId())) {
-					userSkillService.removeUserSkill(user, skill);
+				if (userSkills.contains(userSkill)) {
+					user.removeSkill(skill);
 				}
 			}
 		}
@@ -183,7 +175,7 @@ public class UserController {
 		User user = new User();
 
 		if (userId != null) {
-			Optional<User> optionalUser = userService.getSingleUser(userId);
+			Optional<User> optionalUser = userService.getSingleUserById(userId);
 			if (optionalUser.isPresent()) {
 				user = optionalUser.get();
 			}
@@ -211,16 +203,28 @@ public class UserController {
 
 	// Delete a user
 	@GetMapping("/user/delete")
-	public String deleteUser(@RequestParam(name = "id", required = false) Long userId, HttpServletRequest request) {
+	public String deleteUser(@RequestParam(name = "id", required = false) Long userId, HttpServletRequest request,
+			HttpServletResponse response) {
 		User user = getUser(userId, request);
 
 		if (user == null) {
 			return "redirect:/";
 		}
 
-		userService.deleteUser(user.getId());
+		userService.deleteUser(user);
 
-		return "redirect:/user/deleted";
+		// Logout the user if it was not the admin
+		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
+			return "redirect:/admin";
+		} else {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			if (auth != null) {
+				new SecurityContextLogoutHandler().logout(request, response, auth);
+			}
+
+			return "redirect:/user/deleted";
+		}
 	}
 
 	// Delete a user
@@ -237,7 +241,7 @@ public class UserController {
 
 		if (request != null && request.isUserInRole("ROLE_ADMIN")) {
 			if (userId != null) {
-				optionalUser = userService.getSingleUser(userId);
+				optionalUser = userService.getSingleUserById(userId);
 			}
 
 		} else {

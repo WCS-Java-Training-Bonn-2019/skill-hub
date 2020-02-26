@@ -1,86 +1,32 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="https://www.thymeleaf.org/"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
-<head>
-<title>SkillHub</title>
-<meta charset="utf-8">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="/style.css">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
-</head>
-
-<body>
-	<header>
-		<nav class="navbar navbar-expand-md navbar-light bg-light">
-			<a class="navbar-brand" href="/">SkillHub</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-				<ul class="navbar-nav">
-				</ul>
-			</div>
-		</nav>
-	</header>
+<head th:replace="fragments.html :: head"></head>
 
 
-	<main>
-		<!--Jumbotron-->
-		<div class="jumbotron">
-			<img class="img" src="../images/milkyway.jpg" alt="alt">
-			<div class="box">
-				<h1 class="display-4" style="color: black">Problem</h1>
-				<p class="lead" style="color: black"></p>
-			</div>
-		</div>
+<body class="text-center">
 
+  <header th:replace="fragments.html :: top">Here goes the header</header>
 
+  <main>
 
-		<div class="flex-container container">
+    <div class="container">
+      <div class="form-signin form-one-column">
+        <div class="row">
+          <div class="col col-12">
+            <h4 class="form-signin-heading">The email address you entered is already used by another user.</h4>
+            <a class="btn btn-lg btn-primary btn-block" href="javascript:javascript:history.go(-1)"> <i
+              class="fas fa-edit fa-fw"></i> Try again
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-			<div class="row no-gutters">
-				<div class="col-8">
-					<h2>
-						The e-mail address you entered is already used by another user. <br></br>Please
-						make sure to use a unique e-mal address.
+  </main>
 
-
-					</h2>
-				</div>
-			</div>
-
-			<div class="row no-gutters">
-				<div class="col-3"></div>
-				<div class="col-2">
-					<p></p>
-					<a href="javascript:javascript:history.go(-1)"
-						class="btn btn-primary">Try again</a>
-				</div>
-
-				<p></p>
-			</div>
-		</div>
-	</main>
-
-
-	<footer th:replace="fragments.html :: bottom">Here goes the
-		footer</footer>
-
+  <footer th:replace="fragments.html :: bottom">Here goes the footer</footer>
 
 </body>
 
