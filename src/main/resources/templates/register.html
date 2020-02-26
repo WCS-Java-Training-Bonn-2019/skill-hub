@@ -85,13 +85,13 @@
           <h2 class="headline">Your password</h2>
 
           <div class="form-group">
-            <label for="password">Password</label> <input type="text" class="form-control" id="password" name="password"
+            <label for="password">Password</label> <input type="password" class="form-control" id="password" name="password"
               onchange="if(this.checkValidity()) form.passwordRepeated.pattern = this.value;" placeholder="Password"
               required th:field="*{password}">
           </div>
 
           <div class="form-group">
-            <label for="passwordRepeated">Password (repeated)</label> <input type="text" class="form-control"
+            <label for="passwordRepeated">Password (repeated)</label> <input type="password" class="form-control"
               id="passwordRepeated" name="passwordRepeated"
               onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
               placeholder="Verify Password" required th:field="*{passwordRepeated}">
