@@ -77,7 +77,7 @@ public class User implements UserDetails {
 	@Lob
 	private byte[] image;
 
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	@Builder.Default
 	@Setter(value = AccessLevel.NONE)
 	private Set<UserSkill> userSkills = new HashSet<>();
